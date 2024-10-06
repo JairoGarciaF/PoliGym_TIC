@@ -30,7 +30,7 @@ export const Profile = () => {
                     <span className='text-xs block text-stone-500'>{userEmail}</span>
                 </div>
                 <button
-                    className='hover:bg-rojo-200  hover:text-rojo-500 text-stone-950  rounded absolute right-2 transition-colors p-1'
+                    className='hover:bg-rojo-100  hover:text-rojo-500 text-stone-950  rounded absolute right-2 transition-colors p-1'
                     onClick={handleLogout}
                 >
                     <TbLogout className=' size-6' />

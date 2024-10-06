@@ -9,7 +9,7 @@ import { PlansGraph } from './PlansGraph'
 
 export const Grid = () => {
     return (
-        <div className='h-[calc(100%-32px-8px)] grid grid-rows-12 mt-2 open-sans gap-3 grid-cols-12'>
+        <div className='h-[calc(100%-36px-8px)] grid grid-rows-12 mt-2 open-sans gap-3 grid-cols-12'>
             <StatCards />
             <UsersTable />
             <UsersGraph />
