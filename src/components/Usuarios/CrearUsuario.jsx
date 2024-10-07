@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FiTrash } from "react-icons/fi";
+import Swal from 'sweetalert2';
 
-export const AnadirUsuario = ({ onBack }) => {
+export const CrearUsuario = ({ onBack }) => {
     const [nombre, setNombre] = useState('');
     const [imagen, setImagen] = useState(null);
     const [rol, setRol] = useState('');
@@ -15,8 +16,60 @@ export const AnadirUsuario = ({ onBack }) => {
     const [notificaciones, setNotificaciones] = useState(false);
 
     const handleImagenChange = (e) => {
-        setImagen(e.target.files[0]);
+        const file = e.target.files[0];
+
+        if (file) {
+            // Verificar el tipo de archivo (solo JPG, JPEG o PNG)
+            const validTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+            if (!validTypes.includes(file.type)) {
+                Swal.fire({
+                    title: 'Formato incorrecto',
+                    text: 'Solo se permiten imágenes en formato JPG, JPEG o PNG.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar',
+                    confirmButtonColor: '#16243e',
+                });
+                return;
+            }
+
+            // Verificar el tamaño del archivo (máximo 2MB)
+            const maxSize = 2 * 1024 * 1024; // 2MB en bytes
+            if (file.size > maxSize) {
+                Swal.fire({
+                    title: 'Archivo demasiado grande',
+                    text: 'El tamaño máximo permitido es de 2MB.',
+                    icon: 'warning',
+                    confirmButtonText: 'Aceptar',
+                    confirmButtonColor: '#16243e',
+
+                });
+                return;
+            }
+
+            // Si pasa las validaciones, actualizar el estado de la imagen
+            setImagen(file);
+        }
     };
+
+    // Validar y manejar el envío del formulario
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Aquí puedes realizar la lógica de creacion del usuario
+        console.log({
+            nombre,
+            edad,
+            genero,
+            peso,
+            altura,
+            objetivo,
+            nivelFisico,
+            notificaciones,
+            imagen
+        });
+        onBack(); // Regresa a la vista anterior después de guardar
+    };
+
+
 
     const handleEliminarImagen = () => {
         setImagen(null);
@@ -38,17 +91,9 @@ export const AnadirUsuario = ({ onBack }) => {
         }
     };
 
-    // Función para permitir la entrada de numero decimal
-    const handlePesoInput = (e) => {
-        const regex = /^[0-9]+[.]{0,1}[0-9]{0,2}$/;
-        if (!regex.test(e.key)) {
-            e.preventDefault();
-        }
-    }
-
     return (
-        <div className="bg-white open-sans px-24 py-2">
-            <h2 className="text-lg font-semibold montserrat-alternates text-azul-marino-500 pb-4">Añadir Usuario</h2>
+        <form onSubmit={handleSubmit} className="bg-white open-sans px-24 py-2">
+            <h2 className="text-lg font-semibold montserrat-alternates text-azul-marino-500 pb-4">Crear Usuario</h2>
 
             {/* Subir Imagen */}
             <div className='grid grid-cols-2 justify-center items-center divide-x-2'>
@@ -66,7 +111,7 @@ export const AnadirUsuario = ({ onBack }) => {
                     <div className='flex gap-2 items-center'>
                         <label className="cursor-pointer text-azul-marino-500 hover:bg-azul-marino-100  p-1 rounded ">
                             <MdOutlineFileUpload className='size-7' />
-                            <input type="file" className="hidden" accept=".png, .jpeg" onChange={handleImagenChange} />
+                            <input type="file" className="hidden" accept=".png, .jpeg, .jpg" onChange={handleImagenChange} />
                         </label>
                         {imagen && (
                             <button
@@ -83,7 +128,7 @@ export const AnadirUsuario = ({ onBack }) => {
                         Requisitos:
                     </p>
                     <p className="text-sm text-gray-500 mt-2">
-                        Formatos soportados: JPEG, PNG.
+                        Formatos soportados: JPG, JPEG, PNG.
                     </p>
                     <p className="text-sm text-gray-500">
                         Tamaño máximo: 2MB.
@@ -215,7 +260,7 @@ export const AnadirUsuario = ({ onBack }) => {
                         onChange={(e) => setNotificaciones(e.target.checked)}
                         className="sr-only peer"
                     />
-                    <div className={`relative w-9 h-5 peer-focus:outline-none rounded-full peer bg-gray-400 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all border-gray-600 peer-checked:bg-blue-500`}></div>
+                    <div className={`relative w-9 h-5 peer-focus:outline-none rounded-full peer bg-gray-400 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all border-gray-600 peer-checked:bg-green-500`}></div>
                 </label>
 
             </div>
@@ -234,15 +279,15 @@ export const AnadirUsuario = ({ onBack }) => {
                     </button>
                 </div>
 
-                {/* Botón para guardar */}
+                {/* Botón para crear usuario */}
                 <div className="mt-4 flex justify-end">
                     <button
                         className="bg-azul-marino-500 text-white px-4 py-2 rounded hover:bg-azul-marino-700"
                     >
-                        Guardar
+                        Crear
                     </button>
                 </div>
             </div>
-        </div>
+        </form>
     );
 };
