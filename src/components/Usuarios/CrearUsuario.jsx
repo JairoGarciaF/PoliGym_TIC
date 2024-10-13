@@ -273,7 +273,7 @@ export const CrearUsuario = ({ onBack }) => {
                                 fullWidth
                             >
                                 <MenuItem value="Bajar de Peso">Bajar de Peso</MenuItem>
-                                <MenuItem value="Ganar Musculo">Ganar Músculo</MenuItem>
+                                <MenuItem value="Ganar Músculo">Ganar Músculo</MenuItem>
                                 <MenuItem value="Mantenerse en Forma">Mantenerse en Forma</MenuItem>
                             </Select>
                         </FormControl>

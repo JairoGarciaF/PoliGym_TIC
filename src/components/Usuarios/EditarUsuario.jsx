@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 export const EditarUsuario = ({ user, onBack }) => {
     const [nombre, setNombre] = useState(user?.nombre || '');
     const [correo, setCorreo] = useState(user?.correo || '');
-    const [imagenPerfil, setImagenPerfil] = useState(null);
+    const [imagenPerfil, setImagenPerfil] = useState(user.imagenPerfil || null);
     const [rol, setRol] = useState(user?.rol || 'Usuario');
     const [edad, setEdad] = useState(user?.edad || '');
     const [genero, setGenero] = useState(user?.genero || '');
@@ -139,7 +139,7 @@ export const EditarUsuario = ({ user, onBack }) => {
                     <div className="flex items-center justify-center space-x-4">
                         {imagenPerfil ? (
                             <img
-                                src={URL.createObjectURL(imagenPerfil)}
+                                src={imagenPerfil}
                                 alt="Perfil"
                                 className="h-28 w-28 rounded-full object-cover border-stone-200 border"
                             />
@@ -285,7 +285,7 @@ export const EditarUsuario = ({ user, onBack }) => {
                                 fullWidth
                             >
                                 <MenuItem value="Bajar de Peso">Bajar de Peso</MenuItem>
-                                <MenuItem value="Ganar Musculo">Ganar Músculo</MenuItem>
+                                <MenuItem value="Ganar Músculo">Ganar Músculo</MenuItem>
                                 <MenuItem value="Mantenerse en Forma">Mantenerse en Forma</MenuItem>
                             </Select>
                         </FormControl>

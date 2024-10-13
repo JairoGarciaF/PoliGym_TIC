@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MdCake } from "react-icons/md";
-import { FaCircleInfo, FaArrowTrendUp } from "react-icons/fa6";
+import { FaCircleInfo, FaArrowTrendUp, FaClockRotateLeft } from "react-icons/fa6";
 import { IoFitness, IoPartlySunny, IoCloudyNight } from "react-icons/io5";
 import { TbTargetArrow } from "react-icons/tb";
 import { FaAngleDown, FaAngleUp, FaWeight, FaRuler } from 'react-icons/fa';
@@ -10,11 +10,64 @@ import { LastRoutinesTable } from './LastRoutinesTable';
 import { TrainingPlansTable } from './TrainingPlansTable';
 import { MealPlansTable } from './MealPlansTable';
 
-// Músculos entrenados recientemente
-const recentMuscles = ['biceps', 'chest', 'quads'];
+const ultimasRutinas = [
+    {
+        "rutina": "Full Body",
+        "duracion": "45 min",
+        "fecha": "2024-10-13",
+        "musculos": ['biceps', 'chest', 'quads']
+    },
+    {
+        "rutina": "Piernas y Glúteos",
+        "duracion": "50 min",
+        "fecha": "2024-10-10",
+        "musculos": ['glutes', 'quads', 'calves']
+    },
+    {
+        "rutina": "Pecho y Tríceps",
+        "duracion": "40 min",
+        "fecha": "2024-10-09",
+        "musculos": ['chest', 'triceps', 'shoulders']
+    },
+    {
+        "rutina": "Cardio Intensivo",
+        "duracion": "30 min",
+        "fecha": "2024-10-05",
+        "musculos": ['calves', 'quads']
+    },
+    {
+        "rutina": "Espalda y Bíceps",
+        "duracion": "55 min",
+        "fecha": "2024-10-03",
+        "musculos": ['biceps', 'lats', 'traps']
+    }
+];
 
-// Músculos entrenados hace algún tiempo
-const oldMuscles = ['calves', 'forearms'];
+//Fecha de hoy
+const today = new Date();
+console.log(today);
+
+const recentMuscles = [];
+const oldMuscles = [];
+
+ultimasRutinas.forEach(rutina => {
+    const rutinaDate = new Date(rutina.fecha);
+    const daysDiff = Math.ceil((today - rutinaDate) / (1000 * 60 * 60 * 24)); // Días de diferencia
+
+    if (daysDiff <= 3) {
+        // Músculos entrenados recientemente (dentro de 3 días)
+        recentMuscles.push(...rutina.musculos);
+    } else if (daysDiff >= 4 && daysDiff <= 5) {
+        // Músculos entrenados hace algún tiempo (4 a 5 días)
+        oldMuscles.push(...rutina.musculos);
+    }
+});
+
+// Elimina duplicados
+const uniqueRecentMuscles = [...new Set(recentMuscles)];
+const uniqueOldMuscles = [...new Set(oldMuscles)];
+
+
 
 export const Detalles = ({ user }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +84,7 @@ export const Detalles = ({ user }) => {
                     <UserCard user={user} />
 
                     {/* Información del usuario en cuadrícula */}
-                    <div className="col-span-5 h-full row-span-6 grid grid-cols-12 gap-2 text-left text-stone-600 w-full">
+                    <div className="col-span-4 h-full row-span-6 grid grid-cols-12 gap-2 text-left text-stone-600 w-full">
                         <Card
                             Icon={MdCake}
                             colSpan={'col-span-4'}
@@ -137,14 +190,18 @@ export const Detalles = ({ user }) => {
 
                     </div>
 
-                    <div className='col-span-4 row-span-6 gap-2  h-full items-center border border-stone-300 rounded justify-center flex'>
-                        <BodyMap gender={user.genero} view='front' className='w-1/3' recentMuscles={recentMuscles} oldMuscles={oldMuscles} />
-                        <BodyMap gender={user.genero} view='back' className='w-1/3' recentMuscles={recentMuscles} oldMuscles={oldMuscles} />
+                    <div className='col-span-5 row-span-12 gap-2 p-2 h-full  border border-stone-300 rounded flex flex-col'>
+                        <h3 className='text-azul-marino-500 mb-1 flex items-center font-medium gap-1'> <FaClockRotateLeft />Últimas Rutinas</h3>
+
+                        <div className='flex justify-center'>
+                            <BodyMap gender={user.genero} view='front' className='w-1/3' recentMuscles={uniqueRecentMuscles} oldMuscles={uniqueOldMuscles} />
+                            <BodyMap gender={user.genero} view='back' className='w-1/3' recentMuscles={uniqueRecentMuscles} oldMuscles={uniqueOldMuscles} />
+                        </div>
+                        <LastRoutinesTable ultimasRutinas={ultimasRutinas} />
                     </div>
 
                     <MealPlansTable />
                     <TrainingPlansTable />
-                    <LastRoutinesTable />
 
                 </div>
             ) : (

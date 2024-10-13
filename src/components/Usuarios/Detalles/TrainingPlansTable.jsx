@@ -55,7 +55,7 @@ export const TrainingPlansTable = () => {
 
 
     return (
-        <div className='col-span-5 row-span-6 p-2 bg-white h-full border border-stone-300 rounded'>
+        <div className='col-span-4 row-span-6 p-2 bg-white h-full border border-stone-300 rounded'>
             <h3 className='text-azul-marino-500 font-medium flex items-center gap-1'> <FaDumbbell />Planes de Entrenamiento</h3>
             <nav className="flex justify-start mb-1 open-sans border-b  ">
                 <button

@@ -281,7 +281,7 @@ export const UsersTable = () => {
                                 <th scope="col" className="px-6 py-3">
                                     Nombre
                                 </th>
-                                <th scope="col" className="px-6 py-3">
+                                <th scope="col" className="px-6 py-3 text-center">
                                     Género
                                 </th>
                                 <th scope="col" className="px-6 py-3">
@@ -295,7 +295,7 @@ export const UsersTable = () => {
                                     <th scope="row" className="px-6 py-4 font-medium text-azul-marino-900 whitespace-nowrap ">
                                         {persona.nombre}
                                     </th>
-                                    <td className="px-6 py-4">
+                                    <td className="px-6 py-4 text-center">
                                         <span
                                             className={`px-3 py-1  rounded-full font-semibold ${persona.genero === 'Masculino'
                                                 ? 'bg-sky-100 text-sky-700'

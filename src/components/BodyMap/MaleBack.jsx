@@ -15,14 +15,13 @@ const MaleBack = ({ className, recentMuscles = [], oldMuscles = [], ...props }) 
         forearms: defaultColor,
         biceps: defaultColor,
         chest: defaultColor,
-        "front-shoulders": defaultColor,
         traps: defaultColor,
         lowerback: defaultColor,
         triceps: defaultColor,
         hamstrings: defaultColor,
         glutes: defaultColor,
         lats: defaultColor,
-        "rear-shoulders": defaultColor,
+        shoulders: defaultColor,
         "traps-middle": defaultColor,
     });
 
@@ -182,16 +181,16 @@ const MaleBack = ({ className, recentMuscles = [], oldMuscles = [], ...props }) 
                     d="M284.03,437.14c-7.16,13.52-6.57,27.55-6.05,39.94.62,14.65,1.11,26.36-11.25,32.19,0,0-.03,0-.04.02-.65.26-1.29.54-1.9.82,0,0-.02,0-.03,0-12.47,4.94-30.64,15.74-39.91,28.5,5.46-22.96,9.21-65.46,9.01-78.37-.02-1.31-.03-2.79-.04-4.4-.06-14.46-.18-41.38-11.92-59.84-11.52-18.1-19.37-51.63-20.51-56.67,3.37-6.35,1.03-17.45-1.44-29.18-2.75-12.99-5.57-26.43.43-30.29,0,0,0,0,0,0,4.6-2.1,9.15-4.82,13.39-8.33,6.92-5.74,13.65-10.9,20.16-15.89,10.12-7.75,19.69-15.1,29.02-23.85l.23.25c23.51,43.19,36.45,75.86,44.59,98.11,0,.02.02.03.02.04,10.93,32.85,3.39,55.65-23.79,106.94Z"
                     fill={muscleColors.lats}></path>
             </g>
-            <g id="rear-shoulders"
-                onMouseEnter={() => handleMouseEnter("rear-shoulders")}
-                onMouseLeave={() => handleMouseLeave("rear-shoulders")}
+            <g id="shoulders"
+                onMouseEnter={() => handleMouseEnter("shoulders")}
+                onMouseLeave={() => handleMouseLeave("shoulders")}
             >
                 <path
                     d="M511.59,288.79c-3.24-2.06-8.25-4.62-13.43-4.9-.56-.04-1.2-.06-1.91-.09-6.97-.31-21.03-.93-34.55-7.07-4.38-1.99-8.7-4.55-12.71-7.89-6.97-5.78-13.74-10.96-20.27-15.97-10.06-7.72-19.59-15.02-28.81-23.66,6.14-6.45,17.33-16.23,36.59-15.6h.02c.17,0,16.25,1.4,33.54,11.85,15.31,9.27,34.65,27.7,41.54,63.32Z"
-                    fill={muscleColors["rear-shoulders"]}></path>
+                    fill={muscleColors["shoulders"]}></path>
                 <path
                     d="M260.61,229.21c-9.23,8.65-18.75,15.95-28.81,23.66-6.54,5.01-13.29,10.19-20.27,15.97-4,3.33-8.34,5.89-12.71,7.89-13.52,6.15-27.58,6.76-34.55,7.07-.71.03-1.35.05-1.92.09-5.18.27-10.19,2.84-13.43,4.9,6.9-35.62,26.23-54.06,41.55-63.33,17.29-10.46,33.37-11.85,33.53-11.85h.02c19.28-.62,30.45,9.14,36.6,15.6Z"
-                    fill={muscleColors["rear-shoulders"]}></path>
+                    fill={muscleColors["shoulders"]}></path>
             </g>
             <g id="traps-middle"
                 onMouseEnter={() => handleMouseEnter("traps-middle")}
