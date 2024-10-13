@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
 import { MdOutlineFileUpload } from "react-icons/md";
+import { Select, MenuItem, Checkbox, ListItemText, TextField, FormControl, InputLabel, Button, Switch } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import { FaUserPlus, FaChevronLeft } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
 import Swal from 'sweetalert2';
 
 export const CrearUsuario = ({ onBack }) => {
     const [nombre, setNombre] = useState('');
-    const [imagen, setImagen] = useState(null);
+    const [correo, setCorreo] = useState('');
+    const [imagenPerfil, setImagenPerfil] = useState(null);
     const [rol, setRol] = useState('');
     const [edad, setEdad] = useState('');
     const [genero, setGenero] = useState('');
     const [peso, setPeso] = useState('');
     const [altura, setAltura] = useState('');
     const [objetivo, setObjetivo] = useState('');
-    const [nivelFisico, setNivelFisico] = useState('');
+    const [estadoFisico, setEstadoFisico] = useState('');
+    const [problemasMedicos, setProblemasMedicos] = useState('');
+    const [detalleProblemasMedicos, setDetalleProblemasMedicos] = useState('');
+    const [horario, setHorario] = useState('');
+    const [diasSeleccionados, setDiasSeleccionados] = useState([]);
     const [notificaciones, setNotificaciones] = useState(false);
+
+    const diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
 
     const handleImagenChange = (e) => {
         const file = e.target.files[0];
@@ -47,32 +57,47 @@ export const CrearUsuario = ({ onBack }) => {
             }
 
             // Si pasa las validaciones, actualizar el estado de la imagen
-            setImagen(file);
+            setImagenPerfil(file);
         }
     };
 
     // Validar y manejar el envío del formulario
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Aquí puedes realizar la lógica de creacion del usuario
+        // Lógica para enviar los datos del usuario
         console.log({
             nombre,
+            correo,
+            rol,
             edad,
             genero,
             peso,
             altura,
             objetivo,
-            nivelFisico,
-            notificaciones,
-            imagen
+            estadoFisico,
+            horario,
+            diasSeleccionados,
+            problemasMedicos,
+            detalleProblemasMedicos,
+            notificaciones
         });
-        onBack(); // Regresa a la vista anterior después de guardar
     };
 
+    const handleDiasChange = (event) => {
+        setDiasSeleccionados(event.target.value);
+    };
 
+    const handleProblemasMedicosChange = (event) => {
+        setProblemasMedicos(event.target.value);
+        if (event.target.value === 'Lesiones' || event.target.value === 'Alergias') {
+            setDetalleProblemasMedicos('');
+        } else {
+            setDetalleProblemasMedicos('');
+        }
+    };
 
     const handleEliminarImagen = () => {
-        setImagen(null);
+        setImagenPerfil(null);
     };
 
     // Validar que el nombre solo contenga letras, espacios, ñ, tildes
@@ -92,202 +117,296 @@ export const CrearUsuario = ({ onBack }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white open-sans px-24 py-2">
-            <h2 className="text-lg font-semibold montserrat-alternates text-azul-marino-500 pb-4">Crear Usuario</h2>
+        <div className='h-[calc(100%-24px)]'>
+            <form onSubmit={handleSubmit} className="bg-white open-sans px-24 py-2 h-full overflow-y-auto">
+                <h2 className="text-lg font-semibold montserrat-alternates text-azul-marino-500 pb-4">Crear Usuario</h2>
 
-            {/* Subir Imagen */}
-            <div className='grid grid-cols-2 justify-center items-center divide-x-2'>
+                {/* Subir Imagen */}
+                <div className='grid grid-cols-2 justify-center items-center divide-x-2'>
 
-                <div className="flex items-center justify-center space-x-4">
-                    {imagen ? (
-                        <img
-                            src={URL.createObjectURL(imagen)}
-                            alt="Perfil"
-                            className="h-28 w-28 rounded-full object-cover border-stone-200 border"
-                        />
-                    ) : (
-                        <div className="h-28 w-28 bg-gray-200 rounded-full " />
-                    )}
-                    <div className='flex gap-2 items-center'>
-                        <label className="cursor-pointer text-azul-marino-500 hover:bg-azul-marino-100  p-1 rounded ">
-                            <MdOutlineFileUpload className='size-7' />
-                            <input type="file" className="hidden" accept=".png, .jpeg, .jpg" onChange={handleImagenChange} />
-                        </label>
-                        {imagen && (
-                            <button
-                                onClick={handleEliminarImagen}
-                                className=" hover:bg-rojo-100 text-red-500 rounded  p-1.5"
-                            >
-                                <FiTrash className='size-6' />
-                            </button>
+                    <div className="flex items-center justify-center space-x-4">
+                        {imagenPerfil ? (
+                            <img
+                                src={URL.createObjectURL(imagenPerfil)}
+                                alt="Perfil"
+                                className="h-28 w-28 rounded-full object-cover border-stone-200 border"
+                            />
+                        ) : (
+                            <div className="h-28 w-28 bg-gray-200 rounded-full " />
                         )}
+                        <div className='flex gap-2 items-center'>
+                            <label className="cursor-pointer text-azul-marino-500 hover:bg-azul-marino-100  p-1 rounded ">
+                                <MdOutlineFileUpload className='size-7' />
+                                <input type="file" className="hidden" accept=".png, .jpeg, .jpg" onChange={handleImagenChange} />
+                            </label>
+                            {imagenPerfil && (
+                                <button
+                                    onClick={handleEliminarImagen}
+                                    className=" hover:bg-rojo-100 text-red-500 rounded  p-1.5"
+                                >
+                                    <FiTrash className='size-6' />
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                    <div className="flex flex-col items-center justify-center h-full">
+                        <p className=" text-azul-marino-500">
+                            Requisitos:
+                        </p>
+                        <p className="text-sm text-gray-500 mt-2">
+                            Formatos soportados: JPG, JPEG, PNG.
+                        </p>
+                        <p className="text-sm text-gray-500">
+                            Tamaño máximo: 2MB.
+                        </p>
                     </div>
                 </div>
-                <div className="flex flex-col items-center justify-center h-full">
-                    <p className=" text-azul-marino-500">
-                        Requisitos:
-                    </p>
-                    <p className="text-sm text-gray-500 mt-2">
-                        Formatos soportados: JPG, JPEG, PNG.
-                    </p>
-                    <p className="text-sm text-gray-500">
-                        Tamaño máximo: 2MB.
-                    </p>
-                </div>
-            </div>
 
-            <div className='grid grid-cols-12 gap-4'>
-                {/* Nombre */}
-                <div className='col-span-8'>
-                    <label className="block text-sm font-medium text-azul-marino-500">Nombre</label>
-                    <input
-                        type="text"
-                        value={nombre}
-                        onChange={handleNombreChange}
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
-                <div className='col-span-4'>
-                    <label className="block text-sm font-medium text-azul-marino-500">Rol</label>
-                    <select
-                        value={rol}
-                        onChange={(e) => setRol(e.target.value)}
-                        className="mt-1 p-2 block w-full border bg-white border-gray-300 rounded-md"
-                    >
-                        <option value="Usuario">Usuario</option>
-                        <option value="Admin">Admin</option>
-                    </select>
-                </div>
+                <Grid container spacing={2} className='pt-4'
+                    sx={{
+                        '& .MuiFormLabel-root':
+                        {
+                            fontFamily: 'Open Sans',
+                        },
+                    }}>
+                    <Grid size={6}>
+                        <TextField
+                            label="Nombre"
+                            value={nombre}
+                            onChange={handleNombreChange}
+                            fullWidth
+                            size='small'
+                        />
+                    </Grid>
+                    <Grid size={6}>
+                        <TextField
+                            label="Correo"
+                            type="email"
+                            value={correo}
+                            onChange={(e) => setCorreo(e.target.value)}
+                            fullWidth
+                            size='small'
+                        />
+                    </Grid>
 
-                {/* Edad y Género */}
-                <div className='col-span-4'>
-                    <label className="block text-sm font-medium text-azul-marino-500">Edad</label>
-                    <input
-                        type="number"
-                        min={18}
-                        max={100}
-                        step={1}
-                        value={edad}
-                        onKeyPress={handleNumeroInput}
-                        inputMode="numeric"
-                        onChange={(e) => setEdad(e.target.value)}
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                    <Grid size={3}>
+                        <FormControl fullWidth size='small'>
+                            <InputLabel >Rol</InputLabel>
+                            <Select
+                                label='Rol'
+                                value={rol}
+                                onChange={(e) => setRol(e.target.value)}
+                                fullWidth
+                            >
+                                <MenuItem value="Usuario">Usuario</MenuItem>
+                                <MenuItem value="Admin">Admin</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
 
-                    />
-                </div>
-                <div className='col-span-4'>
-                    <label className="block text-sm font-medium text-azul-marino-500">Género</label>
-                    <select
-                        value={genero}
-                        onChange={(e) => setGenero(e.target.value)}
-                        className="mt-1 p-2 block w-full border bg-white border-gray-300 rounded-md"
-                    >
-                        <option value="Masculino">Masculino</option>
-                        <option value="Femenino">Femenino</option>
-                        <option value="Otro">Otro</option>
-                    </select>
-                </div>
+                    <Grid size={3}>
+                        <TextField
+                            label="Edad"
+                            type="number"
+                            inputProps={{ min: 18, max: 100 }}
+                            value={edad}
+                            onKeyPress={handleNumeroInput}
+                            inputMode="numeric"
+                            onChange={(e) => setEdad(e.target.value)}
+                            fullWidth
+                            size='small'
+                        />
+                    </Grid>
 
-                {/* Peso y Altura */}
-                <div className='col-span-4'>
-                    <label className="block text-sm font-medium text-azul-marino-500">Peso (Kg)</label>
-                    <input
-                        type="number"
-                        min={30}
-                        max={200}
-                        step={1}
-                        value={peso}
-                        onKeyPress={handleNumeroInput}
-                        inputMode="numeric"
-                        onChange={(e) => setPeso(e.target.value)}
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
-                <div className='col-span-4'>
-                    <label className="block text-sm font-medium text-azul-marino-500">Altura (cm)</label>
-                    <input
-                        type="number"
-                        min={100}
-                        max={250}
-                        step={1}
-                        value={altura}
-                        onKeyPress={handleNumeroInput}
-                        inputMode="numeric"
-                        onChange={(e) => setAltura(e.target.value)}
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
+                    <Grid size={3}>
+                        <FormControl size='small' fullWidth>
+                            <InputLabel>Género</InputLabel>
+                            <Select
+                                label='Género'
+                                value={genero}
+                                onChange={(e) => setGenero(e.target.value)}
+                                fullWidth
 
-                {/* Objetivo */}
-                <div className='col-span-4'>
-                    <label className="block text-sm font-medium text-azul-marino-500">Objetivo</label>
-                    <select
-                        value={objetivo}
-                        onChange={(e) => setObjetivo(e.target.value)}
-                        className="mt-1 p-2 block w-full border bg-white border-gray-300 rounded-md"
-                    >
-                        <option value="Ganar fuerza">Ganar fuerza</option>
-                        <option value="Ganar músculo">Ganar músculo</option>
-                        <option value="Perder peso">Perder peso</option>
-                    </select>
-                </div>
+                            >
+                                <MenuItem value="Masculino">Masculino</MenuItem>
+                                <MenuItem value="Femenino">Femenino</MenuItem>
+                                <MenuItem value="Otro">Otro</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
 
-                {/* Nivel de Estado Físico */}
-                <div className='col-span-4'>
-                    <label className="block text-sm font-medium text-azul-marino-500">Nivel de Estado Físico</label>
-                    <select
-                        value={nivelFisico}
-                        onChange={(e) => setNivelFisico(e.target.value)}
-                        className="mt-1 p-2 block w-full border bg-white border-gray-300 rounded-md"
-                    >
-                        <option value="Principiante">Principiante</option>
-                        <option value="Intermedio">Intermedio</option>
-                        <option value="Avanzado">Avanzado</option>
-                    </select>
-                </div>
+                    <Grid size={3}>
+                        <TextField
+                            label="Peso (kg)"
+                            type="number"
+                            inputProps={{ min: 30, max: 200 }}
+                            value={peso}
+                            onKeyPress={handleNumeroInput}
+                            inputMode="numeric"
+                            onChange={(e) => setPeso(e.target.value)}
+                            fullWidth
+                            size='small'
+                        />
+                    </Grid>
 
+                    <Grid size={3}>
+                        <TextField
+                            label="Altura (cm)"
+                            inputProps={{ min: 100, max: 250 }}
+                            type="number"
+                            value={altura}
+                            onKeyPress={handleNumeroInput}
+                            inputMode="numeric"
+                            onChange={(e) => setAltura(e.target.value)}
+                            fullWidth
+                            size='small'
+                        />
+                    </Grid>
 
-            </div>
+                    <Grid size={3}>
+                        <FormControl size='small' fullWidth>
+                            <InputLabel>Objetivo</InputLabel>
+                            <Select
+                                label='Objetivo'
+                                value={objetivo}
+                                onChange={(e) => setObjetivo(e.target.value)}
+                                fullWidth
+                            >
+                                <MenuItem value="Bajar de Peso">Bajar de Peso</MenuItem>
+                                <MenuItem value="Ganar Musculo">Ganar Músculo</MenuItem>
+                                <MenuItem value="Mantenerse en Forma">Mantenerse en Forma</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
 
-            {/* Recibir Notificaciones */}
-            <div className="flex items-center gap-2 mt-4">
-                <span className='text-azul-marino-500 text-sm'>Recibir Notificaciones</span>
-                <label className="block text-sm font-medium text-azul-marino-500">
+                    <Grid size={3}>
+                        <FormControl size='small' fullWidth>
+                            <InputLabel>Estado Físico</InputLabel>
+                            <Select
+                                label='Estado Físico'
+                                value={estadoFisico}
+                                onChange={(e) => setEstadoFisico(e.target.value)}
+                                fullWidth
+                            >
+                                <MenuItem value="Principiante">Principiante</MenuItem>
+                                <MenuItem value="Intermedio">Intermedio</MenuItem>
+                                <MenuItem value="Avanzado">Avanzado</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
 
-                    <input
-                        type="checkbox"
+                    <Grid size={3}>
+                        <FormControl size='small' fullWidth>
+                            <InputLabel>Horario</InputLabel>
+                            <Select
+                                label='Horario'
+                                value={horario}
+                                onChange={(e) => setHorario(e.target.value)}
+                                fullWidth
+                            >
+                                <MenuItem value="AM">AM</MenuItem>
+                                <MenuItem value="PM">PM</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+                    {/* Días de Entreno */}
+                    <Grid size={3}>
+                        <FormControl size='small' fullWidth>
+                            <InputLabel>Días de Entreno</InputLabel>
+                            <Select
+                                label='Días de Entreno'
+                                multiple
+                                value={diasSeleccionados}
+                                onChange={handleDiasChange}
+                                renderValue={(selected) => selected.join(', ')}
+                            >
+                                {diasSemana.map((dia) => (
+                                    <MenuItem key={dia} value={dia}>
+                                        <Checkbox checked={diasSeleccionados.includes(dia)} />
+                                        <ListItemText primary={dia} />
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+                    {/* Problemas Médicos */}
+                    <Grid size={3}>
+                        <FormControl size='small' fullWidth>
+                            <InputLabel>Problemas Médicos</InputLabel>
+                            <Select
+                                label='Problemas Médicos'
+                                value={problemasMedicos}
+                                onChange={handleProblemasMedicosChange}
+
+                            >
+                                <MenuItem value="Ninguno">Ninguno</MenuItem>
+                                <MenuItem value="Lesiones">Lesiones</MenuItem>
+                                <MenuItem value="Alergias">Alergias</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+                    {/* Detalles de Problemas Médicos */}
+                    {(problemasMedicos === 'Lesiones' || problemasMedicos === 'Alergias') && (
+                        <Grid size={6}>
+                            <TextField
+                                label="Detalle de Problemas Médicos"
+                                size='small'
+                                inputProps={{ maxLength: 50 }}
+                                value={detalleProblemasMedicos}
+                                onChange={(e) => setDetalleProblemasMedicos(e.target.value)}
+                                fullWidth
+                            />
+                        </Grid>
+                    )}
+
+                </Grid>
+                {/* Recibir Notificaciones */}
+                <div className="flex items-center gap-2 mt-4">
+                    <label>Recibir Notificaciones</label>
+                    <Switch
+                        sx={{
+                            '& .MuiSwitch-switchBase.Mui-checked': {
+                                color: '#6ec207 ', // Verde para el botón cuando está activado
+                            },
+                            '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                                backgroundColor: '#6ec207 ', // Verde para la pista cuando está activado
+                            }
+                        }}
                         checked={notificaciones}
                         onChange={(e) => setNotificaciones(e.target.checked)}
-                        className="sr-only peer"
                     />
-                    <div className={`relative w-9 h-5 peer-focus:outline-none rounded-full peer bg-gray-400 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all border-gray-600 peer-checked:bg-green-500`}></div>
-                </label>
-
-            </div>
-
-
-
-
-            <div className='flex gap-2 justify-end'>
-                {/* Botón para regresar */}
-                <div className="mt-4 flex justify-end">
-                    <button
-                        onClick={onBack}
-                        className="bg-azul-marino-500 text-white px-4 py-2 rounded hover:bg-azul-marino-700"
-                    >
-                        Volver
-                    </button>
                 </div>
 
-                {/* Botón para crear usuario */}
-                <div className="mt-4 flex justify-end">
-                    <button
-                        className="bg-azul-marino-500 text-white px-4 py-2 rounded hover:bg-azul-marino-700"
-                    >
-                        Crear
-                    </button>
+                {/* Botones */}
+                <div className='flex gap-2 justify-end'>
+                    <Grid size={12} display="flex" justifyContent="flex-end" gap={2}>
+                        <Button variant="outlined" onClick={onBack}
+                            startIcon={<FaChevronLeft className='size-4' />}
+                            sx={{
+                                fontFamily: 'Montserrat Alternates',
+                                borderColor: '#16243e',
+                                color: '#16243e',
+                                borderWidth: 1,
+                            }}>
+                            Volver
+                        </Button>
+                        <Button variant="contained"
+                            type="submit"
+                            endIcon={<FaUserPlus className='size-4' />}
+                            sx={{
+                                backgroundColor: '#16243e',
+                                fontFamily: 'Montserrat Alternates',
+
+                            }}
+                        >
+                            Crear
+                        </Button>
+                    </Grid>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     );
 };

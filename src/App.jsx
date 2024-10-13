@@ -28,10 +28,7 @@ function App() {
           <Route path="comunidad" element={<Comunidad />} />
           <Route path="gestion" element={<Gestion />} />
         </Route>
-
       </Routes>
-
-
     </Router>
   )
 }

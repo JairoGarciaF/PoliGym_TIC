@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { General } from './General';
-import { Detalles } from './Detalles';
+import { Detalles } from './Detalles/Detalles';
 export const Usuarios = () => {
     const [activeTab, setActiveTab] = useState('general');
     const [selectedUser, setSelectedUser] = useState(null); // Para guardar el usuario seleccionado
@@ -14,12 +14,12 @@ export const Usuarios = () => {
         <div className='bg-white rounded-lg shadow h-[calc(100vh-32px)] p-4'>
             <h1 className='montserrat-alternates text-azul-marino-500 text-3xl font-semibold'>Usuarios</h1>
 
-            <nav className="flex justify-start open-sans border-b  pt-4">
+            <nav className="flex justify-start open-sans border-b  ">
                 <button
                     onClick={() => setActiveTab('general')}
                     className={`px-4 py-2 font-semibold text-sm transition-colors 
                     ${activeTab === 'general'
-                            ? 'text-azul-marino-500 border-b-4 border-azul-marino-500'
+                            ? 'text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-indigo-50'
                             : 'text-stone-500 hover:text-azul-marino-300'}`}
                 >
                     General
@@ -28,7 +28,7 @@ export const Usuarios = () => {
                     onClick={() => setActiveTab('detalles')}
                     className={`px-4 py-2 font-semibold text-sm transition-colors 
                     ${activeTab === 'detalles'
-                            ? 'text-azul-marino-500 border-b-4 border-azul-marino-500'
+                            ? 'text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-indigo-50'
                             : 'text-stone-500 hover:text-azul-marino-300'}`}
                 >
                     Detalles
