@@ -17,6 +17,7 @@ const CustomButton = ({ Icon, title, expanded, to }) => {
             >
                 <Icon className='h-6 w-6' />
                 <span className={`text-start overflow-hidden transition-all ${expanded ? 'w-full' : 'hidden'}`} >{title}</span>
+
             </button>
         </Link>
     );
@@ -24,15 +25,13 @@ const CustomButton = ({ Icon, title, expanded, to }) => {
 export const RouteSelect = ({ expanded }) => {
     return (
 
-        <div className='flex-1'>
-            <nav className='space-y-1'>
-                <CustomButton Icon={TbHome} title="Dashboard" expanded={expanded} to="/" />
-                <CustomButton Icon={TbUsers} title="Usuarios" expanded={expanded} to="/usuarios" />
-                <CustomButton Icon={TbWeight} title="Implementos" expanded={expanded} to="/implementos" />
-                <CustomButton Icon={TbBarbell} title="Ejercicios" expanded={expanded} to="/ejercicios" />
-                <CustomButton Icon={TbMessages} title="Comunidad" expanded={expanded} to="/comunidad" />
-                <CustomButton Icon={TbTool} title="Gestión" expanded={expanded} to="/gestion" />
-            </nav>
+        <div className='flex-1 flex flex-col gap-1'>
+            <CustomButton Icon={TbHome} title="Dashboard" expanded={expanded} to="/" />
+            <CustomButton Icon={TbUsers} title="Usuarios" expanded={expanded} to="/usuarios" />
+            <CustomButton Icon={TbWeight} title="Implementos" expanded={expanded} to="/implementos" />
+            <CustomButton Icon={TbBarbell} title="Ejercicios" expanded={expanded} to="/ejercicios" />
+            <CustomButton Icon={TbMessages} title="Comunidad" expanded={expanded} to="/comunidad" />
+            <CustomButton Icon={TbTool} title="Gestión" expanded={expanded} to="/gestion" />
         </div>
 
     );

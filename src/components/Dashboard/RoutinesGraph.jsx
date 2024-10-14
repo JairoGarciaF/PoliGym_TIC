@@ -44,19 +44,27 @@ export const RoutinesGraph = () => {
                                 data: routinesStats,
                                 highlightScope: { fade: 'global', highlight: 'item' },
                                 faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
-                                innerRadius: 50,
-                                outerRadius: 100,
+                                innerRadius: '40%',
+                                outerRadius: '80%',
                                 paddingAngle: 2,
                                 cornerRadius: 7,
                                 startAngle: 0,
                                 endAngle: 360,
-                                cx: 100,
+                                cx: '25%'
                             },
                         ]}
                         height={200}
-                        width={200}
                         slotProps={{
-                            legend: { hidden: true },
+                            legend: {
+                                // Hacer mas pequeño
+                                labelStyle: {
+                                    fontSize: 13,
+                                    fontFamily: 'Open Sans',
+                                },
+                                position: {
+                                    horizontal: 'right',
+                                }
+                            },
                         }}
                     />
                 ) : (

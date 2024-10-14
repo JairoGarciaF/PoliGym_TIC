@@ -11,7 +11,7 @@ export const LayoutWithSidebar = () => {
             <Sidebar expanded={sidebarExpanded} setExpanded={setSidebarExpanded} />
 
             {/* Contenido principal que se ajusta dinámicamente según el estado del sidebar */}
-            <div className={`transition-all duration-300 ${sidebarExpanded ? 'w-[85%]' : 'w-[96%]'} p-4`}>
+            <div className={`transition-all duration-300 z-0 ${sidebarExpanded ? 'w-[85%]' : 'w-[96%]'} p-4`}>
                 <Outlet />
             </div>
         </div>
