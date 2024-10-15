@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { PieChart } from '@mui/x-charts/PieChart';
 import { FaCalendarAlt } from "react-icons/fa";
 
@@ -14,74 +14,72 @@ const colors = ['#365314', '#84cc16', '#d9f99d', '#15803d', '#22c55e']
 
 export const RoutinesGraph = () => {
 
-    const [showChart, setShowChart] = useState(true); // Estado para alternar entre gráfico y leyenda
 
-    const toggleView = () => {
-        setShowChart(!showChart); // Cambia entre gráfico y leyenda
-    };
+    const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+        const resizeObserver = new ResizeObserver(entries => {
+            for (let entry of entries) {
+                setContainerSize({
+                    width: entry.contentRect.width,
+                    height: entry.contentRect.height,
+                });
+            }
+        });
+
+        if (containerRef.current) {
+            resizeObserver.observe(containerRef.current);
+        }
+
+        return () => {
+            if (containerRef.current) {
+                resizeObserver.unobserve(containerRef.current);
+            }
+        };
+    }, []);
 
     return (
-        <div className='bg-white col-span-4 row-span-6 p-4 rounded border border-stone-300 '>
-            <div className='flex justify-between items-center mb-4'>
-                <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'> <FaCalendarAlt className='size-4' />Rutinas Populares</h3>
-                {/* Toggle switch */}
-                <label className="flex items-center gap-2">
-                    <span className='text-azul-marino-500 text-sm'>{showChart ? 'Gráfico' : 'Leyenda'}</span>
+        <div ref={containerRef} className='bg-white col-span-4 row-span-6 p-4 rounded border border-stone-300 '>
+            <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'> <FaCalendarAlt className='size-4' />Rutinas Populares</h3>
 
-                    <input type="checkbox" value="" className="sr-only peer" checked={showChart}
-                        onChange={toggleView} />
-                    <div className={`relative w-9 h-5 peer-focus:outline-none rounded-full peer bg-lime-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all border-gray-600 peer-checked:bg-lime-900`}></div>
 
-                </label>
-            </div>
-            <div className='h-[calc(100%-20px-4px)] flex items-center justify-center'>
-                {showChart ? (
-                    <PieChart
+            <div className='flex h-[calc(100%-20px-4px)] items-center justify-center'>
 
-                        colors={colors}
-                        series={[
-                            {
-                                data: routinesStats,
-                                highlightScope: { fade: 'global', highlight: 'item' },
-                                faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
-                                innerRadius: '40%',
-                                outerRadius: '80%',
-                                paddingAngle: 2,
-                                cornerRadius: 7,
-                                startAngle: 0,
-                                endAngle: 360,
-                                cx: '25%'
+                <PieChart
+
+                    colors={colors}
+                    series={[
+                        {
+                            data: routinesStats,
+                            highlightScope: { fade: 'global', highlight: 'item' },
+                            faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
+                            innerRadius: '30%',
+                            outerRadius: '60%',
+                            paddingAngle: 2,
+                            cornerRadius: 7,
+                            startAngle: 0,
+                            endAngle: 360,
+                            cx: '30%',
+                            cy: '50%',
+                        },
+                    ]}
+                    width={containerSize.width * 0.9} // Se adapta al tamaño del contenedor
+                    height={containerSize.height * 0.9} // Se adapta al tamaño del contenedor
+                    slotProps={{
+                        legend: {
+                            // Hacer mas pequeño
+                            labelStyle: {
+                                fontSize: 14,
+                                fontFamily: 'Open Sans',
                             },
-                        ]}
-                        height={200}
-                        slotProps={{
-                            legend: {
-                                // Hacer mas pequeño
-                                labelStyle: {
-                                    fontSize: 13,
-                                    fontFamily: 'Open Sans',
-                                },
-                                position: {
-                                    horizontal: 'right',
-                                }
-                            },
-                        }}
-                    />
-                ) : (
-                    <div className='flex flex-col gap-2'>
-                        {routinesStats.map((exercise, index) => (
-                            <div key={exercise.id} className='flex items-center gap-2'>
-                                <div
-                                    className='w-4 h-4 '
-                                    style={{ backgroundColor: colors[index] }}
-                                ></div>
-                                <span className='text-azul-marino-500'>
-                                    {exercise.label}: {exercise.value}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                )}
+                            position: { vertical: 'middle', horizontal: 'right' },
+                            direction: 'column',
+                            itemMarkHeight: 10,
+                        },
+                    }}
+                />
+
 
             </div>
         </div>

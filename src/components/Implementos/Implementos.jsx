@@ -10,18 +10,14 @@ const implementos = [
         "uso_semanal": 15,
         "uso_mensual": 60,
         "uso_total": 75,
+        "uso_diario": [2, 3, 2, 4, 1, 1, 2], // Ejemplo de uso diario
+        "uso_mensual": [5, 6, 5, 4, 6, 7, 7, 5, 6, 6, 8, 8], // Ejemplo de uso mensual
         "detalles": {
             "descripcion": "Ideal para entrenar pecho y tríceps.",
             "categoria": "Fuerza",
             "ultimos_usuarios": [
-                {
-                    "usuario": "Juan Pérez",
-                    "fecha_uso": "2024-10-10"
-                },
-                {
-                    "usuario": "María López",
-                    "fecha_uso": "2024-10-09"
-                }
+                { "usuario": "Juan Pérez", "fecha_uso": "2024-10-10" },
+                { "usuario": "María López", "fecha_uso": "2024-10-09" }
             ]
         }
     },
@@ -31,18 +27,14 @@ const implementos = [
         "uso_semanal": 10,
         "uso_mensual": 40,
         "uso_total": 50,
+        "uso_diario": [1, 2, 3, 1, 1, 1, 1],
+        "uso_mensual": [3, 4, 4, 5, 4, 3, 5, 3, 3, 4, 4, 3],
         "detalles": {
             "descripcion": "Excelente para entrenamiento de cuerpo completo.",
             "categoria": "Cardio",
             "ultimos_usuarios": [
-                {
-                    "usuario": "Pedro Martínez",
-                    "fecha_uso": "2024-10-08"
-                },
-                {
-                    "usuario": "Ana Torres",
-                    "fecha_uso": "2024-10-07"
-                }
+                { "usuario": "Pedro Martínez", "fecha_uso": "2024-10-08" },
+                { "usuario": "Ana Torres", "fecha_uso": "2024-10-07" }
             ]
         }
     },
@@ -52,18 +44,14 @@ const implementos = [
         "uso_semanal": 8,
         "uso_mensual": 32,
         "uso_total": 40,
+        "uso_diario": [1, 1, 1, 2, 1, 1, 1],
+        "uso_mensual": [2, 3, 2, 3, 2, 4, 4, 3, 4, 3, 3, 2],
         "detalles": {
             "descripcion": "Ideal para fortalecer las piernas.",
             "categoria": "Fuerza",
             "ultimos_usuarios": [
-                {
-                    "usuario": "Carlos Sánchez",
-                    "fecha_uso": "2024-10-06"
-                },
-                {
-                    "usuario": "Laura Jiménez",
-                    "fecha_uso": "2024-10-05"
-                }
+                { "usuario": "Carlos Sánchez", "fecha_uso": "2024-10-06" },
+                { "usuario": "Laura Jiménez", "fecha_uso": "2024-10-05" }
             ]
         }
     },
@@ -73,18 +61,14 @@ const implementos = [
         "uso_semanal": 12,
         "uso_mensual": 50,
         "uso_total": 62,
+        "uso_diario": [2, 2, 2, 3, 2, 1, 0],
+        "uso_mensual": [4, 5, 5, 4, 5, 6, 5, 4, 5, 4, 5, 4],
         "detalles": {
             "descripcion": "Perfecta para cardio y quema de grasa.",
             "categoria": "Cardio",
             "ultimos_usuarios": [
-                {
-                    "usuario": "Jorge Pérez",
-                    "fecha_uso": "2024-10-04"
-                },
-                {
-                    "usuario": "Sofia García",
-                    "fecha_uso": "2024-10-03"
-                }
+                { "usuario": "Jorge Pérez", "fecha_uso": "2024-10-04" },
+                { "usuario": "Sofia García", "fecha_uso": "2024-10-03" }
             ]
         }
     },
@@ -94,18 +78,14 @@ const implementos = [
         "uso_semanal": 10,
         "uso_mensual": 40,
         "uso_total": 50,
+        "uso_diario": [2, 1, 1, 2, 1, 1, 2],
+        "uso_mensual": [3, 4, 3, 3, 3, 3, 4, 4, 3, 4, 3, 4],
         "detalles": {
             "descripcion": "Versátil para entrenamiento de fuerza y resistencia.",
             "categoria": "Fuerza",
             "ultimos_usuarios": [
-                {
-                    "usuario": "Luis Hernández",
-                    "fecha_uso": "2024-10-02"
-                },
-                {
-                    "usuario": "Elena Gómez",
-                    "fecha_uso": "2024-10-01"
-                }
+                { "usuario": "Luis Hernández", "fecha_uso": "2024-10-02" },
+                { "usuario": "Elena Gómez", "fecha_uso": "2024-10-01" }
             ]
         }
     },
@@ -115,18 +95,14 @@ const implementos = [
         "uso_semanal": 20,
         "uso_mensual": 80,
         "uso_total": 100,
+        "uso_diario": [4, 4, 4, 4, 2, 1, 1],
+        "uso_mensual": [6, 8, 6, 7, 6, 8, 7, 6, 7, 6, 7, 6],
         "detalles": {
             "descripcion": "Perfecta para correr y caminar en casa.",
             "categoria": "Cardio",
             "ultimos_usuarios": [
-                {
-                    "usuario": "Miguel Rodríguez",
-                    "fecha_uso": "2024-09-30"
-                },
-                {
-                    "usuario": "Carmen López",
-                    "fecha_uso": "2024-09-29"
-                }
+                { "usuario": "Miguel Rodríguez", "fecha_uso": "2024-09-30" },
+                { "usuario": "Carmen López", "fecha_uso": "2024-09-29" }
             ]
         }
     },
@@ -136,18 +112,14 @@ const implementos = [
         "uso_semanal": 25,
         "uso_mensual": 100,
         "uso_total": 125,
+        "uso_diario": [5, 5, 5, 5, 3, 2, 2],
+        "uso_mensual": [9, 10, 10, 8, 9, 9, 10, 9, 8, 10, 9, 10],
         "detalles": {
             "descripcion": "Perfectas para entrenamiento de fuerza en casa.",
             "categoria": "Fuerza",
             "ultimos_usuarios": [
-                {
-                    "usuario": "Raúl Martínez",
-                    "fecha_uso": "2024-09-28"
-                },
-                {
-                    "usuario": "Lorena Sánchez",
-                    "fecha_uso": "2024-09-27"
-                }
+                { "usuario": "Raúl Martínez", "fecha_uso": "2024-09-28" },
+                { "usuario": "Lorena Sánchez", "fecha_uso": "2024-09-27" }
             ]
         }
     },
@@ -157,18 +129,14 @@ const implementos = [
         "uso_semanal": 20,
         "uso_mensual": 80,
         "uso_total": 100,
+        "uso_diario": [3, 4, 4, 4, 2, 1, 2],
+        "uso_mensual": [6, 8, 6, 7, 7, 7, 6, 7, 7, 8, 8, 7],
         "detalles": {
             "descripcion": "Ideal para entrenamiento de fuerza en casa.",
             "categoria": "Fuerza",
             "ultimos_usuarios": [
-                {
-                    "usuario": "Javier Pérez",
-                    "fecha_uso": "2024-09-26"
-                },
-                {
-                    "usuario": "María García",
-                    "fecha_uso": "2024-09-25"
-                }
+                { "usuario": "Javier Pérez", "fecha_uso": "2024-09-26" },
+                { "usuario": "María García", "fecha_uso": "2024-09-25" }
             ]
         }
     },
@@ -178,18 +146,14 @@ const implementos = [
         "uso_semanal": 15,
         "uso_mensual": 60,
         "uso_total": 75,
+        "uso_diario": [2, 3, 2, 4, 1, 1, 2],
+        "uso_mensual": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
         "detalles": {
             "descripcion": "Perfecta para ejercicios de equilibrio y flexibilidad.",
             "categoria": "Flexibilidad",
             "ultimos_usuarios": [
-                {
-                    "usuario": "Pedro Sánchez",
-                    "fecha_uso": "2024-09-24"
-                },
-                {
-                    "usuario": "Ana Martínez",
-                    "fecha_uso": "2024-09-23"
-                }
+                { "usuario": "Pedro Sánchez", "fecha_uso": "2024-09-24" },
+                { "usuario": "Ana Martínez", "fecha_uso": "2024-09-23" }
             ]
         }
     },
@@ -199,22 +163,19 @@ const implementos = [
         "uso_semanal": 10,
         "uso_mensual": 40,
         "uso_total": 50,
+        "uso_diario": [1, 2, 1, 2, 1, 1, 1],
+        "uso_mensual": [3, 4, 3, 4, 4, 3, 3, 4, 3, 3, 4, 3],
         "detalles": {
             "descripcion": "Ideal para ejercicios de resistencia y tonificación.",
             "categoria": "Fuerza",
             "ultimos_usuarios": [
-                {
-                    "usuario": "Carlos Pérez",
-                    "fecha_uso": "2024-09-22"
-                },
-                {
-                    "usuario": "Laura Martínez",
-                    "fecha_uso": "2024-09-21"
-                }
+                { "usuario": "Carlos Pérez", "fecha_uso": "2024-09-22" },
+                { "usuario": "Laura Martínez", "fecha_uso": "2024-09-21" }
             ]
         }
     },
-]
+];
+
 
 const generatePieChartData = (implementos) => {
     // Ordenar los implementos por uso_total de mayor a menor
@@ -247,6 +208,24 @@ const generatePieChartData = (implementos) => {
 
 const pieChartData = generatePieChartData(implementos);
 
+const generateTableData = (implementos) => {
+    // Ordenar los implementos por uso_total de mayor a menor (opcional si quieres que se ordenen igual que el gráfico)
+    const sortedImplementos = implementos.sort((a, b) => b.uso_total - a.uso_total);
+
+    // Crear el arreglo de datos para la tabla
+    const tableData = sortedImplementos.map((implemento) => ({
+        nombre: implemento.nombre,
+        tipo: implemento.tipo,
+        uso_semanal: implemento.uso_semanal,
+        uso_mensual: implemento.uso_mensual,
+    }));
+
+    return tableData;
+};
+
+// Ejemplo de uso
+const tableData = generateTableData(implementos);
+
 
 export const Implementos = () => {
     return (
@@ -261,13 +240,13 @@ export const Implementos = () => {
                             General
                         </button>
                     </nav>
-                    <div className='grid h-[calc(100%-38px)] gap-4 py-4 grid-cols-2'>
+                    <div className='grid h-[calc(100%-38px)] grid-rows-1 gap-4 py-4 grid-cols-2'>
                         <ImplementsGraph data={pieChartData} />
-                        <ImplementsTable />
+                        <ImplementsTable data={tableData} />
                     </div>
                 </div>
                 <div className='row-span-1 flex flex-col'>
-                    <MachinesGraph />
+                    <MachinesGraph data={implementos} />
 
                 </div>
 
