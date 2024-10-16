@@ -5,19 +5,20 @@ export const ImplementsTable = ({ data }) => {
 
     const [activeTab, setActiveTab] = useState('Semanal'); // Estado para el tab activo
 
+    console.log(data);
     // Filtrar los datos según el tab seleccionado
     const filteredData = data.map(implemento => ({
         ...implemento,
-        uso: activeTab === 'Semanal' ? implemento.uso_semanal : implemento.uso_mensual, // Mostrar uso según el tab
+        uso: activeTab === 'Semanal' ? implemento.uso_semanal_total : implemento.uso_mensual_total, // Mostrar uso según el tab
     }));
 
     // Función que devuelve el color según el tipo
     const getPillColor = (tipo) => {
         switch (tipo) {
-            case "máquina":
-                return "bg-purple-100 text-purple-700";
-            case "implemento":
-                return "bg-indigo-100 text-indigo-700";
+            case "Máquina":
+                return "bg-teal-100 text-teal-700";
+            case "Implemento":
+                return "bg-lime-100 text-lime-700";
             default:
                 return "bg-gray-100 text-gray-700";
         }
@@ -68,7 +69,7 @@ export const ImplementsTable = ({ data }) => {
                                     {implemento.nombre}
                                 </th>
                                 <td className="p-2 text-center w-1/4 ">
-                                    <span className={`px-2 py-1 rounded-full capitalize whitespace-nowrap ${getPillColor(implemento.tipo)}`}>
+                                    <span className={`px-2 py-1 rounded-full whitespace-nowrap ${getPillColor(implemento.tipo)}`}>
                                         {implemento.tipo}
                                     </span>
                                 </td>

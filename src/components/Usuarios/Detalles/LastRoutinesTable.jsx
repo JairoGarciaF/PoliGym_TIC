@@ -50,56 +50,55 @@ export const LastRoutinesTable = ({ ultimasRutinas }) => {
 
 
     return (
-        <div className='bg-white h-full'>
-            <div className="relative h-full overflow-x-auto border sm:rounded-lg">
-                <div className="h-full overflow-y-auto">
-                    <table className="w-full text-sm text-left rtl:text-right text-azul-marino-500 ">
-                        <thead className="text-xs text-white rounded uppercase bg-azul-marino-500 ">
-                            <tr>
-                                <th scope="col" className="p-2">
-                                    Rutina
+        <div className="relative h-1/2 overflow-x-auto border sm:rounded-lg">
+            <div className="h-full overflow-y-auto">
+                <table className="w-full text-sm text-left rtl:text-right text-azul-marino-500 ">
+                    <thead className="text-xs text-white rounded uppercase bg-azul-marino-500 ">
+                        <tr>
+                            <th scope="col" className="p-2">
+                                Rutina
+                            </th>
+                            <th scope="col" className="p-2 text-center ">
+                                Músculos
+                            </th>
+                            <th scope="col" className="p-2 text-center ">
+                                Duración
+                            </th>
+                            <th scope="col" className="p-2 text-center">
+                                Fecha
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {sortedRutinas.map((rutina, index) => (
+                            <tr key={index} className="bg-white border-b hover:bg-azul-marino-100 ">
+                                <th scope="row" className="p-2 whitespace-nowrap font-medium text-azul-marino-900 ">
+                                    {rutina.rutina}
                                 </th>
-                                <th scope="col" className="p-2 text-center ">
-                                    Músculos
-                                </th>
-                                <th scope="col" className="p-2 text-center ">
-                                    Duración
-                                </th>
-                                <th scope="col" className="p-2 text-center">
-                                    Fecha
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {sortedRutinas.map((rutina, index) => (
-                                <tr key={index} className="bg-white border-b hover:bg-azul-marino-100 ">
-                                    <th scope="row" className="p-2 whitespace-nowrap font-medium text-azul-marino-900 ">
-                                        {rutina.rutina}
-                                    </th>
-                                    <td className="p-2 text-center">
-                                        {rutina.musculos.map((muscle) => (
-                                            <span
-                                                key={muscle}
-                                                className={`${getMuscleColor(rutina.fecha)} px-2 py-1 rounded-full whitespace-nowrap mx-1`}
-                                            >
-                                                {muscleTranslation[muscle] || muscle}
-                                            </span>
-                                        ))}
-                                    </td>
-                                    <td className="p-2 text-center">
-                                        <span className={`px-2 py-1 rounded-full whitespace-nowrap bg-blue-100 text-blue-700`}>
-                                            {rutina.duracion}
+                                <td className="p-2 text-center">
+                                    {rutina.musculos.map((muscle) => (
+                                        <span
+                                            key={muscle}
+                                            className={`${getMuscleColor(rutina.fecha)} px-2 py-1 rounded-full whitespace-nowrap mx-1`}
+                                        >
+                                            {muscleTranslation[muscle] || muscle}
                                         </span>
-                                    </td>
-                                    <td className="p-2 whitespace-nowrap text-center">
-                                        {rutina.fecha}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                                    ))}
+                                </td>
+                                <td className="p-2 text-center">
+                                    <span className={`px-2 py-1 rounded-full whitespace-nowrap bg-blue-100 text-blue-700`}>
+                                        {rutina.duracion}
+                                    </span>
+                                </td>
+                                <td className="p-2 whitespace-nowrap text-center">
+                                    {rutina.fecha}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
+
     );
 }

@@ -193,11 +193,14 @@ export const Detalles = ({ user }) => {
                     <div className='col-span-5 row-span-12 gap-2 p-2 h-full  border border-stone-300 rounded flex flex-col'>
                         <h3 className='text-azul-marino-500 mb-1 flex items-center font-medium gap-1'> <FaClockRotateLeft />Últimas Rutinas</h3>
 
-                        <div className='flex justify-center'>
-                            <BodyMap gender={user.genero} view='front' className='w-1/3' recentMuscles={uniqueRecentMuscles} oldMuscles={uniqueOldMuscles} />
-                            <BodyMap gender={user.genero} view='back' className='w-1/3' recentMuscles={uniqueRecentMuscles} oldMuscles={uniqueOldMuscles} />
+                        <div className='h-[calc(100%-28px)] flex flex-col gap-2'>
+
+                            <div className='flex justify-center h-1/2'>
+                                <BodyMap gender={user.genero} view='front' className='w-1/3' recentMuscles={uniqueRecentMuscles} oldMuscles={uniqueOldMuscles} />
+                                <BodyMap gender={user.genero} view='back' className='w-1/3' recentMuscles={uniqueRecentMuscles} oldMuscles={uniqueOldMuscles} />
+                            </div>
+                            <LastRoutinesTable ultimasRutinas={ultimasRutinas} />
                         </div>
-                        <LastRoutinesTable ultimasRutinas={ultimasRutinas} />
                     </div>
 
                     <MealPlansTable />

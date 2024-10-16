@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { BsFire } from "react-icons/bs";
 
-const colors = ['#365314', '#84cc16', '#d9f99d', '#15803d', '#22c55e', '#94a3b8'];
+const colors = ['#86198f', '#d946ef', '#f0abfc', '#a855f7', '#6b21a8', '#cbd5e1'];
 
 // Función para calcular los porcentajes
 const calculatePercentages = (data) => {

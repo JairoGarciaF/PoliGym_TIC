@@ -6,175 +6,146 @@ import { ImplementsTable } from './ImplementsTable';
 const implementos = [
     {
         "nombre": "Máquina de press de banca",
-        "tipo": "máquina",
-        "uso_semanal": 15,
-        "uso_mensual": 60,
+        "tipo": "Máquina",
+        "uso_semanal_total": 15,
+        "uso_mensual_total": 60,
         "uso_total": 75,
-        "uso_diario": [2, 3, 2, 4, 1, 1, 2], // Ejemplo de uso diario
-        "uso_mensual": [5, 6, 5, 4, 6, 7, 7, 5, 6, 6, 8, 8], // Ejemplo de uso mensual
+        "uso_diario": [2, 3, 2, 4, 1, 1, 2],
+        "uso_mensual": [5, 6, 5, 4, 6, 7, 7, 5, 6, 6, 8, 8],
         "detalles": {
             "descripcion": "Ideal para entrenar pecho y tríceps.",
             "categoria": "Fuerza",
-            "ultimos_usuarios": [
-                { "usuario": "Juan Pérez", "fecha_uso": "2024-10-10" },
-                { "usuario": "María López", "fecha_uso": "2024-10-09" }
-            ]
+            "dificultad": "Intermedia"
         }
     },
     {
         "nombre": "Máquina de remo",
-        "tipo": "máquina",
-        "uso_semanal": 10,
-        "uso_mensual": 40,
+        "tipo": "Máquina",
+        "uso_semanal_total": 10,
+        "uso_mensual_total": 40,
         "uso_total": 50,
         "uso_diario": [1, 2, 3, 1, 1, 1, 1],
         "uso_mensual": [3, 4, 4, 5, 4, 3, 5, 3, 3, 4, 4, 3],
         "detalles": {
             "descripcion": "Excelente para entrenamiento de cuerpo completo.",
             "categoria": "Cardio",
-            "ultimos_usuarios": [
-                { "usuario": "Pedro Martínez", "fecha_uso": "2024-10-08" },
-                { "usuario": "Ana Torres", "fecha_uso": "2024-10-07" }
-            ]
+            "dificultad": "Difícil"
         }
     },
     {
         "nombre": "Máquina de prensa de piernas",
-        "tipo": "máquina",
-        "uso_semanal": 8,
-        "uso_mensual": 32,
+        "tipo": "Máquina",
+        "uso_semanal_total": 8,
+        "uso_mensual_total": 32,
         "uso_total": 40,
         "uso_diario": [1, 1, 1, 2, 1, 1, 1],
         "uso_mensual": [2, 3, 2, 3, 2, 4, 4, 3, 4, 3, 3, 2],
         "detalles": {
             "descripcion": "Ideal para fortalecer las piernas.",
             "categoria": "Fuerza",
-            "ultimos_usuarios": [
-                { "usuario": "Carlos Sánchez", "fecha_uso": "2024-10-06" },
-                { "usuario": "Laura Jiménez", "fecha_uso": "2024-10-05" }
-            ]
+            "dificultad": "Intermedia"
         }
     },
     {
         "nombre": "Bicicleta estática",
-        "tipo": "máquina",
-        "uso_semanal": 12,
-        "uso_mensual": 50,
+        "tipo": "Máquina",
+        "uso_semanal_total": 12,
+        "uso_mensual_total": 50,
         "uso_total": 62,
         "uso_diario": [2, 2, 2, 3, 2, 1, 0],
         "uso_mensual": [4, 5, 5, 4, 5, 6, 5, 4, 5, 4, 5, 4],
         "detalles": {
             "descripcion": "Perfecta para cardio y quema de grasa.",
             "categoria": "Cardio",
-            "ultimos_usuarios": [
-                { "usuario": "Jorge Pérez", "fecha_uso": "2024-10-04" },
-                { "usuario": "Sofia García", "fecha_uso": "2024-10-03" }
-            ]
+            "dificultad": "Principiante"
         }
     },
     {
         "nombre": "Máquina de poleas",
-        "tipo": "máquina",
-        "uso_semanal": 10,
-        "uso_mensual": 40,
+        "tipo": "Máquina",
+        "uso_semanal_total": 10,
+        "uso_mensual_total": 40,
         "uso_total": 50,
         "uso_diario": [2, 1, 1, 2, 1, 1, 2],
         "uso_mensual": [3, 4, 3, 3, 3, 3, 4, 4, 3, 4, 3, 4],
         "detalles": {
             "descripcion": "Versátil para entrenamiento de fuerza y resistencia.",
             "categoria": "Fuerza",
-            "ultimos_usuarios": [
-                { "usuario": "Luis Hernández", "fecha_uso": "2024-10-02" },
-                { "usuario": "Elena Gómez", "fecha_uso": "2024-10-01" }
-            ]
+            "dificultad": "Intermedia"
         }
     },
     {
         "nombre": "Cinta de correr",
-        "tipo": "máquina",
-        "uso_semanal": 20,
-        "uso_mensual": 80,
+        "tipo": "Máquina",
+        "uso_semanal_total": 20,
+        "uso_mensual_total": 80,
         "uso_total": 100,
         "uso_diario": [4, 4, 4, 4, 2, 1, 1],
         "uso_mensual": [6, 8, 6, 7, 6, 8, 7, 6, 7, 6, 7, 6],
         "detalles": {
             "descripcion": "Perfecta para correr y caminar en casa.",
             "categoria": "Cardio",
-            "ultimos_usuarios": [
-                { "usuario": "Miguel Rodríguez", "fecha_uso": "2024-09-30" },
-                { "usuario": "Carmen López", "fecha_uso": "2024-09-29" }
-            ]
+            "dificultad": "Principiante"
         }
     },
     {
         "nombre": "Mancuernas",
-        "tipo": "implemento",
-        "uso_semanal": 25,
-        "uso_mensual": 100,
+        "tipo": "Implemento",
+        "uso_semanal_total": 25,
+        "uso_mensual_total": 100,
         "uso_total": 125,
         "uso_diario": [5, 5, 5, 5, 3, 2, 2],
         "uso_mensual": [9, 10, 10, 8, 9, 9, 10, 9, 8, 10, 9, 10],
         "detalles": {
             "descripcion": "Perfectas para entrenamiento de fuerza en casa.",
             "categoria": "Fuerza",
-            "ultimos_usuarios": [
-                { "usuario": "Raúl Martínez", "fecha_uso": "2024-09-28" },
-                { "usuario": "Lorena Sánchez", "fecha_uso": "2024-09-27" }
-            ]
+            "dificultad": "Intermedia"
         }
     },
     {
         "nombre": "Barra de pesas",
-        "tipo": "implemento",
-        "uso_semanal": 20,
-        "uso_mensual": 80,
+        "tipo": "Implemento",
+        "uso_semanal_total": 20,
+        "uso_mensual_total": 80,
         "uso_total": 100,
         "uso_diario": [3, 4, 4, 4, 2, 1, 2],
         "uso_mensual": [6, 8, 6, 7, 7, 7, 6, 7, 7, 8, 8, 7],
         "detalles": {
             "descripcion": "Ideal para entrenamiento de fuerza en casa.",
             "categoria": "Fuerza",
-            "ultimos_usuarios": [
-                { "usuario": "Javier Pérez", "fecha_uso": "2024-09-26" },
-                { "usuario": "María García", "fecha_uso": "2024-09-25" }
-            ]
+            "dificultad": "Intermedia"
         }
     },
     {
         "nombre": "Pelota de yoga",
-        "tipo": "implemento",
-        "uso_semanal": 15,
-        "uso_mensual": 60,
+        "tipo": "Implemento",
+        "uso_semanal_total": 15,
+        "uso_mensual_total": 60,
         "uso_total": 75,
         "uso_diario": [2, 3, 2, 4, 1, 1, 2],
         "uso_mensual": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
         "detalles": {
             "descripcion": "Perfecta para ejercicios de equilibrio y flexibilidad.",
             "categoria": "Flexibilidad",
-            "ultimos_usuarios": [
-                { "usuario": "Pedro Sánchez", "fecha_uso": "2024-09-24" },
-                { "usuario": "Ana Martínez", "fecha_uso": "2024-09-23" }
-            ]
+            "dificultad": "Principiante"
         }
     },
     {
         "nombre": "Banda elástica",
-        "tipo": "implemento",
-        "uso_semanal": 10,
-        "uso_mensual": 40,
+        "tipo": "Implemento",
+        "uso_semanal_total": 10,
+        "uso_mensual_total": 40,
         "uso_total": 50,
         "uso_diario": [1, 2, 1, 2, 1, 1, 1],
         "uso_mensual": [3, 4, 3, 4, 4, 3, 3, 4, 3, 3, 4, 3],
         "detalles": {
             "descripcion": "Ideal para ejercicios de resistencia y tonificación.",
             "categoria": "Fuerza",
-            "ultimos_usuarios": [
-                { "usuario": "Carlos Pérez", "fecha_uso": "2024-09-22" },
-                { "usuario": "Laura Martínez", "fecha_uso": "2024-09-21" }
-            ]
+            "dificultad": "Principiante"
         }
     },
 ];
+
 
 
 const generatePieChartData = (implementos) => {
@@ -216,8 +187,8 @@ const generateTableData = (implementos) => {
     const tableData = sortedImplementos.map((implemento) => ({
         nombre: implemento.nombre,
         tipo: implemento.tipo,
-        uso_semanal: implemento.uso_semanal,
-        uso_mensual: implemento.uso_mensual,
+        uso_semanal_total: implemento.uso_semanal_total,
+        uso_mensual_total: implemento.uso_mensual_total,
     }));
 
     return tableData;
@@ -245,7 +216,14 @@ export const Implementos = () => {
                         <ImplementsTable data={tableData} />
                     </div>
                 </div>
-                <div className='row-span-1 flex flex-col'>
+                <div className='row-span-1'>
+                    <nav className="flex justify-start border-b  ">
+                        <button
+                            className='px-4 py-2 font-semibold text-sm transition-colors text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
+                        >
+                            Detalles
+                        </button>
+                    </nav>
                     <MachinesGraph data={implementos} />
 
                 </div>
