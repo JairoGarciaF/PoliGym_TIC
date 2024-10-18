@@ -10,7 +10,8 @@ const routinesStats = [
     { id: 4, value: 25, label: 'Rutina de espalda' },
 ];
 
-const colors = ['#365314', '#84cc16', '#d9f99d', '#15803d', '#22c55e']
+const colors = ['#0c4a6e', '#0ea5e9', '#a5f3fc', '#1e40af', '#7dd3fc', '#cbd5e1'];
+
 
 export const RoutinesGraph = () => {
 

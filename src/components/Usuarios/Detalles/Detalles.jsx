@@ -45,8 +45,6 @@ const ultimasRutinas = [
 
 //Fecha de hoy
 const today = new Date();
-console.log(today);
-
 const recentMuscles = [];
 const oldMuscles = [];
 

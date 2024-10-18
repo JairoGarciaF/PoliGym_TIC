@@ -10,7 +10,7 @@ const plansStats = [
     { id: 4, value: 25, label: 'Plan de 2 meses' },
 ];
 
-const colors = ['#dc2626', '#ea580c', '#f59e0b', '#9a3412', '#facc15']
+const colors = ['#365314', '#84cc16', '#d9f99d', '#15803d', '#22c55e', '#cbd5e1'];
 
 export const PlansGraph = () => {
 

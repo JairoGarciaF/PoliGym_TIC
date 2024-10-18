@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { General } from './General';
 import { Detalles } from './Detalles/Detalles';
+
 export const Usuarios = () => {
     const [activeTab, setActiveTab] = useState('general');
     const [selectedUser, setSelectedUser] = useState(null); // Para guardar el usuario seleccionado

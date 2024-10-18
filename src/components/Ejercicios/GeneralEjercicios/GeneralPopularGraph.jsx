@@ -1,21 +1,25 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
-import { FaDumbbell } from 'react-icons/fa';
-
-const exerciseStats = [
-    { id: 0, value: 30, label: 'Flexiones' },
-    { id: 1, value: 25, label: 'Sentadillas' },
-    { id: 2, value: 15, label: 'Planchas' },
-    { id: 3, value: 50, label: 'Burpees' },
-    { id: 4, value: 40, label: 'Abdominales' },
-];
+import { BsFire } from "react-icons/bs";
 
 const colors = ['#92400e', '#dc2626', '#fef08a', '#fb923c', '#facc15', '#cbd5e1']
 
-export const ExercisesGraph = () => {
+// Función para calcular los porcentajes
+const calculatePercentages = (data) => {
+    const total = data.reduce((sum, item) => sum + item.value, 0);
+    return data.map((item) => ({
+        ...item,
+        percentage: ((item.value / total) * 100).toFixed(2) // Redondeamos a 2 decimales
+    }));
+};
+
+export const GeneralPopularGraph = ({ data }) => {
 
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     const containerRef = useRef(null);
+
+    // Calcular porcentajes basados en los datos
+    const dataWithPercentages = calculatePercentages(data);
 
     useEffect(() => {
         const resizeObserver = new ResizeObserver(entries => {
@@ -38,25 +42,30 @@ export const ExercisesGraph = () => {
         };
     }, []);
 
+
     return (
-        <div ref={containerRef} className='bg-white col-span-4 row-span-6 p-4 rounded border border-stone-300'>
-            <h3 className='text-azul-marino-500 flex items-center gap-2 font-medium'>
-                <FaDumbbell className='size-4' />
+        <div
+            ref={containerRef}
+            className='bg-white p-4 rounded col-span-5 border h-full border-stone-300'
+        >
+            <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
+                <BsFire className='size-5' />
                 Ejercicios Populares
             </h3>
 
-
-            <div className='h-[calc(100%-20px-4px)] flex items-center justify-center'>
-
+            <div className='flex items-center justify-center h-[calc(100%-24px-4px)]'>
                 <PieChart
+                    width={containerSize.width * 0.9} // Se adapta al tamaño del contenedor
+                    height={containerSize.height * 0.9} // Se adapta al tamaño del contenedor
                     colors={colors}
                     series={[
                         {
-                            data: exerciseStats,
+                            data: dataWithPercentages,
+                            valueFormatter: (item) => `${item.percentage}%`,
                             highlightScope: { fade: 'global', highlight: 'item' },
                             faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
-                            innerRadius: '30%',
-                            outerRadius: '60%',
+                            innerRadius: '10%',
+                            outerRadius: '90%',
                             paddingAngle: 2,
                             cornerRadius: 7,
                             startAngle: 0,
@@ -65,11 +74,8 @@ export const ExercisesGraph = () => {
                             cy: '50%',
                         },
                     ]}
-                    width={containerSize.width * 0.9} // Se adapta al tamaño del contenedor
-                    height={containerSize.height * 0.9} // Se adapta al tamaño del contenedor
                     slotProps={{
                         legend: {
-                            // Hacer mas pequeño
                             labelStyle: {
                                 fontSize: 14,
                                 fontFamily: 'Open Sans',
@@ -80,8 +86,7 @@ export const ExercisesGraph = () => {
                         },
                     }}
                 />
-
             </div>
         </div>
-    );
-};
+    )
+}
