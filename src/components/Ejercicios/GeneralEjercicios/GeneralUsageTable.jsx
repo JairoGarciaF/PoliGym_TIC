@@ -1,5 +1,32 @@
 import React from 'react'
 import { FaDumbbell } from "react-icons/fa6";
+// Función que devuelve el color según la categoría
+const getCategoryPillColor = (category) => {
+    switch (category) {
+        case "Fuerza":
+            return "bg-blue-100 text-blue-900";
+        case "Cardio":
+            return "bg-orange-100 text-orange-700";
+        case "Estiramiento":
+            return "bg-lime-100 text-lime-700";
+        default:
+            return "bg-gray-100 text-gray-700";
+    }
+};
+
+// Función que devuelve el color según la dificultad
+const getDifficultyPillColor = (difficulty) => {
+    switch (difficulty) {
+        case "Baja":
+            return "bg-green-100 text-green-700";
+        case "Media":
+            return "bg-yellow-100 text-yellow-700";
+        case "Alta":
+            return "bg-red-100 text-red-700";
+        default:
+            return "bg-gray-100 text-gray-700";
+    }
+};
 
 export const GeneralUsageTable = ({ data, infoMode }) => {
     // Filtrar los datos según el tab seleccionado
@@ -8,33 +35,7 @@ export const GeneralUsageTable = ({ data, infoMode }) => {
         uso: infoMode === 'Semanal' ? ejercicio.uso_semanal_total : ejercicio.uso_mensual_total, // Mostrar uso según el tab
     }));
 
-    // Función que devuelve el color según la categoría
-    const getCategoryPillColor = (category) => {
-        switch (category) {
-            case "Fuerza":
-                return "bg-blue-100 text-blue-900";
-            case "Cardio":
-                return "bg-orange-100 text-orange-700";
-            case "Estiramiento":
-                return "bg-lime-100 text-lime-700";
-            default:
-                return "bg-gray-100 text-gray-700";
-        }
-    };
 
-    // Función que devuelve el color según la dificultad
-    const getDifficultyPillColor = (difficulty) => {
-        switch (difficulty) {
-            case "Baja":
-                return "bg-green-100 text-green-700";
-            case "Media":
-                return "bg-yellow-100 text-yellow-700";
-            case "Alta":
-                return "bg-red-100 text-red-700";
-            default:
-                return "bg-gray-100 text-gray-700";
-        }
-    };
 
     return (
         <div className='bg-white p-4 rounded col-span-7 border h-full border-stone-300'>

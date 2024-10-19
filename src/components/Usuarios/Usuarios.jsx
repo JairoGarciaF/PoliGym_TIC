@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { General } from './General';
+import { General } from './General/General';
 import { Detalles } from './Detalles/Detalles';
 
 export const Usuarios = () => {

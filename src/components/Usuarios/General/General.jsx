@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { esES } from '@mui/x-data-grid/locales';
-import { IconButton, TextField, Menu, MenuItem } from '@mui/material';
-import { TbDotsVertical } from 'react-icons/tb';
-import { FaPlus, FaSearch } from "react-icons/fa";
-import { CrearUsuario } from './CrearUsuario';
-import { EditarUsuario } from './EditarUsuario';
+import { IconButton, TextField, Menu, MenuItem, ToggleButton } from '@mui/material';
+import { TbDotsVertical, TbEyeClosed, TbEye } from 'react-icons/tb';
+import { FaShieldAlt, FaUser, FaSearch } from "react-icons/fa";
+import { IoMale, IoFemale, IoMaleFemale } from "react-icons/io5";
+
 
 const defaultProfilePic = 'https://api.dicebear.com/9.x/initials/svg?seed=User';
 
-const rows = [
+const initialRows = [
     {
         id: 1,
         nombre: 'Carlos',
         correo: 'carlos@example.com',
         rol: 'Usuario',
         edad: 25,
+        oculto: false,
         genero: 'Masculino',
         diasActividad: 5,
         peso: 55,
@@ -36,6 +37,7 @@ const rows = [
         correo: 'ana@example.com',
         rol: 'Usuario',
         edad: 30,
+        oculto: false,
         genero: 'Femenino',
         diasActividad: 3,
         peso: 60,
@@ -56,6 +58,7 @@ const rows = [
         correo: 'pedro@example.com',
         rol: 'Admin',
         edad: 40,
+        oculto: true,
         genero: 'Masculino',
         diasActividad: 4,
         peso: 70,
@@ -76,6 +79,7 @@ const rows = [
         correo: 'sofia@example.com',
         rol: 'Usuario',
         edad: 28,
+        oculto: true,
         genero: 'Femenino',
         diasActividad: 6,
         peso: 65,
@@ -96,6 +100,7 @@ const rows = [
         correo: 'javier@example.com',
         rol: 'Usuario',
         edad: 35,
+        oculto: true,
         genero: 'Masculino',
         diasActividad: 2,
         peso: 75,
@@ -116,6 +121,7 @@ const rows = [
         correo: 'maria@example.com',
         rol: 'Usuario',
         edad: 20,
+        oculto: false,
         genero: 'Femenino',
         diasActividad: 7,
         peso: 50,
@@ -136,6 +142,7 @@ const rows = [
         correo: 'luis@example.com',
         rol: 'Usuario',
         edad: 45,
+        oculto: false,
         genero: 'Masculino',
         diasActividad: 1,
         peso: 80,
@@ -156,6 +163,7 @@ const rows = [
         correo: 'elena@example.com',
         rol: 'Admin',
         edad: 22,
+        oculto: true,
         genero: 'Otro',
         diasActividad: 5,
         peso: 55,
@@ -176,6 +184,7 @@ const rows = [
         correo: 'miguel@example.com',
         rol: 'Usuario',
         edad: 30,
+        oculto: false,
         genero: 'Masculino',
         diasActividad: 3,
         peso: 60,
@@ -196,6 +205,7 @@ const rows = [
         correo: 'laura@example.com',
         rol: 'Usuario',
         edad: 40,
+        oculto: false,
         genero: 'Femenino',
         diasActividad: 4,
         peso: 70,
@@ -216,6 +226,7 @@ const rows = [
         correo: 'raul@example.com',
         rol: 'Usuario',
         edad: 28,
+        oculto: false,
         genero: 'Masculino',
         diasActividad: 6,
         peso: 65,
@@ -236,6 +247,7 @@ const rows = [
         correo: 'carmen@example.com',
         rol: 'Usuario',
         edad: 35,
+        oculto: false,
         genero: 'Otro',
         diasActividad: 2,
         peso: 75,
@@ -256,6 +268,7 @@ const rows = [
         correo: 'jorge@example.com',
         rol: 'Usuario',
         edad: 20,
+        oculto: false,
         genero: 'Masculino',
         diasActividad: 7,
         peso: 50,
@@ -279,8 +292,8 @@ export const General = ({ onVerDetalles }) => {
     const [searchText, setSearchText] = useState('');
     const [anchorEl, setAnchorEl] = useState(null);
     const [selectedRow, setSelectedRow] = useState(null);
-    const [selectedUser, setSelectedUser] = useState(null);
-    const [currentView, setCurrentView] = useState('list');
+    const [showHidden, setShowHidden] = useState(false);
+    const [rows, setRows] = useState(initialRows);
 
     const handleMenuClick = (event, row) => {
         setAnchorEl(event.currentTarget);
@@ -305,33 +318,76 @@ export const General = ({ onVerDetalles }) => {
     };
 
 
-    const handleAnadirUsuario = () => {
-        setCurrentView('add');
+    // Alternar entre Usuario y Admin
+    const handleToggleRol = () => {
+        setRows(prevRows =>
+            prevRows.map(row =>
+                row.id === selectedRow
+                    ? { ...row, rol: row.rol === 'Admin' ? 'Usuario' : 'Admin' }
+                    : row
+            )
+        );
+        handleMenuClose();
     };
 
-    const handleEditarUsuario = () => {
-        const user = rows.find(row => row.id === selectedRow);
-        setSelectedUser(user);
-        setCurrentView('edit');
-        handleMenuClose(); // Cierra el menú
-    };
 
-    const handleBackToList = () => {
-        setCurrentView('list');
-        setSelectedUser(null);
+    // Función para ocultar/mostrar usuarios
+    const handleToggleVisibility = () => {
+        setRows((prevRows) =>
+            prevRows.map((row) =>
+                row.id === selectedRow ? { ...row, oculto: !row.oculto } : row
+            )
+        );
+        handleMenuClose(); // Cierra el menú después de actualizar
     };
 
     const filteredRows = rows.filter((row) =>
-        row.nombre.toLowerCase().includes(searchText.toLowerCase())
+        row.nombre.toLowerCase().includes(searchText.toLowerCase()) && row.oculto === showHidden
     );
 
     const columns = [
-        { field: 'nombre', headerName: 'Nombre', flex: 1, },
+        { field: 'nombre', headerName: 'Nombre', flex: 0.75, },
+        { field: 'correo', headerName: 'Correo', flex: 0.75, },
         { field: 'edad', headerName: 'Edad', type: 'number', flex: 0.5, },
-        { field: 'genero', headerName: 'Género', flex: 0.5, },
-        { field: 'diasActividad', headerName: 'Días de Actividad', type: 'number', flex: 1, },
-        { field: 'comentarios', headerName: 'Comentarios', type: 'number', flex: 1, },
-        { field: 'rol', headerName: 'Rol', flex: 0.5, },
+        {
+            field: 'genero',
+            headerName: 'Género',
+            renderCell: (params) => (
+                <div className='flex items-center justify-start h-full'>
+                    <span
+                        className={`px-3 py-1 text-sm rounded-full font-medium flex items-center gap-1 ${params.row.genero === 'Masculino' ? 'bg-sky-100 text-sky-700'
+                            : params.row.genero === 'Femenino' ? 'bg-pink-100 text-pink-700'
+                                : 'bg-gray-100 text-gray-700'
+                            }`}
+                    >
+                        {params.row.genero === 'Masculino' ? (<IoMale />) : params.row.genero === 'Femenino' ? (<IoFemale />) : (<IoMaleFemale />)}
+                        {params.row.genero}
+                    </span>
+                </div>
+            ),
+            flex: 0.5,
+        },
+        {
+            field: 'rol',
+            headerName: 'Rol',
+            renderCell: (params) => (
+                <div className='flex items-center justify-start h-full'>
+                    <span
+                        className={`px-3 py-1 text-sm rounded-full font-medium flex items-center gap-1  ${params.row.rol === 'Admin'
+                            ? 'bg-violet-100 text-violet-700'
+                            : 'bg-green-100 text-green-700'
+
+                            }`}
+                    >
+                        {params.row.rol === 'Admin' ? (<FaShieldAlt />)
+                            : (<FaUser />)
+                        }
+                        {params.row.rol}
+                    </span>
+                </div>
+            ),
+            flex: 0.5,
+        },
         {
             field: 'acciones',
             headerName: '',
@@ -341,7 +397,7 @@ export const General = ({ onVerDetalles }) => {
                     <TbDotsVertical />
                 </IconButton>
             ),
-            flex: 0.3,
+            flex: 0.15,
 
             buttonClassName: 'theme-header',
         },
@@ -349,77 +405,82 @@ export const General = ({ onVerDetalles }) => {
 
     return (
         <div className="pt-4 h-[calc(100%-36px-41px)] space-y-4 open-sans">
-            {currentView === 'list' && (
-                <>
-                    <div className="flex justify-between items-center">
-                        <TextField
-                            label="Buscar usuario"
-                            variant="outlined"
-                            value={searchText}
-                            onChange={handleSearch}
-                            size="small"
-                            InputProps={{
-                                startAdornment: <FaSearch className='pr-1 size-5' />,
-                            }}
-                        />
-                        <button
-                            type="submit"
-                            onClick={handleAnadirUsuario}
-                            className="flex items-center gap-2 bg-azul-marino-500 hover:bg-azul-marino-700 text-white  py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        >
-                            <FaPlus />
-                            Crear Usuario
-                        </button>
-                    </div>
 
-                    <div className='w-full h-[calc(100%-40px-16px)]'>
-                        <DataGrid
-                            rows={filteredRows}
-                            columns={columns}
-                            pageSize={5}
-                            rowsPerPageOptions={[5]}
-                            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-                            disableSelectionOnClick
-                            sx={{
-                                '& .MuiDataGrid-columnHeader': {
-                                    backgroundColor: '#16243e',
-                                    color: '#fff',
-                                },
-                                '& .MuiSvgIcon-root': {
-                                    color: '#fff',
-                                },
-                                '& .MuiDataGrid-columnHeaders .MuiButtonBase-root:hover': {
-                                    backgroundColor: '#233a64',
-                                    color: '#fff',
-                                },
-                                '& .MuiDataGrid-main, .MuiDataGrid-selectedRowCount, .MuiTablePagination-selectLabel, .MuiInputBase-root, .MuiTablePagination-displayedRows ':
-                                {
-                                    fontFamily: 'Open Sans',
-                                },
-                            }}
-                        />
 
-                    </div>
+            <div className="flex justify-between items-center">
+                <TextField
+                    label="Buscar"
+                    variant="outlined"
+                    value={searchText}
+                    onChange={handleSearch}
+                    size="small"
+                    InputProps={{
+                        startAdornment: <FaSearch className='pr-1 size-5' />,
+                    }}
+                />
+                {/* Toggle para cambiar entre usuarios ocultos y no ocultos */}
+                <ToggleButton
+                    value="check"
+                    selected={showHidden}
+                    onChange={() => setShowHidden(!showHidden)}
+                    size='small'
+                    sx={{
+                        'text-transform': 'capitalize',
+                        borderRadius: '0.5rem'
+                    }}
+                >
+                    {showHidden ? <TbEyeClosed className='size-5 pr-1' /> : <TbEye className='size-5 pr-1' />}
+                    {showHidden ? 'Ocultos' : 'Visibles'}
+                </ToggleButton>
+            </div>
 
-                    <Menu
-                        anchorEl={anchorEl}
-                        open={Boolean(anchorEl)}
-                        onClose={handleMenuClose}
-                    >
-                        <MenuItem onClick={handleVerDetalles}>Ver Detalles</MenuItem>
-                        <MenuItem onClick={handleEditarUsuario}>Editar</MenuItem>
-                        <MenuItem onClick={handleMenuClose}>Eliminar</MenuItem>
-                    </Menu>
-                </>
-            )}
+            <div className='w-full h-[calc(100%-40px-16px)]'>
+                <DataGrid
+                    rows={filteredRows}
+                    columns={columns}
+                    pageSize={5}
+                    rowsPerPageOptions={[5]}
+                    localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+                    disableSelectionOnClick
+                    sx={{
+                        '& .MuiDataGrid-columnHeader': {
+                            backgroundColor: '#16243e',
+                            color: '#fff',
+                        },
+                        '& .MuiSvgIcon-root': {
+                            color: '#fff',
+                        },
+                        '& .MuiDataGrid-columnHeaders .MuiButtonBase-root:hover': {
+                            backgroundColor: '#233a64',
+                            color: '#fff',
+                        },
+                        '& .MuiDataGrid-main, .MuiDataGrid-selectedRowCount, .MuiTablePagination-selectLabel, .MuiInputBase-root, .MuiTablePagination-displayedRows ':
+                        {
+                            fontFamily: 'Open Sans',
+                        },
+                    }}
+                />
 
-            {currentView === 'add' && (
-                <CrearUsuario onBack={handleBackToList} />
-            )}
+            </div>
 
-            {currentView === 'edit' && selectedUser && (
-                <EditarUsuario user={selectedUser} onBack={handleBackToList} />
-            )}
+            <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+            >
+                <MenuItem onClick={handleVerDetalles}>Ver Detalles</MenuItem>
+                <MenuItem onClick={handleToggleVisibility}>
+                    {selectedRow && rows.find(row => row.id === selectedRow)?.oculto ? 'Mostrar' : 'Ocultar'}
+                </MenuItem>
+                <MenuItem onClick={handleToggleRol}>
+                    {rows.find(row => row.id === selectedRow)?.rol === 'Admin'
+                        ? 'Descender a Usuario'
+                        : 'Ascender a Admin'}
+                </MenuItem>
+            </Menu>
+
+
+
 
         </div>
     );

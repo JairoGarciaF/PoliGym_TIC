@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaUserShield, FaUser, FaFire } from "react-icons/fa";
+import { FaShieldAlt, FaUser, FaFire } from "react-icons/fa";
 import { IoMale, IoFemale, IoMaleFemale, IoChatbox } from "react-icons/io5";
 
 
@@ -39,7 +39,7 @@ export const UserCard = ({ user }) => {
 
                                 }`}
                         >
-                            {user.rol === 'Admin' ? (<FaUserShield />)
+                            {user.rol === 'Admin' ? (<FaShieldAlt />)
                                 : (<FaUser />)
                             }
                             {user.rol}

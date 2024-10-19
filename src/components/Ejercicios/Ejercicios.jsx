@@ -13,6 +13,7 @@ const ejercicios = [
         "categoria": "Fuerza",
         "implemento": "Máquina de press de banca",
         "musculos": ["chest", "triceps", "shoulders"],
+        "musculos_secundarios": ["forearms"],
         "uso_genero": {
             "masculino": {
                 "semanal": 27,
@@ -27,8 +28,8 @@ const ejercicios = [
                 "mensual": 30
             }
         },
-        "uso_semanal": [10, 12, 8, 10, 5, 8, 12], //Semana actual de lunes a domingo Total 65
-        "uso_mensual": [140, 145, 150, 135, 130, 150, 140, 155, 160, 185, 0, 0] //Uso por meses de enero a diciembre
+        "uso_semanal": [10, 12, 8, 10, 5, 8, 12],
+        "uso_mensual": [140, 145, 150, 135, 130, 150, 140, 155, 160, 185, 0, 0]
     },
     {
         "url": "https://example.com/exercise2",
@@ -37,6 +38,7 @@ const ejercicios = [
         "categoria": "Fuerza",
         "implemento": "Máquina de prensa de piernas",
         "musculos": ["quads", "hamstrings", "glutes"],
+        "musculos_secundarios": ["calves"],
         "uso_genero": {
             "masculino": {
                 "semanal": 20,
@@ -51,7 +53,7 @@ const ejercicios = [
                 "mensual": 20
             }
         },
-        "uso_semanal": [12, 8, 10, 12, 8, 4, 6], //Total 60
+        "uso_semanal": [12, 8, 10, 12, 8, 4, 6],
         "uso_mensual": [145, 150, 160, 155, 140, 170, 160, 155, 150, 165, 0, 0]
     },
     {
@@ -61,6 +63,7 @@ const ejercicios = [
         "categoria": "Fuerza",
         "implemento": "Barra de pesas",
         "musculos": ["lowerback", "hamstrings", "glutes"],
+        "musculos_secundarios": ["traps"],
         "uso_genero": {
             "masculino": {
                 "semanal": 27,
@@ -75,7 +78,7 @@ const ejercicios = [
                 "mensual": 30
             }
         },
-        "uso_semanal": [10, 12, 8, 10, 5, 8, 12], //Total 65
+        "uso_semanal": [10, 12, 8, 10, 5, 8, 12],
         "uso_mensual": [140, 145, 150, 135, 130, 150, 140, 155, 160, 185, 0, 0]
     },
     {
@@ -85,6 +88,7 @@ const ejercicios = [
         "categoria": "Cardio",
         "implemento": "Ninguno",
         "musculos": ["calves", "shoulders"],
+        "musculos_secundarios": ["core"],
         "uso_genero": {
             "masculino": {
                 "semanal": 20,
@@ -99,7 +103,7 @@ const ejercicios = [
                 "mensual": 20
             }
         },
-        "uso_semanal": [12, 8, 10, 12, 8, 4, 6], //Total 60
+        "uso_semanal": [12, 8, 10, 12, 8, 4, 6],
         "uso_mensual": [145, 150, 160, 155, 140, 170, 160, 155, 150, 165, 0, 0]
     },
     {
@@ -109,6 +113,7 @@ const ejercicios = [
         "categoria": "Estiramiento",
         "implemento": "Pelota de yoga",
         "musculos": ["hamstrings", "lowerback"],
+        "musculos_secundarios": ["core"],
         "uso_genero": {
             "masculino": {
                 "semanal": 20,
@@ -123,7 +128,7 @@ const ejercicios = [
                 "mensual": 20
             }
         },
-        "uso_semanal": [12, 8, 10, 12, 8, 4, 6], //Total 60
+        "uso_semanal": [12, 8, 10, 12, 8, 4, 6],
         "uso_mensual": [145, 150, 160, 155, 140, 170, 160, 155, 150, 165, 0, 0]
     },
     {
@@ -133,6 +138,7 @@ const ejercicios = [
         "categoria": "Fuerza",
         "implemento": "Barra de dominadas",
         "musculos": ["lats", "biceps", "shoulders"],
+        "musculos_secundarios": ["forearms"],
         "uso_genero": {
             "masculino": {
                 "semanal": 27,
@@ -147,7 +153,7 @@ const ejercicios = [
                 "mensual": 30
             }
         },
-        "uso_semanal": [10, 12, 8, 10, 5, 8, 12], //Total 65
+        "uso_semanal": [10, 12, 8, 10, 5, 8, 12],
         "uso_mensual": [140, 145, 150, 135, 130, 150, 140, 155, 160, 185, 0, 0]
     },
     {
@@ -157,6 +163,7 @@ const ejercicios = [
         "categoria": "Fuerza",
         "implemento": "Ninguno",
         "musculos": ["quads", "glutes"],
+        "musculos_secundarios": ["calves"],
         "uso_genero": {
             "masculino": {
                 "semanal": 20,
@@ -171,10 +178,11 @@ const ejercicios = [
                 "mensual": 20
             }
         },
-        "uso_semanal": [12, 8, 10, 12, 8, 4, 6], //Total 60
+        "uso_semanal": [12, 8, 10, 12, 8, 4, 6],
         "uso_mensual": [145, 150, 160, 155, 140, 170, 160, 155, 150, 165, 0, 0]
     }
 ];
+
 
 const calculateTotals = (ejercicios) => {
     return ejercicios.map(ejercicio => ({
@@ -235,8 +243,8 @@ export const Ejercicios = () => {
                         General
                     </button>
                     <button
-
-                        className={`px-4 py-2 font-semibold text-sm transition-colors cursor-default
+                        onClick={() => setActiveTab('detalles')}
+                        className={`px-4 py-2 font-semibold text-sm transition-colors 
                     ${activeTab === 'detalles'
                                 ? 'text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
                                 : 'text-stone-500 '}`}
@@ -267,7 +275,7 @@ export const Ejercicios = () => {
             </nav>
 
             {activeTab === 'general' && <GeneralEjercicios ejercicios={ejerciciosData} infoMode={infoMode} />}
-            {activeTab === 'detalles' && <DetallesEjercicios ejercicio={selectedExercise} />}
+            {activeTab === 'detalles' && <DetallesEjercicios ejercicio={selectedExercise} infoMode={infoMode} />}
         </div>
     )
 }

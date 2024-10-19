@@ -159,7 +159,7 @@ export const MachinesGraph = ({ data, infoMode }) => {
                                 data: chartData,
                             },
                         ]}
-                        colors={infoMode === 'Semanal' ? ['#86198f'] : ['#6b21a8']}
+                        colors={infoMode === 'Semanal' ? ['#3b82f6'] : ['#06b6d4']}
                         xAxis={[{
                             scaleType: 'point',
                             data: infoMode === 'Semanal' ? xLabelsSemanal : xLabelsMensual,
