@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { esES } from '@mui/x-data-grid/locales';
-import { IconButton, TextField, Menu, MenuItem, ToggleButton } from '@mui/material';
-import { TbDotsVertical, TbEyeClosed, TbEye } from 'react-icons/tb';
-import { FaShieldAlt, FaUser, FaSearch } from "react-icons/fa";
+import { IconButton, TextField, Menu, MenuItem, Switch, FormControlLabel, ListItemIcon } from '@mui/material';
+import { TbDotsVertical } from 'react-icons/tb';
+import { FaShieldAlt, FaUser, FaSearch, FaEye, FaEyeSlash, FaList } from "react-icons/fa";
 import { IoMale, IoFemale, IoMaleFemale } from "react-icons/io5";
 
 
@@ -418,20 +418,25 @@ export const General = ({ onVerDetalles }) => {
                         startAdornment: <FaSearch className='pr-1 size-5' />,
                     }}
                 />
-                {/* Toggle para cambiar entre usuarios ocultos y no ocultos */}
-                <ToggleButton
-                    value="check"
-                    selected={showHidden}
-                    onChange={() => setShowHidden(!showHidden)}
-                    size='small'
+                <FormControlLabel
+                    control={
+                        <Switch
+                            selected={showHidden}
+                            onChange={() => setShowHidden(!showHidden)}
+                            size='small'
+                            defaultChecked
+                        />
+                    }
+                    label={showHidden ? 'Ocultos' : 'Visibles'}
                     sx={{
-                        'text-transform': 'capitalize',
-                        borderRadius: '0.5rem'
+                        '& .MuiFormControlLabel-label': {
+                            fontFamily: 'Open Sans',
+                            fontSize: '0.875rem',
+                        },
                     }}
-                >
-                    {showHidden ? <TbEyeClosed className='size-5 pr-1' /> : <TbEye className='size-5 pr-1' />}
-                    {showHidden ? 'Ocultos' : 'Visibles'}
-                </ToggleButton>
+                />
+
+
             </div>
 
             <div className='w-full h-[calc(100%-40px-16px)]'>
@@ -468,14 +473,28 @@ export const General = ({ onVerDetalles }) => {
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
             >
-                <MenuItem onClick={handleVerDetalles}>Ver Detalles</MenuItem>
+                <MenuItem onClick={handleVerDetalles}>
+                    <ListItemIcon>
+                        <FaList />
+                    </ListItemIcon>
+                    Ver Detalles
+                </MenuItem>
                 <MenuItem onClick={handleToggleVisibility}>
+                    <ListItemIcon>
+                        {selectedRow && rows.find(row => row.id === selectedRow)?.oculto ? <FaEye /> : <FaEyeSlash />}
+
+                    </ListItemIcon>
                     {selectedRow && rows.find(row => row.id === selectedRow)?.oculto ? 'Mostrar' : 'Ocultar'}
                 </MenuItem>
                 <MenuItem onClick={handleToggleRol}>
+                    <ListItemIcon>
+                        {rows.find(row => row.id === selectedRow)?.rol === 'Admin'
+                            ? <FaUser />
+                            : <FaShieldAlt />}
+                    </ListItemIcon>
                     {rows.find(row => row.id === selectedRow)?.rol === 'Admin'
-                        ? 'Descender a Usuario'
-                        : 'Ascender a Admin'}
+                        ? 'Descender'
+                        : 'Ascender'}
                 </MenuItem>
             </Menu>
 

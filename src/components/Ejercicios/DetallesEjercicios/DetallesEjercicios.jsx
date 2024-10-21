@@ -94,8 +94,8 @@ export const DetallesEjercicios = ({ ejercicio, infoMode }) => {
                             Grupos Musculares
                         </h3>
                         <div className='flex justify-center h-[calc(100%-28px)]'>
-                            <BodyMap gender='Masculino' view='front' className='w-1/3' recentMuscles={ejercicio.musculos} oldMuscles={ejercicio.musculos_secundarios} />
-                            <BodyMap gender='Masculino' view='back' className='w-1/3' recentMuscles={ejercicio.musculos} oldMuscles={ejercicio.musculos_secundarios} />
+                            <BodyMap gender='Masculino' view='front' className='w-1/3' recentMuscles={ejercicio.musculos} oldMuscles={[]} />
+                            <BodyMap gender='Masculino' view='back' className='w-1/3' recentMuscles={ejercicio.musculos} oldMuscles={[]} />
                         </div>
 
                     </div>

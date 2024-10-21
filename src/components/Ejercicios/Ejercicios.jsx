@@ -7,13 +7,13 @@ import { DetallesEjercicios } from './DetallesEjercicios/DetallesEjercicios';
 
 const ejercicios = [
     {
+        "id": 1,
         "url": "https://example.com/exercise1",
         "nombre": "Press de banca",
         "dificultad": "Media",
         "categoria": "Fuerza",
         "implemento": "Máquina de press de banca",
         "musculos": ["chest", "triceps", "shoulders"],
-        "musculos_secundarios": ["forearms"],
         "uso_genero": {
             "masculino": {
                 "semanal": 27,
@@ -32,13 +32,13 @@ const ejercicios = [
         "uso_mensual": [140, 145, 150, 135, 130, 150, 140, 155, 160, 185, 0, 0]
     },
     {
+        "id": 2,
         "url": "https://example.com/exercise2",
         "nombre": "Sentadilla",
         "dificultad": "Alta",
         "categoria": "Fuerza",
         "implemento": "Máquina de prensa de piernas",
         "musculos": ["quads", "hamstrings", "glutes"],
-        "musculos_secundarios": ["calves"],
         "uso_genero": {
             "masculino": {
                 "semanal": 20,
@@ -57,13 +57,13 @@ const ejercicios = [
         "uso_mensual": [145, 150, 160, 155, 140, 170, 160, 155, 150, 165, 0, 0]
     },
     {
+        "id": 3,
         "url": "https://example.com/exercise3",
         "nombre": "Deadlift",
         "dificultad": "Alta",
         "categoria": "Fuerza",
         "implemento": "Barra de pesas",
         "musculos": ["lowerback", "hamstrings", "glutes"],
-        "musculos_secundarios": ["traps"],
         "uso_genero": {
             "masculino": {
                 "semanal": 27,
@@ -82,13 +82,13 @@ const ejercicios = [
         "uso_mensual": [140, 145, 150, 135, 130, 150, 140, 155, 160, 185, 0, 0]
     },
     {
+        "id": 4,
         "url": "https://example.com/exercise4",
         "nombre": "Jumping Jacks",
         "dificultad": "Baja",
         "categoria": "Cardio",
         "implemento": "Ninguno",
         "musculos": ["calves", "shoulders"],
-        "musculos_secundarios": ["core"],
         "uso_genero": {
             "masculino": {
                 "semanal": 20,
@@ -107,13 +107,13 @@ const ejercicios = [
         "uso_mensual": [145, 150, 160, 155, 140, 170, 160, 155, 150, 165, 0, 0]
     },
     {
+        "id": 5,
         "url": "https://example.com/exercise5",
         "nombre": "Yoga",
         "dificultad": "Baja",
         "categoria": "Estiramiento",
         "implemento": "Pelota de yoga",
         "musculos": ["hamstrings", "lowerback"],
-        "musculos_secundarios": ["core"],
         "uso_genero": {
             "masculino": {
                 "semanal": 20,
@@ -132,13 +132,13 @@ const ejercicios = [
         "uso_mensual": [145, 150, 160, 155, 140, 170, 160, 155, 150, 165, 0, 0]
     },
     {
+        "id": 6,
         "url": "https://example.com/exercise6",
         "nombre": "Dominadas",
         "dificultad": "Alta",
         "categoria": "Fuerza",
         "implemento": "Barra de dominadas",
         "musculos": ["lats", "biceps", "shoulders"],
-        "musculos_secundarios": ["forearms"],
         "uso_genero": {
             "masculino": {
                 "semanal": 27,
@@ -157,13 +157,13 @@ const ejercicios = [
         "uso_mensual": [140, 145, 150, 135, 130, 150, 140, 155, 160, 185, 0, 0]
     },
     {
+        "id": 7,
         "url": "https://example.com/exercise7",
         "nombre": "Estocadas",
         "dificultad": "Media",
         "categoria": "Fuerza",
         "implemento": "Ninguno",
         "musculos": ["quads", "glutes"],
-        "musculos_secundarios": ["calves"],
         "uso_genero": {
             "masculino": {
                 "semanal": 20,
