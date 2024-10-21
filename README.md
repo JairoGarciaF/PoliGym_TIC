@@ -1,8 +1,10 @@
-# React + Vite
+# Desarrollo del Frontend Web para el Modo Administrador - Gimnasio EPN
+## Descripción
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto forma parte del Trabajo de Integración Curricular, cuyo objetivo es desarrollar el Frontend Web para el Modo Administrador del sistema de gestión del gimnasio de la Escuela Politécnica Nacional (EPN). 
 
-Currently, two official plugins are available:
+### Tecnologías utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React: Para la creación de la interfaz de usuario.
+- TailwindCSS y Material UI: Para el diseño visual y la experiencia de usuario.
+- MUI Charts: Para la visualización de datos en gráficos interactivos.
