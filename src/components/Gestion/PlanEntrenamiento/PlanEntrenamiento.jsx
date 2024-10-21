@@ -11,6 +11,7 @@ const initialRows = [
     {
         id: 1,
         nombre: "Plan Inicial",
+        imagenPlanEntrenamiento: 'https://example.com/plan1',
         descripcion: "Un plan básico para principiantes que introduce los conceptos fundamentales del entrenamiento.",
         duracion: 4,  // semanas
         dificultad: "Baja",
@@ -113,6 +114,7 @@ const initialRows = [
     {
         id: 2,
         nombre: "Plan Intermedio",
+        imagenPlanEntrenamiento: 'https://example.com/plan1',
         descripcion: "Un plan para aquellos con algo de experiencia, enfocado en la ganancia muscular y fuerza.",
         duracion: 8,  // semanas
         dificultad: "Media",
@@ -215,6 +217,7 @@ const initialRows = [
     {
         id: 3,
         nombre: "Plan Avanzado",
+        imagenPlanEntrenamiento: 'https://example.com/plan1',
         descripcion: "Un plan avanzado diseñado para aumentar fuerza y resistencia muscular.",
         duracion: 12,  // semanas
         dificultad: "Alta",

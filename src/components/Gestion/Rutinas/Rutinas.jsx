@@ -11,6 +11,7 @@ const initialRows = [
     {
         id: 1,
         nombre: 'Rutina de Fuerza',
+        imagenRutina: 'https://example.com/rutina1',
         dificultad: 'Alta',
         oculto: false,
         musculos: ['chest', 'lowerBack', 'quads'],
@@ -41,6 +42,7 @@ const initialRows = [
     {
         id: 2,
         nombre: 'Rutina de Hipertrofia',
+        imagenRutina: 'https://example.com/rutina1',
         dificultad: 'Media',
         oculto: true,
         musculos: ['biceps', 'chest', 'shoulders'],
@@ -71,6 +73,7 @@ const initialRows = [
     {
         id: 3,
         nombre: 'Rutina de Resistencia',
+        imagenRutina: 'https://example.com/rutina1',
         dificultad: 'Baja',
         oculto: false,
         musculos: ['quads', 'abdominals'],
@@ -94,6 +97,7 @@ const initialRows = [
     {
         id: 4,
         nombre: 'Rutina de Potencia',
+        imagenRutina: 'https://example.com/rutina1',
         dificultad: 'Alta',
         oculto: true,
         musculos: ['traps', 'shoulders', 'quads'],
@@ -124,6 +128,7 @@ const initialRows = [
     {
         id: 5,
         nombre: 'Rutina de Volumen',
+        imagenRutina: 'https://example.com/rutina1',
         dificultad: 'Media',
         oculto: false,
         musculos: ['biceps', 'quads'],

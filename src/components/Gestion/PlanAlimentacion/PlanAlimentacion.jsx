@@ -12,6 +12,7 @@ const initialRows = [
     {
         id: 1,
         nombre: "Plan Básico de Pérdida de Peso",
+        imagenPlanAlimentacion: 'https://example.com/plan1',
         descripcion: "Un plan de alimentación diseñado para reducir la ingesta calórica y favorecer la pérdida de peso.",
         duracion: 4,  // semanas
         categoria: "Pérdida de peso",
@@ -57,6 +58,7 @@ const initialRows = [
     {
         id: 2,
         nombre: "Plan de Ganancia Muscular",
+        imagenPlanAlimentacion: 'https://example.com/plan1',
         descripcion: "Un plan alto en proteínas y calorías para promover el desarrollo muscular.",
         duracion: 6,  // semanas
         categoria: "Volumen",
@@ -102,6 +104,7 @@ const initialRows = [
     {
         id: 3,
         nombre: "Plan de Mantenimiento",
+        imagenPlanAlimentacion: 'https://example.com/plan1',
         descripcion: "Un plan balanceado para mantener el peso y llevar una alimentación saludable.",
         duracion: 8,  // semanas
         categoria: 'Definición',
