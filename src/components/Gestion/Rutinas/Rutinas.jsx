@@ -382,7 +382,7 @@ export const Rutinas = () => {
 
                             }}
                         >
-                            Crear Rutina
+                            Añadir
                         </Button>
                     </div>
                 </>
