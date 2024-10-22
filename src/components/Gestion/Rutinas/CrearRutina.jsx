@@ -279,6 +279,7 @@ export const CrearRutina = ({ onBack }) => {
         // Lógica para enviar los datos del usuario
         console.log({
             nombre,
+            imagenRutina,
             dificultad,
             oculto: false, // Establecer el valor de 'oculto'
             musculos: musculosUnicos,

@@ -538,7 +538,7 @@ export const PlanEntrenamiento = () => {
             )}
 
             {currentView === 'edit' && selectedTrainingPlan && (
-                <EditarPlanEntrenamiento routine={selectedTrainingPlan} onBack={handleBackToList} />
+                <EditarPlanEntrenamiento trainingPlan={selectedTrainingPlan} onBack={handleBackToList} />
             )}
         </div>
     )

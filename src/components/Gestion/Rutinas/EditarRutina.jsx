@@ -278,6 +278,7 @@ export const EditarRutina = ({ routine, onBack }) => {
         // Lógica para enviar los datos del usuario
         console.log({
             nombre,
+            imagenRutina,
             dificultad,
             oculto: false, // Establecer el valor de 'oculto'
             musculos: musculosUnicos,
@@ -318,8 +319,8 @@ export const EditarRutina = ({ routine, onBack }) => {
                     <div className="flex items-center justify-center space-x-4">
                         {imagenRutina ? (
                             <img
-                                src={URL.createObjectURL(imagenRutina)}
-                                alt="Perfil"
+                                src={imagenRutina}
+                                alt="Rutina"
                                 className="h-28 w-28 rounded-lg object-cover border-stone-200 border"
                             />
                         ) : (

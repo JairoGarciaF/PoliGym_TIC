@@ -368,7 +368,7 @@ export const PlanAlimentacion = () => {
             )}
 
             {currentView === 'edit' && selectedMealPlan && (
-                <EditarPlanAlimentacion routine={selectedMealPlan} onBack={handleBackToList} />
+                <EditarPlanAlimentacion mealPlan={selectedMealPlan} onBack={handleBackToList} />
             )}
         </div>
     )

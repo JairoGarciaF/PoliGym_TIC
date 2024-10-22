@@ -16,8 +16,8 @@ const ejercicios = [
         "musculos": ["chest", "triceps", "shoulders"],
         "uso_genero": {
             "masculino": {
-                "semanal": 27,
-                "mensual": 85
+                "semanal": 27,  // Uso semanal por género, la suma de todos los generos debe ser igual al uso semanal total (65)
+                "mensual": 85   // Uso mensual por género, la suma de todos los generos debe ser igual al uso mensual del mes actual(185)
             },
             "femenino": {
                 "semanal": 22,
@@ -28,8 +28,8 @@ const ejercicios = [
                 "mensual": 30
             }
         },
-        "uso_semanal": [10, 12, 8, 10, 5, 8, 12],
-        "uso_mensual": [140, 145, 150, 135, 130, 150, 140, 155, 160, 185, 0, 0]
+        "uso_semanal": [10, 12, 8, 10, 5, 8, 12], // Uso del ejercicio por día de la semana (lunes a domingo). EL total de la semana es 65
+        "uso_mensual": [140, 145, 150, 135, 130, 150, 140, 155, 160, 185, 0, 0] // Uso del ejercicio por cada mes (ene a dic). 
     },
     {
         "id": 2,

@@ -3,11 +3,13 @@ import { Avatar, FormControlLabel, Switch } from '@mui/material';
 import { FaHeart, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const defaultProfilePic = 'https://api.dicebear.com/9.x/initials/svg?seed=User';
+const defaultCommentPic = 'https://api.dicebear.com/9.x/initials/svg?seed=Comment';
 
 const comentariosIniciales = [
     {
         id: 1,
         imagenPerfil: defaultProfilePic,
+        imagenComentario: defaultCommentPic,
         nombre: 'Carlos',
         fecha: '2024-10-15',
         publico: true,
