@@ -16,6 +16,9 @@ const comentariosIniciales = [
         oculto: false,
         mensaje: 'ha completado exitosamente la rutina de Press de Banca con Barra con un peso de 70 kg',
         likes: 12,
+        rutina: 'Rutina de Tren superior',
+        dificultad: 'Baja',
+        duracion: '40m 33s'
     },
     {
         id: 2,
@@ -26,6 +29,10 @@ const comentariosIniciales = [
         oculto: false,
         mensaje: 'ha completado exitosamente la rutina de Sentadillas con Barra con un peso de 100 kg',
         likes: 5,
+        rutina: 'Rutina de Tren superior',
+        dificultad: 'Media',
+        duracion: '40m 33s'
+
     },
     {
         id: 3,
@@ -36,6 +43,10 @@ const comentariosIniciales = [
         oculto: true,
         mensaje: 'ha completado exitosamente la rutina de Peso Muerto con Barra con un peso de 120 kg',
         likes: 3,
+        rutina: 'Rutina de Tren superior',
+        dificultad: 'Alta',
+        duracion: '40m 33s'
+
     },
     {
         id: 4,
@@ -46,6 +57,10 @@ const comentariosIniciales = [
         oculto: false,
         mensaje: 'ha completado exitosamente la rutina de Press de Banca con Barra con un peso de 80 kg',
         likes: 8,
+        rutina: 'Rutina de Tren superior',
+        dificultad: 'Baja',
+        duracion: '40m 33s'
+
     },
     {
         id: 5,
@@ -56,6 +71,10 @@ const comentariosIniciales = [
         oculto: false,
         mensaje: 'ha completado exitosamente la rutina de Sentadillas con Barra con un peso de 110 kg',
         likes: 2,
+        rutina: 'Rutina de Tren superior',
+        dificultad: 'Baja',
+        duracion: '40m 33s'
+
     },
     {
         id: 6,
@@ -66,6 +85,10 @@ const comentariosIniciales = [
         oculto: false,
         mensaje: 'ha completado exitosamente la rutina de Peso Muerto con Barra con un peso de 130 kg',
         likes: 10,
+        rutina: 'Rutina de Tren superior',
+        dificultad: 'Baja',
+        duracion: '40m 33s'
+
     },
     {
         id: 7,
@@ -76,6 +99,10 @@ const comentariosIniciales = [
         oculto: false,
         mensaje: 'ha completado exitosamente la rutina de Press de Banca con Barra con un peso de 90 kg',
         likes: 6,
+        rutina: 'Rutina de Tren superior',
+        dificultad: 'Baja',
+        duracion: '40m 33s'
+
     },
     {
         id: 8,
@@ -86,6 +113,10 @@ const comentariosIniciales = [
         oculto: false,
         mensaje: 'ha completado exitosamente la rutina de Sentadillas con Barra con un peso de 120 kg',
         likes: 4,
+        rutina: 'Rutina de Tren superior',
+        dificultad: 'Baja',
+        duracion: '40m 33s'
+
     },
     {
         id: 9,
@@ -96,6 +127,10 @@ const comentariosIniciales = [
         oculto: false,
         mensaje: 'ha completado exitosamente la rutina de Peso Muerto con Barra con un peso de 140 kg',
         likes: 7,
+        rutina: 'Rutina de Tren superior',
+        dificultad: 'Baja',
+        duracion: '40m 33s'
+
     },
     {
         id: 10,
@@ -106,6 +141,10 @@ const comentariosIniciales = [
         oculto: false,
         mensaje: 'ha completado exitosamente la rutina de Press de Banca con Barra con un peso de 100 kg',
         likes: 9,
+        rutina: 'Rutina de Tren superior',
+        dificultad: 'Baja',
+        duracion: '40m 33s'
+
     },
     {
         id: 11,
@@ -116,6 +155,10 @@ const comentariosIniciales = [
         oculto: false,
         mensaje: 'ha completado exitosamente la rutina de Sentadillas con Barra con un peso de 130 kg',
         likes: 11,
+        rutina: 'Rutina de Tren superior',
+        dificultad: 'Baja',
+        duracion: '40m 33s'
+
     },
     {
         id: 12,
@@ -126,6 +169,10 @@ const comentariosIniciales = [
         oculto: false,
         mensaje: 'ha completado exitosamente la rutina de Peso Muerto con Barras con un peso de 150 kg',
         likes: 1,
+        rutina: 'Rutina de Tren superior',
+        dificultad: 'Baja',
+        duracion: '40m 33s'
+
     },
     {
         id: 13,
@@ -136,6 +183,10 @@ const comentariosIniciales = [
         oculto: false,
         mensaje: 'ha completado exitosamente la rutina de Press de Banca con Barra con un peso de 110 kg',
         likes: 13,
+        rutina: 'Rutina de Tren superior',
+        dificultad: 'Baja',
+        duracion: '40m 33s'
+
     }
 ];
 
@@ -204,8 +255,21 @@ export const Comunidad = () => {
                                     {comentario.oculto ? 'Mostrar' : 'Ocultar'}
                                 </button>
                             </div>
-                            <p className={`${comentario.oculto ? 'text-gray-400' : 'text-gray-800'} pl-12 py-2`}>{comentario.nombre} {comentario.mensaje}</p>
-                            <div className='flex items-center justify-start pl-12 pt-2 gap-4'>
+                            <div className='pl-12 py-2'>
+                                <p className={`${comentario.oculto ? 'text-gray-400' : 'text-gray-800'} `}>{comentario.nombre} {comentario.mensaje}</p>
+                                <div className='flex gap-2 pt-1'>
+                                    <span className={`px-3 py-1 text-sm rounded-full font-medium bg-orange-100 ${comentario.oculto ? 'text-orange-400' : 'text-orange-700'}`}>{comentario.rutina}</span>
+                                    <span className={`px-3 py-1 text-sm rounded-full font-medium 
+                                        ${comentario.dificultad === 'Baja' ? `bg-green-100 ${comentario.oculto ? 'text-green-400' : 'text-green-700'}`
+                                            : comentario.dificultad === 'Media' ? `bg-yellow-100 ${comentario.oculto ? 'text-yellow-400' : 'text-yellow-700'}`
+                                                : `bg-red-100 ${comentario.oculto ? 'text-red-400' : 'text-red-700'}`
+                                        }`}>
+                                        {comentario.dificultad}
+                                    </span>
+
+                                    <span className={`px-3 py-1 text-sm rounded-full font-medium bg-blue-100 ${comentario.oculto ? 'text-blue-400' : 'text-blue-700'}`}>{comentario.duracion}</span>
+                                </div>
+                            </div>                            <div className='flex items-center justify-start pl-12 pt-2 gap-4'>
                                 <div className='flex items-center gap-1'>
                                     <FaHeart className={`${comentario.oculto ? "text-red-400" : "text-red-500"} size-4`} />
                                     <span className={comentario.oculto ? "text-red-400" : "text-red-500"}>{comentario.likes}</span>

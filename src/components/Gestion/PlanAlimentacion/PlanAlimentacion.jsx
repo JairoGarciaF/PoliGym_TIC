@@ -15,7 +15,7 @@ const initialRows = [
         imagenPlanAlimentacion: 'https://example.com/plan1',
         descripcion: "Un plan de alimentación diseñado para reducir la ingesta calórica y favorecer la pérdida de peso.",
         duracion: 4,  // semanas
-        categoria: "Pérdida de peso",
+        categoria: "Pérdida de Peso",
         oculto: false,
         detalleDias: {
             lunes: {

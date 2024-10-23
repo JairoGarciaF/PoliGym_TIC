@@ -265,8 +265,8 @@ export const CrearPlanEntrenamiento = ({ onBack }) => {
                     <div className="flex items-center justify-center space-x-4">
                         {imagenPlanEntrenamiento ? (
                             <img
-                                src={URL.createObjectURL(imagenPlanEntrenamiento)}
-                                alt="Perfil"
+                                src={imagenPlanEntrenamiento}
+                                alt="Plan Entrenamiento"
                                 className="h-28 w-28 rounded-lg object-cover border-stone-200 border"
                             />
                         ) : (
