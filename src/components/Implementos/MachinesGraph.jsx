@@ -94,7 +94,7 @@ export const MachinesGraph = ({ data, infoMode }) => {
 
     return (
         <>
-            <nav className="flex justify-between border-b  ">
+            <nav className="flex justify-between border-b  mb-2">
                 <span
                     className='px-4 py-2 font-semibold text-sm transition-colors text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
                 >
@@ -114,8 +114,8 @@ export const MachinesGraph = ({ data, infoMode }) => {
 
                 </nav>
             </nav>
-            <div className='grid grid-cols-4 gap-4 grid-rows-1 h-[calc(100%-38px)] '>
-                <div ref={containerRef} className=' p-4 mt-4 bg-white col-span-1 rounded border border-stone-300'>
+            <div className='grid grid-cols-4 gap-4 grid-rows-1 h-[calc(100%-49px)] bg-slate-100 p-4 rounded-xl'>
+                <div ref={containerRef} className=' p-4  bg-white col-span-1 rounded-xl shadow'>
 
                     <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
                         <FaCircleInfo className='size-5' />
@@ -145,7 +145,7 @@ export const MachinesGraph = ({ data, infoMode }) => {
 
 
                 </div>
-                <div ref={containerRef} className='p-4 mt-4 bg-white col-span-3 rounded border border-stone-300'>
+                <div ref={containerRef} className='p-4  bg-white col-span-3 rounded-xl shadow'>
                     <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
                         <FaArrowTrendUp className='size-5' />
                         Frecuencia de Uso

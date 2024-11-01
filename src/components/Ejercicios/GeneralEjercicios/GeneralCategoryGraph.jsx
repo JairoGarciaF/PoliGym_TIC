@@ -50,7 +50,7 @@ export const GeneralCategoryGraph = ({ data, infoMode }) => {
     return (
         <div
             ref={containerRef}
-            className='bg-white p-4 rounded flex flex-col col-span-5 border h-full border-stone-300'
+            className='bg-white p-4 rounded-xl shadow flex flex-col col-span-5 h-full'
         >
             <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
                 <TbCategoryFilled className='size-5' />

@@ -205,7 +205,7 @@ export const Comunidad = () => {
     const filteredComentarios = comentarios.filter((comentario) => comentario.oculto === showHidden);
 
     return (
-        <div className='bg-white rounded-lg shadow h-full pl-4 py-4'>
+        <div className='bg-white rounded-xl shadow h-full pl-4 py-4'>
             <h1 className='montserrat-alternates pr-4 text-azul-marino-500 text-3xl font-semibold'>Comunidad</h1>
 
 
@@ -234,9 +234,9 @@ export const Comunidad = () => {
                 />
             </nav>
             <div className='overflow-y-auto pr-4 mt-4 h-[calc(100%-36px-41px-16px)]'>
-                <div className=' flex flex-col gap-4'>
+                <div className=' flex p-4 bg-slate-100 rounded-xl flex-col gap-4'>
                     {filteredComentarios.map((comentario) => (
-                        <div key={comentario.id} className={`p-4  border ${comentario.oculto ? 'bg-gray-50' : 'bg-white'} rounded`}>
+                        <div key={comentario.id} className={`p-4  rounded-xl shadow ${comentario.oculto ? 'bg-slate-50' : 'bg-white'}`}>
                             <div className='flex justify-between items-center pb-2 '>
                                 <div className='flex items-center gap-2'>
                                     <div className={comentario.oculto ? 'brightness-90' : 'brightness-100'}>

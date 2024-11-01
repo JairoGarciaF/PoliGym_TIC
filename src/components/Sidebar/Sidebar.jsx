@@ -8,7 +8,7 @@ export const Sidebar = ({ expanded, setExpanded }) => {
 
     return (
         <nav className={`h-full py-4 pl-4 flex flex-col overflow-hidden transition-all duration-300 flex-shrink-0 ${expanded ? 'w-[15%]' : 'w-[4%]'}`}>
-            <button onClick={() => setExpanded(curr => !curr)} className={`p-1.5 flex  rounded-lg bg-stone-200 text-stone-800 hover:bg-azul-marino-100 hover:text-azul-marino-500 ${expanded ? 'self-end' : ' justify-center'}`}>
+            <button onClick={() => setExpanded(curr => !curr)} className={`p-1.5 flex  rounded-lg bg-slate-200 text-slate-800 hover:bg-slate-300 hover:text-azul-marino-500 ${expanded ? 'self-end' : ' justify-center'}`}>
                 {expanded ? <TbChevronLeftPipe className='size-5' /> : <TbChevronRightPipe className='size-5' />}
             </button>
             <div className='py-4 flex items-center justify-center h-24'>

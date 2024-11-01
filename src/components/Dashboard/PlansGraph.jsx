@@ -39,7 +39,7 @@ export const PlansGraph = () => {
         };
     }, []);
     return (
-        <div ref={containerRef} className='bg-white col-span-4 row-span-6 p-4 rounded border border-stone-300 '>
+        <div ref={containerRef} className='bg-white col-span-4 row-span-6 p-4 rounded-xl shadow '>
 
             <h3 className='text-azul-marino-500 mb-1  flex self-start items-center gap-2 font-medium'> <TbChecklist className='size-5' />Planes Populares</h3>
 

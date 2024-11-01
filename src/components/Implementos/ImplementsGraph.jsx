@@ -44,7 +44,7 @@ export const ImplementsGraph = ({ data }) => {
     return (
         <div
             ref={containerRef}
-            className='bg-white p-4 rounded border h-full border-stone-300'
+            className='bg-white p-4 rounded-xl shadow h-full'
         >
             <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
                 <BsFire className='size-5' />

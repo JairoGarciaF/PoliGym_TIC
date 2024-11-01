@@ -35,7 +35,7 @@ export const GeneralGenderGraph = ({ data, infoMode }) => {
     const otroData = data.map(exercise => exercise.uso_genero.otro[infoMode.toLowerCase()]);
 
     return (
-        <div ref={containerRef} className=' p-4  bg-white col-span-7 rounded border border-stone-300'>
+        <div ref={containerRef} className=' p-4  bg-white col-span-7 rounded-xl shadow'>
             <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
                 <IoMaleFemale className='size-5' />
                 Uso por Género

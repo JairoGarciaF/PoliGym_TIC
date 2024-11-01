@@ -35,7 +35,7 @@ export const GeneralEjercicios = ({ ejercicios, infoMode }) => {
     const popularChartData = generatePopularChartData(ejercicios, infoMode);
 
     return (
-        <div className="pt-4 h-[calc(100%-36px-41px)] open-sans gap-4 grid grid-cols-12 grid-rows-2">
+        <div className="p-4 h-[calc(100%-40px-49px)] open-sans gap-4 grid grid-cols-12 grid-rows-2 bg-slate-100 rounded-xl">
             <GeneralPopularGraph data={popularChartData} />
             <GeneralUsageTable data={ejercicios} infoMode={infoMode} />
             <GeneralCategoryGraph data={ejercicios} infoMode={infoMode} />

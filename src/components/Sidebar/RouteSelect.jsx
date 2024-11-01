@@ -11,8 +11,8 @@ const CustomButton = ({ Icon, title, expanded, to }) => {
         <Link to={to}>
             <button className={`flex items-center justify-center gap-2 w-full rounded px-2 py-1.5 text-base open-sans transition-[box-shadow,_background-color,_color] 
                 ${isSelected
-                    ? 'bg-white font-semibold text-azul-marino-500 shadow'
-                    : 'hover:bg-azul-marino-100 hover:text-azul-marino-400 bg-transparent text-stone-500 shadow-none'
+                    ? 'text-white font-semibold bg-azul-marino-500 shadow'
+                    : 'hover:bg-slate-200 hover:text-azul-marino-500 bg-transparent text-azul-marino-400 shadow-none'
                 }`}
             >
                 <Icon className='h-6 w-6' />

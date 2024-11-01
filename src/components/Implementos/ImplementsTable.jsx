@@ -24,14 +24,14 @@ export const ImplementsTable = ({ data, infoMode }) => {
 
 
     return (
-        <div className='bg-white p-4 rounded border h-full border-stone-300'>
+        <div className='bg-white p-4 rounded-xl shadow h-full '>
             <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
                 <FaDumbbell className='size-5' />
                 Uso de Implementos
             </h3>
 
             {/* Control del contenedor de la tabla */}
-            <div className="relative h-[calc(100%-28px)] overflow-x-auto overflow-y-auto border sm:rounded-lg">
+            <div className="relative h-[calc(100%-28px)] overflow-x-auto overflow-y-auto border rounded-xl">
                 <table className="w-full text-sm text-left rtl:text-right text-azul-marino-500">
                     <thead className="text-xs text-white rounded uppercase bg-azul-marino-500">
                         <tr>
@@ -42,7 +42,7 @@ export const ImplementsTable = ({ data, infoMode }) => {
                     </thead>
                     <tbody>
                         {filteredData.map((implemento, index) => (
-                            <tr key={index} className="bg-white border-b hover:bg-azul-marino-100">
+                            <tr key={index} className="bg-white border-b hover:bg-slate-100">
                                 <th scope="row" className="p-2 font-medium w-1/2 whitespace-nowrap text-azul-marino-900">
                                     {implemento.nombre}
                                 </th>

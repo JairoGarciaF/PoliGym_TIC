@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MdCake } from "react-icons/md";
 import { FaCircleInfo, FaArrowTrendUp, FaClockRotateLeft } from "react-icons/fa6";
-import { IoFitness, IoPartlySunny, IoCloudyNight } from "react-icons/io5";
+import { IoFitness, IoPartlySunny, IoSunny, IoCloudyNight } from "react-icons/io5";
 import { TbTargetArrow } from "react-icons/tb";
 import { FaAngleDown, FaAngleUp, FaWeight, FaRuler } from 'react-icons/fa';
 import { BodyMap } from '../../BodyMap/BodyMap';
@@ -77,12 +77,12 @@ export const Detalles = ({ user }) => {
     return (
         <>
             {user ? (
-                <div className="grid open-sans grid-cols-12 grid-rows-12 gap-2 pt-4 items-start h-[calc(100%-36px-41px)] bg-white ">
+                <div className="grid open-sans grid-cols-12 grid-rows-12 gap-4 p-4 items-start h-[calc(100%-36px-49px)] bg-slate-100 rounded-xl">
 
                     <UserCard user={user} />
 
                     {/* Información del usuario en cuadrícula */}
-                    <div className="col-span-4 h-full row-span-6 grid grid-cols-12 gap-2 text-left text-stone-600 w-full">
+                    <div className="col-span-4 h-full row-span-6 grid grid-cols-12 gap-4 text-left text-slate-600 w-full">
                         <Card
                             Icon={MdCake}
                             colSpan={'col-span-4'}
@@ -114,12 +114,12 @@ export const Detalles = ({ user }) => {
                             value={user.estadoFisico}
                         />
                         <Card
-                            Icon={{ 'AM': IoPartlySunny, 'PM': IoCloudyNight }[user.horario]}
-                            colSpan={'col-span-2'}
+                            Icon={{ 'Mañana': IoPartlySunny, 'Tarde': IoSunny, 'Noche': IoCloudyNight }[user.horario]}
+                            colSpan={'col-span-3'}
                             title={'Horario'}
                             value={user.horario}
                         />
-                        <div className={`bg-white flex flex-col  justify-center col-span-10 p-2 rounded border border-stone-300`}>
+                        <div className={`bg-white flex flex-col  justify-center col-span-9 p-2 rounded-xl shadow `}>
                             <h3 className="text-stone-500 text-xs">Días de Entreno</h3>
                             <div className="flex gap-1 overflow-auto mt-1">
                                 {user.diasSeleccionados.map((dia, index) => {
@@ -156,7 +156,7 @@ export const Detalles = ({ user }) => {
                         </div>
 
 
-                        <div className="relative flex items-center col-span-12 bg-white p-2 rounded border border-stone-300">
+                        <div className="relative flex items-center col-span-12 bg-white p-2 rounded-xl shadow">
                             {/* Header del acordeón */}
 
                             <div
@@ -179,7 +179,7 @@ export const Detalles = ({ user }) => {
 
                             {/* Contenido expandido */}
                             {isOpen && (
-                                <div className="absolute left-0 top-full w-full bg-white border border-stone-300 p-3 rounded mt-1 z-10">
+                                <div className="absolute left-0 top-full w-full bg-white shadow p-3 rounded mt-1 z-10">
                                     <p className=" text-stone-800 text-sm">{user.detalleProblemasMedicos}</p>
                                 </div>
                             )}
@@ -188,7 +188,7 @@ export const Detalles = ({ user }) => {
 
                     </div>
 
-                    <div className='col-span-5 row-span-12 gap-2 p-2 h-full  border border-stone-300 rounded flex flex-col'>
+                    <div className='col-span-5 row-span-12 gap-2 p-2 h-full bg-white shadow rounded-xl flex flex-col'>
                         <h3 className='text-azul-marino-500 mb-1 flex items-center font-medium gap-1'> <FaClockRotateLeft />Últimas Rutinas</h3>
 
                         <div className='h-[calc(100%-28px)] flex flex-col gap-2'>
@@ -218,7 +218,7 @@ export const Detalles = ({ user }) => {
 
 const Card = ({ Icon, colSpan, title, value }) => {
     return (
-        <div className={`bg-white ${colSpan} p-2 rounded border border-stone-300`}>
+        <div className={`bg-white ${colSpan} p-2 rounded-xl shadow`}>
             <div className='flex flex-col justify-center h-full'>
                 <h3 className='text-stone-500 text-xs'>{title}</h3>
                 <div className='flex items-center gap-1 text-azul-marino-500 '>

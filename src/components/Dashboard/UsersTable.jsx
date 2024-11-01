@@ -271,9 +271,9 @@ export const UsersTable = () => {
 
     const personasOrdenadas = [...personas].sort((a, b) => b.diasActividad - a.diasActividad);
     return (
-        <div className='bg-white col-span-6 row-span-6 p-4 rounded border border-stone-300 '>
+        <div className='bg-white col-span-6 row-span-6 p-4 rounded-xl shadow '>
             <h3 className='text-azul-marino-500 mb-1 flex items-center  gap-2 font-medium'> <FaUserClock className='size-4' />Usuarios Frecuentes</h3>
-            <div className="relative h-[calc(100%-28px)] overflow-x-auto border sm:rounded-lg">
+            <div className="relative h-[calc(100%-28px)] overflow-x-auto border rounded-xl">
                 <div className="h-full overflow-y-auto">
                     <table className="w-full text-sm text-left rtl:text-right text-azul-marino-500 ">
                         <thead className="text-xs text-white rounded uppercase bg-azul-marino-500 ">
@@ -291,7 +291,7 @@ export const UsersTable = () => {
                         </thead>
                         <tbody>
                             {personasOrdenadas.map((persona, index) => (
-                                <tr key={index} className="bg-white border-b hover:bg-azul-marino-100 ">
+                                <tr key={index} className="bg-white border-b hover:bg-slate-100 ">
                                     <th scope="row" className="px-6 py-4 font-medium text-azul-marino-900 whitespace-nowrap ">
                                         {persona.nombre}
                                     </th>

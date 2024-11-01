@@ -329,6 +329,7 @@ export const Rutinas = () => {
                             localeText={esES.components.MuiDataGrid.defaultProps.localeText}
                             disableSelectionOnClick
                             sx={{
+                                borderRadius: 3,
                                 '& .MuiDataGrid-columnHeader': {
                                     backgroundColor: '#16243e',
                                     color: '#fff',

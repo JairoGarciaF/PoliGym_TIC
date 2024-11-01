@@ -50,7 +50,7 @@ export const LastRoutinesTable = ({ ultimasRutinas }) => {
 
 
     return (
-        <div className="relative h-1/2 overflow-x-auto border sm:rounded-lg">
+        <div className="relative h-1/2 overflow-x-auto border rounded-xl">
             <div className="h-full overflow-y-auto">
                 <table className="w-full text-sm text-left rtl:text-right text-azul-marino-500 ">
                     <thead className="text-xs text-white rounded uppercase bg-azul-marino-500 ">
@@ -71,7 +71,7 @@ export const LastRoutinesTable = ({ ultimasRutinas }) => {
                     </thead>
                     <tbody>
                         {sortedRutinas.map((rutina, index) => (
-                            <tr key={index} className="bg-white border-b hover:bg-azul-marino-100 ">
+                            <tr key={index} className="bg-white border-b hover:bg-slate-100 ">
                                 <th scope="row" className="p-2 whitespace-nowrap font-medium text-azul-marino-900 ">
                                     {rutina.rutina}
                                 </th>

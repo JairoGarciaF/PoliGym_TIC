@@ -38,7 +38,7 @@ export const GeneralUsageTable = ({ data, infoMode }) => {
 
 
     return (
-        <div className='bg-white p-4 rounded col-span-7 border h-full border-stone-300'>
+        <div className='bg-white p-4 rounded-xl shadow col-span-7  h-full'>
             <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
                 <FaDumbbell className='size-5' />
                 Uso de Ejercicios
@@ -57,7 +57,7 @@ export const GeneralUsageTable = ({ data, infoMode }) => {
                     </thead>
                     <tbody>
                         {filteredData.map((ejercicio, index) => (
-                            <tr key={index} className="bg-white border-b hover:bg-azul-marino-100">
+                            <tr key={index} className="bg-white border-b hover:bg-slate-100">
                                 <th scope="row" className="p-2 font-medium w-2/5 whitespace-nowrap text-azul-marino-900">
                                     {ejercicio.nombre}
                                 </th>

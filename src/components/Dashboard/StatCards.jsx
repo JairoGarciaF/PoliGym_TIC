@@ -20,7 +20,7 @@ export const StatCards = () => {
 
 const Card = ({ title, value, Icon }) => {
     return (
-        <div className='bg-white row-span-2 col-span-3 p-4 rounded border border-stone-300 '>
+        <div className='bg-white row-span-2 col-span-3 p-4 rounded-xl shadow'>
             <div className='flex items-start justify-between'>
                 <div className='open-sans '>
                     <h3 className='text-stone-500 mb-1'>{title}</h3>

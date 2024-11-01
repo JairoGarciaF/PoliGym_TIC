@@ -172,7 +172,7 @@ export const Implementos = () => {
     const tableData = generateTableData(implementosData, infoMode);
 
     return (
-        <div className='bg-white rounded-lg pb-4 shadow open-sans h-full flex flex-col p-4'>
+        <div className='bg-white rounded-xl pb-4 shadow open-sans h-full flex flex-col p-4'>
             <div className='flex justify-between'>
                 <h1 className='montserrat-alternates text-azul-marino-500 text-3xl font-semibold'>Implementos</h1>
                 <nav className="flex justify-startopen-sans">
@@ -181,7 +181,7 @@ export const Implementos = () => {
                         className={`p-2 text-xs rounded-l-lg transition-colors 
                     ${infoMode === 'Semanal'
                                 ? 'text-blue-700   bg-blue-100'
-                                : 'text-stone-500 border hover:bg-stone-50'}`}
+                                : 'text-slate-500 border hover:bg-slate-50'}`}
                     >
                         Semanal
                     </button>
@@ -190,27 +190,27 @@ export const Implementos = () => {
                         className={`p-2 text-xs rounded-r-lg  transition-colors 
                     ${infoMode === 'Mensual'
                                 ? 'text-cyan-700  bg-cyan-100'
-                                : 'text-stone-500 border hover:bg-stone-50'}`}
+                                : 'text-slate-500 border hover:bg-slate-50'}`}
                     >
                         Mensual
                     </button>
                 </nav>
             </div>
-            <div className='grid grid-rows-2 h-[calc(100%-36px)]'>
+            <div className='grid grid-rows-2 gap-2 h-[calc(100%-36px)]'>
                 <div className='row-span-1 flex flex-col'>
-                    <nav className="flex justify-start border-b  ">
+                    <nav className="flex justify-start border-b  mb-2">
                         <span
-                            className='px-4 py-2 font-semibold text-sm transition-colors text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
+                            className='px-4 py-2  font-semibold text-sm transition-colors text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
                         >
                             General
                         </span>
                     </nav>
-                    <div className='grid h-[calc(100%-38px)] grid-rows-1 gap-4 py-4 grid-cols-2'>
+                    <div className='grid h-[calc(100%-49px)] grid-rows-1 bg-slate-100 gap-4 p-4 rounded-xl grid-cols-2'>
                         <ImplementsGraph data={pieChartData} />
                         <ImplementsTable data={tableData} infoMode={infoMode} />
                     </div>
                 </div>
-                <div className='row-span-1'>
+                <div className='row-span-1 flex  flex-col'>
                     <MachinesGraph data={implementosData} infoMode={infoMode} />
                 </div>
 

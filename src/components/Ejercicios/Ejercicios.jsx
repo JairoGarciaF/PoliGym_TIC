@@ -207,7 +207,7 @@ export const Ejercicios = () => {
     };
 
     return (
-        <div className='bg-white rounded-lg pb-4 shadow h-full p-4'>
+        <div className='bg-white rounded-xl shadow h-full p-4'>
             <div className='flex justify-between mb-1'>
                 <h1 className='montserrat-alternates text-azul-marino-500 text-3xl font-semibold'>Ejercicios</h1>
                 <nav className="flex justify-startopen-sans">
@@ -231,7 +231,7 @@ export const Ejercicios = () => {
                     </button>
                 </nav>
             </div>
-            <nav className="flex justify-between items-end open-sans border-b ">
+            <nav className="flex justify-between items-end open-sans border-b mb-2">
                 <div >
                     <button
                         onClick={() => setActiveTab('general')}

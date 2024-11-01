@@ -41,7 +41,7 @@ const usersPerGender = [
 
 export const UsersGraph = () => {
     return (
-        <div className='bg-white col-span-6 row-span-4 p-4 rounded border flex flex-col items-center border-stone-300 '>
+        <div className='bg-white col-span-6 row-span-4 p-4 rounded-xl shadow flex flex-col items-center '>
             <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'> <BiMaleFemale className='size-5' />Usuarios por Género</h3>
             <PieChart
                 colors={['#0369a1', '#ec4899', '#94a3b8']}

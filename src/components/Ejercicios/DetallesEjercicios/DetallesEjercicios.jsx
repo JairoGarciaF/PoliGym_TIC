@@ -40,8 +40,8 @@ export const DetallesEjercicios = ({ ejercicio, infoMode }) => {
         <>
             {ejercicio ? (
 
-                <div className="pt-4 h-[calc(100%-36px-43px)] open-sans gap-4 grid grid-cols-12 grid-rows-2">
-                    <div className='col-span-4 row-span-1 h-full flex justify-center bg-white p-4 rounded border border-stone-300'>
+                <div className="p-4 h-[calc(100%-40px-49px)] open-sans gap-4 grid grid-cols-12 grid-rows-2 bg-slate-100 rounded-xl">
+                    <div className='col-span-4 row-span-1 h-full flex justify-center bg-white p-4 rounded-xl shadow '>
                         <img
                             src='./Navy-Seal-Burpee.gif' //ejercicio.url
                             alt={ejercicio.nombre}
@@ -49,9 +49,9 @@ export const DetallesEjercicios = ({ ejercicio, infoMode }) => {
                         />
                     </div>
                     <div className='col-span-3 row-span-1 gap-4 grid grid-cols-1'>
-                        <div className='bg-white py-2 px-4 rounded border border-stone-300'>
+                        <div className='bg-white py-2 px-4 rounded-xl shadow '>
                             <div className='flex flex-col justify-center h-full'>
-                                <h3 className='text-stone-500 text-xs'>Nombre</h3>
+                                <h3 className='text-slate-500 text-xs'>Nombre</h3>
                                 <div className='flex items-center gap-1 text-azul-marino-500 '>
                                     <p className='font-medium text-xl'>{ejercicio.nombre}</p>
                                 </div>
@@ -59,18 +59,18 @@ export const DetallesEjercicios = ({ ejercicio, infoMode }) => {
                             </div>
                         </div>
                         <div className='grid gap-4 grid-cols-2'>
-                            <div className='bg-white py-2 px-4 rounded border border-stone-300'>
+                            <div className='bg-white py-2 px-4 rounded-xl shadow '>
                                 <div className='flex flex-col justify-center h-full'>
-                                    <h3 className='text-stone-500 text-xs'>Categoría</h3>
+                                    <h3 className='text-slate-500 text-xs'>Categoría</h3>
                                     <span className={`px-2 py-0.5 mt-1 rounded-full w-fit  ${getCategoryPillColor(ejercicio.categoria)}`}>
                                         {ejercicio.categoria}
                                     </span>
 
                                 </div>
                             </div>
-                            <div className='bg-white py-2 px-4 rounded border border-stone-300'>
+                            <div className='bg-white py-2 px-4 rounded-xl shadow '>
                                 <div className='flex flex-col justify-center h-full'>
-                                    <h3 className='text-stone-500 text-xs'>Dificultad</h3>
+                                    <h3 className='text-slate-500 text-xs'>Dificultad</h3>
                                     <span className={`px-2 py-0.5 mt-1 rounded-full w-fit  ${getDifficultyPillColor(ejercicio.dificultad)}`}>
                                         {ejercicio.dificultad}
                                     </span>
@@ -78,9 +78,9 @@ export const DetallesEjercicios = ({ ejercicio, infoMode }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className='bg-white py-2 px-4 rounded border border-stone-300'>
+                        <div className='bg-white py-2 px-4 rounded-xl shadow '>
                             <div className='flex flex-col justify-center h-full'>
-                                <h3 className='text-stone-500 text-xs'>Implemento</h3>
+                                <h3 className='text-slate-500 text-xs'>Implemento</h3>
                                 <div className='flex items-center gap-1 text-azul-marino-500 '>
                                     <p className='font-medium text-xl'>{ejercicio.implemento}</p>
                                 </div>
@@ -88,7 +88,7 @@ export const DetallesEjercicios = ({ ejercicio, infoMode }) => {
                             </div>
                         </div>
                     </div>
-                    <div className='col-span-5 flex flex-col justify-center row-span-1 bg-white p-4 rounded border h-full  border-stone-300'>
+                    <div className='col-span-5 flex flex-col justify-center row-span-1 bg-white p-4 rounded-xl shadow h-full '>
                         <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
                             <TbTargetArrow className='size-5' />
                             Grupos Musculares
@@ -104,8 +104,8 @@ export const DetallesEjercicios = ({ ejercicio, infoMode }) => {
                 </div>
             ) : (
                 <div className='flex flex-col items-center justify-center h-[calc(100%-35px-56px)] gap-2'>
-                    <FaCircleInfo className='text-stone-300 size-10' />
-                    <p className='text-stone-500'>Selecciona un ejercicio para ver los detalles</p>
+                    <FaCircleInfo className='text-slate-300 size-10' />
+                    <p className='text-slate-500'>Selecciona un ejercicio para ver los detalles</p>
                 </div>
             )}
         </>

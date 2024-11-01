@@ -6,7 +6,7 @@ export const LayoutWithSidebar = () => {
     const [sidebarExpanded, setSidebarExpanded] = useState(true);
 
     return (
-        <div className="text-stone-950 bg-stone-100 h-screen flex">
+        <div className="text-gray-950 bg-slate-100 h-screen flex">
             {/* Sidebar con control de estado */}
             <Sidebar expanded={sidebarExpanded} setExpanded={setSidebarExpanded} />
 

@@ -15,7 +15,7 @@ export const Profile = ({ expanded }) => {
         navigate('/login'); // Redirige a la página de login
     };
     return (
-        <div className='flex items-center justify-center gap-2 border-t  pt-4 border-stone-300'>
+        <div className='flex items-center justify-center gap-2 border-t  pt-4 border-slate-300'>
 
             <img
                 src={

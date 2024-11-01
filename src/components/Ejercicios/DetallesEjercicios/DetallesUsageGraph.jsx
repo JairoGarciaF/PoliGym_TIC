@@ -42,7 +42,7 @@ export const DetallesUsageGraph = ({ ejercicio, infoMode }) => {
 
 
     return (
-        <div ref={containerRef} className='bg-white p-4 rounded border border-stone-300 col-span-7 row-span-1'>
+        <div ref={containerRef} className='bg-white p-4 rounded-xl shadow col-span-7 row-span-1'>
             <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
                 <FaArrowTrendUp className='size-5' />
                 Frecuencia de Uso
