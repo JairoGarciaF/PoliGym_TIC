@@ -41,8 +41,8 @@ export const RoutinesGraph = () => {
     }, []);
 
     return (
-        <div ref={containerRef} className='bg-white col-span-4 row-span-6 p-4 rounded-xl shadow'>
-            <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'> <FaCalendarAlt className='size-4' />Rutinas Populares</h3>
+        <div ref={containerRef} className='bg-white col-span-4 row-span-8 p-4 rounded-xl shadow'>
+            <h3 className='text-azul-marino-500 mb-1 text-lg flex self-start items-center gap-2 font-medium'> <FaCalendarAlt className='size-4' />Rutinas Populares</h3>
 
 
             <div className='flex h-[calc(100%-20px-4px)] items-center justify-center'>

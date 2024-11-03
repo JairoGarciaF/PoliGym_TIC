@@ -39,15 +39,15 @@ export const ExercisesGraph = () => {
     }, []);
 
     return (
-        <div ref={containerRef} className='bg-white col-span-4 row-span-6 p-4 rounded-xl shadow'>
-            <h3 className='text-azul-marino-500 flex items-center gap-2 font-medium'>
+        <div ref={containerRef} className='bg-white col-span-4 row-span-8 p-4 rounded-xl shadow'>
+            <h3 className='text-azul-marino-500 text-lg flex items-center gap-2 font-medium'>
                 <FaDumbbell className='size-4' />
                 Ejercicios Populares
             </h3>
 
 
-            <div className='h-[calc(100%-20px-4px)] flex items-center justify-center'>
-
+            <div className='h-[calc(100%-20px-4px)] flex flex-col items-center justify-center'>
+                <span className=''>Total:</span>
                 <PieChart
                     colors={colors}
                     series={[
@@ -80,6 +80,8 @@ export const ExercisesGraph = () => {
                         },
                     }}
                 />
+
+
 
             </div>
         </div>

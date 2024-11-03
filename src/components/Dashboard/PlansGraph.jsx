@@ -39,9 +39,9 @@ export const PlansGraph = () => {
         };
     }, []);
     return (
-        <div ref={containerRef} className='bg-white col-span-4 row-span-6 p-4 rounded-xl shadow '>
+        <div ref={containerRef} className='bg-white col-span-4 row-span-8 p-4 rounded-xl shadow '>
 
-            <h3 className='text-azul-marino-500 mb-1  flex self-start items-center gap-2 font-medium'> <TbChecklist className='size-5' />Planes Populares</h3>
+            <h3 className='text-azul-marino-500 mb-1 text-lg  flex self-start items-center gap-2 font-medium'> <TbChecklist className='size-5' />Planes Populares</h3>
 
 
             <div className='h-[calc(100%-20px-4px)] flex items-center justify-center'>

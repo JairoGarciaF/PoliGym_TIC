@@ -1,31 +1,46 @@
 import React from 'react'
-import { FaUsers, FaUserPlus } from "react-icons/fa";
+import { FaUsers, FaUserPlus, FaFireAlt } from "react-icons/fa";
+import { BiSolidMessageAltDetail } from "react-icons/bi";
 
 export const StatCards = () => {
     return (
-        <>
+        <div className='row-span-4 col-span-6 gap-4 grid grid-cols-6 grid-rows-2'>
             <Card
+                sx={'col-span-3'}
                 title={'Usuarios'}
-                value={'14.5K'}
+                value={'245'}
                 Icon={FaUsers}
             />
             <Card
+                sx={'col-span-3'}
                 title={'Nuevos Usuarios'}
-                value={'1.5K'}
+                value={'28'}
                 Icon={FaUserPlus}
             />
-        </>
+            <Card
+                sx={'col-span-3'}
+                title={'Actividad de Hoy'}
+                value={'14'}
+                Icon={FaFireAlt}
+            />
+            <Card
+                sx={'col-span-3'}
+                title={'Comentarios'}
+                value={'50'}
+                Icon={BiSolidMessageAltDetail}
+            />
+        </div>
     )
 }
 
-const Card = ({ title, value, Icon }) => {
+const Card = ({ sx, title, value, Icon }) => {
     return (
-        <div className='bg-white row-span-2 col-span-3 p-4 rounded-xl shadow'>
+        <div className={`${sx} bg-white row-span-1  p-4 rounded-xl shadow`}>
             <div className='flex items-start justify-between'>
                 <div className='open-sans '>
                     <h3 className='text-stone-500 mb-1'>{title}</h3>
                     <div className='flex items-center gap-2 text-azul-marino-500 '>
-                        <Icon className='size-6' />
+                        <Icon className='size-8' />
                         <p className='font-semibold text-4xl'>{value}</p>
                     </div>
                 </div>

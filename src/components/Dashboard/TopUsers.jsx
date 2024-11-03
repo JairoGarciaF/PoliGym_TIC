@@ -1,8 +1,8 @@
-import React from 'react'
-import { FaUserClock, FaMedal } from 'react-icons/fa';
+import React from 'react';
+import { FaMedal } from 'react-icons/fa';
+import { IoMdPodium } from "react-icons/io";
 
 const defaultProfilePic = 'https://api.dicebear.com/9.x/initials/svg?seed=User';
-
 
 const personas = [
     {
@@ -268,60 +268,38 @@ const personas = [
 ];
 
 
-export const UsersTable = () => {
-
+export const TopUsers = () => {
     const personasOrdenadas = [...personas].sort((a, b) => b.diasActividad - a.diasActividad);
     const topUsers = personasOrdenadas.slice(0, 3);
 
     return (
-        <div className='bg-white col-span-6 row-span-6 p-4 rounded-xl shadow '>
-            <h3 className='text-azul-marino-500 mb-1 flex items-center  gap-2 font-medium'> <FaUserClock className='size-4' />Usuarios Frecuentes</h3>
-            <div className="relative h-[calc(100%-28px)] overflow-x-auto border rounded-xl">
-                <div className="h-full overflow-y-auto">
-                    <table className="w-full text-sm text-left rtl:text-right text-azul-marino-500 ">
-                        <thead className="text-xs text-white rounded uppercase bg-azul-marino-500 ">
-                            <tr>
-                                <th scope="col" className="px-6 py-3">
-                                    Nombre
-                                </th>
-                                <th scope="col" className="px-6 py-3 text-center">
-                                    Género
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Días activo
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {personasOrdenadas.map((persona, index) => (
-                                <tr key={index} className="bg-white border-b hover:bg-slate-100 ">
-                                    <th scope="row" className="px-6 py-4 font-medium text-azul-marino-900 whitespace-nowrap ">
-                                        {persona.nombre}
-                                    </th>
-                                    <td className="px-6 py-4 text-center">
-                                        <span
-                                            className={`px-3 py-1  rounded-full font-semibold ${persona.genero === 'Masculino'
-                                                ? 'bg-sky-100 text-sky-700'
-                                                : persona.genero === 'Femenino'
-                                                    ? 'bg-pink-100 text-pink-700'
-                                                    : 'bg-gray-100 text-gray-700'
-                                                }`}
-                                        >
-                                            {persona.genero}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        {persona.diasActividad} días
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+        <div className='bg-white col-span-6 row-span-4 p-4 rounded-xl shadow'>
+            <h3 className='text-azul-marino-500 mb-4 flex items-center gap-2 font-medium'>
+                <IoMdPodium className='size-5' /> Usuarios Frecuentes
+            </h3>
 
+            <div className='h-[calc(100%-44px)] flex items-center justify-center'>
+
+                <div className=' flex justify-center items-end gap-4'>
+                    {topUsers.map((user, index) => (
+                        <div
+                            key={index}
+                            className={`flex flex-col items-center justify-top p-2 rounded-lg shadow-lg w-32 ${index === 0 ? 'bg-yellow-400 h-44 ' : index === 1 ? 'bg-gray-400 h-36 order-first' : 'bg-yellow-600 h-28'
+                                }`}
+                        >
+                            <div className={`flex flex-col rounded-lg mb-2 p-1 w-full ${index === 0 ? 'bg-yellow-200' : index === 1 ? 'bg-gray-300' : 'bg-yellow-400'}`}>
+                                <span className='font-semibold text-center text-slate-800'>{user.nombre}</span>
+                                <span className='text-sm text-center text-slate-600'>{user.diasActividad} días</span>
+                            </div>
+                            <FaMedal
+                                size={25}
+                                className={index === 0 ? 'text-yellow-200' : index === 1 ? 'text-gray-300' : 'text-yellow-400'}
+                            />
+                        </div>
+                    ))}
                 </div>
-
             </div>
-        </div>
 
-    )
+        </div>
+    );
 }

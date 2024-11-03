@@ -5,6 +5,7 @@ import { IconButton, TextField, Menu, MenuItem, Switch, FormControlLabel, ListIt
 import { TbDotsVertical } from 'react-icons/tb';
 import { FaShieldAlt, FaUser, FaSearch, FaEye, FaEyeSlash, FaList } from "react-icons/fa";
 import { IoMale, IoFemale, IoMaleFemale } from "react-icons/io5";
+import { GenderGraph } from './GenderGraph';
 
 
 
@@ -15,9 +16,9 @@ export const General = ({ usuarios }) => {
 
 
     return (
-        <div className="pt-4 h-[calc(100%-36px-41px)] space-y-4 open-sans">
+        <div className="h-[calc(100%-36px-49px)]  grid grid-rows-12 p-4 bg-slate-100 rounded-xl mt-2 open-sans gap-4 grid-cols-12">
 
-            a
+            <GenderGraph usuarios={usuarios} />
 
 
 
