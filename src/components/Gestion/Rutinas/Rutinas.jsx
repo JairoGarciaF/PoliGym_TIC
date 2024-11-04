@@ -15,6 +15,8 @@ const initialRows = [
         dificultad: 'Alta',
         oculto: false,
         musculos: ['chest', 'lowerBack', 'quads'],
+        uso_semanal: [10, 12, 8, 10, 5, 8, 12], // Uso de la rutina por día de la semana (lunes a domingo). EL total de la semana es 65
+        uso_mensual: [140, 145, 150, 135, 130, 150, 140, 155, 160, 185, 0, 0], // Uso de la rutina por cada mes (ene a dic). 
         ejercicios: [
             {
                 id: 6,
@@ -46,6 +48,8 @@ const initialRows = [
         dificultad: 'Media',
         oculto: true,
         musculos: ['biceps', 'chest', 'shoulders'],
+        uso_semanal: [5, 8, 10, 12, 15, 10, 8], // Uso de la rutina por día de la semana (lunes a domingo). 
+        uso_mensual: [120, 130, 140, 135, 150, 160, 155, 170, 180, 190, 0, 0], // Uso de la rutina por cada mes (ene a dic).
         ejercicios: [
             {
                 id: 9,
@@ -77,6 +81,8 @@ const initialRows = [
         dificultad: 'Baja',
         oculto: false,
         musculos: ['quads', 'abdominals'],
+        uso_semanal: [8, 10, 12, 15, 10, 8, 5], // Uso de la rutina por día de la semana (lunes a domingo). 
+        uso_mensual: [100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 0, 0], // Uso de la rutina por cada mes (ene a dic).
         ejercicios: [
             {
                 id: 12,
@@ -101,6 +107,8 @@ const initialRows = [
         dificultad: 'Alta',
         oculto: true,
         musculos: ['traps', 'shoulders', 'quads'],
+        uso_semanal: [12, 15, 10, 8, 5, 8, 10], // Uso de la rutina por día de la semana (lunes a domingo). 
+        uso_mensual: [150, 160, 155, 170, 180, 190, 200, 210, 220, 230, 0, 0], // Uso de la rutina por cada mes (ene a dic).
         ejercicios: [
             {
                 id: 14,
@@ -132,6 +140,8 @@ const initialRows = [
         dificultad: 'Media',
         oculto: false,
         musculos: ['biceps', 'quads'],
+        uso_semanal: [10, 8, 5, 8, 10, 12, 15], // Uso de la rutina por día de la semana (lunes a domingo). 
+        uso_mensual: [130, 140, 150, 160, 155, 170, 180, 190, 200, 210, 0, 0], // Uso de la rutina por cada mes (ene a dic).
         ejercicios: [
             {
                 id: 17,

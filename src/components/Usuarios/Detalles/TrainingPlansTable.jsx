@@ -4,32 +4,40 @@ import { FaDumbbell } from "react-icons/fa";
 const planesEntrenamiento = [
     {
         "plan": "Entrenamiento de fuerza",
-        "dificultad": "Avanzado",
-        "categoria": "Fuerza",
+        "dificultad": "Alta",
         "fecha": "2024-10-01",
         "estado": "Activo"
     },
     {
         "plan": "Entrenamiento HIIT",
-        "dificultad": "Intermedio",
-        "categoria": "Cardio",
+        "dificultad": "Media",
         "fecha": "2024-09-20",
         "estado": "Finalizado"
     },
     {
-        "plan": "Yoga para principiantes",
-        "dificultad": "Principiante",
-        "categoria": "Flexibilidad",
+        "plan": "Entrenamiento de cuerpo completo",
+        "dificultad": "Baja",
         "fecha": "2024-09-05",
         "estado": "Finalizado"
     },
     {
-        "plan": "Entrenamiento funcional",
-        "dificultad": "Intermedio",
-        "categoria": "Resistencia",
-        "fecha": "2024-08-30",
+        "plan": "Plan Inicial",
+        "dificultad": "Baja",
+        "fecha": "2024-09-25",
+        "estado": "Finalizado"
+    },
+    {
+        "plan": "Plan Intermedio",
+        "dificultad": "Media",
+        "fecha": "2024-09-05",
         "estado": "Activo"
-    }
+    },
+    {
+        "plan": "Plan Avanzado",
+        "dificultad": "Alta",
+        "fecha": "2024-09-15",
+        "estado": "Finalizado"
+    },
 ]
 
 export const TrainingPlansTable = () => {
@@ -42,11 +50,11 @@ export const TrainingPlansTable = () => {
     // Función que devuelve el color según la dificultad
     const getPillColor = (dificultad) => {
         switch (dificultad) {
-            case "Avanzado":
+            case "Alta":
                 return "bg-red-100 text-red-700";
-            case "Intermedio":
+            case "Media":
                 return "bg-yellow-100 text-yellow-700";
-            case "Principiante":
+            case "Baja":
                 return "bg-green-100 text-green-700";
             default:
                 return "bg-gray-100 text-gray-700";
@@ -90,9 +98,6 @@ export const TrainingPlansTable = () => {
                                     Dificultad
                                 </th>
                                 <th scope="col" className="p-2 text-center">
-                                    Categoría
-                                </th>
-                                <th scope="col" className="p-2 text-center">
                                     Fecha
                                 </th>
                             </tr>
@@ -107,9 +112,6 @@ export const TrainingPlansTable = () => {
                                         <span className={`px-2 py-1 rounded-full whitespace-nowrap ${getPillColor(plan.dificultad)}`}>
                                             {plan.dificultad}
                                         </span>
-                                    </td>
-                                    <td className="p-2 text-center whitespace-nowrap">
-                                        {plan.categoria}
                                     </td>
                                     <td className="p-2 text-center whitespace-nowrap">
                                         {plan.fecha}

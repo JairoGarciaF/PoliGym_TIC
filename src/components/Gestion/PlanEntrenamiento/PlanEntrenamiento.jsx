@@ -13,6 +13,7 @@ const initialRows = [
         nombre: "Plan Inicial",
         imagenPlanEntrenamiento: 'https://example.com/plan1',
         descripcion: "Un plan básico para principiantes que introduce los conceptos fundamentales del entrenamiento.",
+        usos: 12,
         duracion: 4,  // semanas
         dificultad: "Baja",
         oculto: false,
@@ -116,6 +117,7 @@ const initialRows = [
         nombre: "Plan Intermedio",
         imagenPlanEntrenamiento: 'https://example.com/plan1',
         descripcion: "Un plan para aquellos con algo de experiencia, enfocado en la ganancia muscular y fuerza.",
+        usos: 43,
         duracion: 8,  // semanas
         dificultad: "Media",
         oculto: true,
@@ -219,8 +221,321 @@ const initialRows = [
         nombre: "Plan Avanzado",
         imagenPlanEntrenamiento: 'https://example.com/plan1',
         descripcion: "Un plan avanzado diseñado para aumentar fuerza y resistencia muscular.",
+        usos: 23,
         duracion: 12,  // semanas
         dificultad: "Alta",
+        oculto: false,
+        detalleDias: {
+            lunes: {
+                id: 1,
+                nombre: 'Rutina de Fuerza',
+                dificultad: 'Alta',
+                oculto: false,
+                musculos: ['chest', 'lowerBack', 'quads'],
+                ejercicios: [
+                    {
+                        id: 6,
+                        nombre: 'Press de Banca',
+                        series: 4,
+                        repeticiones: 8,
+                        tiempoDescanso: 90
+                    },
+                    {
+                        id: 7,
+                        nombre: 'Peso Muerto',
+                        series: 4,
+                        repeticiones: 6,
+                        tiempoDescanso: 120
+                    },
+                    {
+                        id: 8,
+                        nombre: 'Sentadillas',
+                        series: 4,
+                        repeticiones: 10,
+                        tiempoDescanso: 90
+                    }
+                ]
+            },
+            martes: "Descanso",
+            miércoles: {
+                id: 2,
+                nombre: 'Rutina de Hipertrofia',
+                dificultad: 'Media',
+                oculto: true,
+                musculos: ['biceps', 'chest', 'shoulders'],
+                ejercicios: [
+                    {
+                        id: 9,
+                        nombre: 'Curl de Bíceps',
+                        series: 4,
+                        repeticiones: 12,
+                        tiempoDescanso: 60
+                    },
+                    {
+                        id: 10,
+                        nombre: 'Press Militar',
+                        series: 4,
+                        repeticiones: 10,
+                        tiempoDescanso: 90
+                    },
+                    {
+                        id: 11,
+                        nombre: 'Fondos en Paralelas',
+                        series: 3,
+                        repeticiones: 15,
+                        tiempoDescanso: 60
+                    }
+                ]
+            },
+            jueves: "Descanso",
+            viernes: {
+                id: 4,
+                nombre: 'Rutina de Potencia',
+                dificultad: 'Alta',
+                oculto: true,
+                musculos: ['traps', 'shoulders', 'quads'],
+                ejercicios: [
+                    {
+                        id: 14,
+                        nombre: 'Arranque con Barra',
+                        series: 5,
+                        repeticiones: 5,
+                        tiempoDescanso: 120
+                    },
+                    {
+                        id: 15,
+                        nombre: 'Press de Hombro con Mancuernas',
+                        series: 4,
+                        repeticiones: 8,
+                        tiempoDescanso: 90
+                    },
+                    {
+                        id: 16,
+                        nombre: 'Dominadas',
+                        series: 4,
+                        repeticiones: 8,
+                        tiempoDescanso: 90
+                    }
+                ]
+            }
+        }
+    },
+    {
+        id: 4,
+        nombre: "Entrenamiento de fuerza",
+        imagenPlanEntrenamiento: 'https://example.com/plan1',
+        descripcion: "Un plan avanzado diseñado para aumentar fuerza y resistencia muscular.",
+        usos: 23,
+        duracion: 12,  // semanas
+        dificultad: "Alta",
+        oculto: false,
+        detalleDias: {
+            lunes: {
+                id: 1,
+                nombre: 'Rutina de Fuerza',
+                dificultad: 'Alta',
+                oculto: false,
+                musculos: ['chest', 'lowerBack', 'quads'],
+                ejercicios: [
+                    {
+                        id: 6,
+                        nombre: 'Press de Banca',
+                        series: 4,
+                        repeticiones: 8,
+                        tiempoDescanso: 90
+                    },
+                    {
+                        id: 7,
+                        nombre: 'Peso Muerto',
+                        series: 4,
+                        repeticiones: 6,
+                        tiempoDescanso: 120
+                    },
+                    {
+                        id: 8,
+                        nombre: 'Sentadillas',
+                        series: 4,
+                        repeticiones: 10,
+                        tiempoDescanso: 90
+                    }
+                ]
+            },
+            martes: "Descanso",
+            miércoles: {
+                id: 2,
+                nombre: 'Rutina de Hipertrofia',
+                dificultad: 'Media',
+                oculto: true,
+                musculos: ['biceps', 'chest', 'shoulders'],
+                ejercicios: [
+                    {
+                        id: 9,
+                        nombre: 'Curl de Bíceps',
+                        series: 4,
+                        repeticiones: 12,
+                        tiempoDescanso: 60
+                    },
+                    {
+                        id: 10,
+                        nombre: 'Press Militar',
+                        series: 4,
+                        repeticiones: 10,
+                        tiempoDescanso: 90
+                    },
+                    {
+                        id: 11,
+                        nombre: 'Fondos en Paralelas',
+                        series: 3,
+                        repeticiones: 15,
+                        tiempoDescanso: 60
+                    }
+                ]
+            },
+            jueves: "Descanso",
+            viernes: {
+                id: 4,
+                nombre: 'Rutina de Potencia',
+                dificultad: 'Alta',
+                oculto: true,
+                musculos: ['traps', 'shoulders', 'quads'],
+                ejercicios: [
+                    {
+                        id: 14,
+                        nombre: 'Arranque con Barra',
+                        series: 5,
+                        repeticiones: 5,
+                        tiempoDescanso: 120
+                    },
+                    {
+                        id: 15,
+                        nombre: 'Press de Hombro con Mancuernas',
+                        series: 4,
+                        repeticiones: 8,
+                        tiempoDescanso: 90
+                    },
+                    {
+                        id: 16,
+                        nombre: 'Dominadas',
+                        series: 4,
+                        repeticiones: 8,
+                        tiempoDescanso: 90
+                    }
+                ]
+            }
+        }
+    },
+    {
+        id: 5,
+        nombre: "Entrenamiento HIIT",
+        imagenPlanEntrenamiento: 'https://example.com/plan1',
+        descripcion: "Un plan medio diseñado para aumentar fuerza y resistencia muscular.",
+        usos: 41,
+        duracion: 12,  // semanas
+        dificultad: "Media",
+        oculto: false,
+        detalleDias: {
+            lunes: {
+                id: 1,
+                nombre: 'Rutina de Fuerza',
+                dificultad: 'Alta',
+                oculto: false,
+                musculos: ['chest', 'lowerBack', 'quads'],
+                ejercicios: [
+                    {
+                        id: 6,
+                        nombre: 'Press de Banca',
+                        series: 4,
+                        repeticiones: 8,
+                        tiempoDescanso: 90
+                    },
+                    {
+                        id: 7,
+                        nombre: 'Peso Muerto',
+                        series: 4,
+                        repeticiones: 6,
+                        tiempoDescanso: 120
+                    },
+                    {
+                        id: 8,
+                        nombre: 'Sentadillas',
+                        series: 4,
+                        repeticiones: 10,
+                        tiempoDescanso: 90
+                    }
+                ]
+            },
+            martes: "Descanso",
+            miércoles: {
+                id: 2,
+                nombre: 'Rutina de Hipertrofia',
+                dificultad: 'Media',
+                oculto: true,
+                musculos: ['biceps', 'chest', 'shoulders'],
+                ejercicios: [
+                    {
+                        id: 9,
+                        nombre: 'Curl de Bíceps',
+                        series: 4,
+                        repeticiones: 12,
+                        tiempoDescanso: 60
+                    },
+                    {
+                        id: 10,
+                        nombre: 'Press Militar',
+                        series: 4,
+                        repeticiones: 10,
+                        tiempoDescanso: 90
+                    },
+                    {
+                        id: 11,
+                        nombre: 'Fondos en Paralelas',
+                        series: 3,
+                        repeticiones: 15,
+                        tiempoDescanso: 60
+                    }
+                ]
+            },
+            jueves: "Descanso",
+            viernes: {
+                id: 4,
+                nombre: 'Rutina de Potencia',
+                dificultad: 'Alta',
+                oculto: true,
+                musculos: ['traps', 'shoulders', 'quads'],
+                ejercicios: [
+                    {
+                        id: 14,
+                        nombre: 'Arranque con Barra',
+                        series: 5,
+                        repeticiones: 5,
+                        tiempoDescanso: 120
+                    },
+                    {
+                        id: 15,
+                        nombre: 'Press de Hombro con Mancuernas',
+                        series: 4,
+                        repeticiones: 8,
+                        tiempoDescanso: 90
+                    },
+                    {
+                        id: 16,
+                        nombre: 'Dominadas',
+                        series: 4,
+                        repeticiones: 8,
+                        tiempoDescanso: 90
+                    }
+                ]
+            }
+        }
+    },
+    {
+        id: 6,
+        nombre: "Entrenamiento de cuerpo completo",
+        imagenPlanEntrenamiento: 'https://example.com/plan1',
+        descripcion: "Un plan básico diseñado para aumentar fuerza y resistencia muscular.",
+        usos: 23,
+        duracion: 12,  // semanas
+        dificultad: "Baja",
         oculto: false,
         detalleDias: {
             lunes: {

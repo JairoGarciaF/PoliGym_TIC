@@ -216,7 +216,7 @@ export const Ejercicios = () => {
                         className={`p-2 text-xs rounded-l-lg transition-colors 
                     ${infoMode === 'Semanal'
                                 ? 'text-blue-700   bg-blue-100'
-                                : 'text-stone-500 border hover:bg-stone-50'}`}
+                                : 'text-slate-500 border hover:bg-slate-50'}`}
                     >
                         Semanal
                     </button>
@@ -225,7 +225,7 @@ export const Ejercicios = () => {
                         className={`p-2 text-xs rounded-r-lg  transition-colors 
                     ${infoMode === 'Mensual'
                                 ? 'text-cyan-700  bg-cyan-100'
-                                : 'text-stone-500 border hover:bg-stone-50'}`}
+                                : 'text-slate-500 border hover:bg-slate-50'}`}
                     >
                         Mensual
                     </button>

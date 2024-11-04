@@ -206,7 +206,7 @@ export const Implementos = () => {
                         </span>
                     </nav>
                     <div className='grid h-[calc(100%-49px)] grid-rows-1 bg-slate-100 gap-4 p-4 rounded-xl grid-cols-2'>
-                        <ImplementsGraph data={pieChartData} />
+                        <ImplementsGraph data={pieChartData} total={implementos.length} />
                         <ImplementsTable data={tableData} infoMode={infoMode} />
                     </div>
                 </div>

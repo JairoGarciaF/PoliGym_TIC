@@ -8,21 +8,21 @@ const FemaleBack = ({ className, recentMuscles = [], oldMuscles = [], ...props }
 
     // Estado para el color de los músculos
     const [muscleColors, setMuscleColors] = useState({
-        calves: defaultColor,
-        quads: defaultColor,
-        obliques: defaultColor,
-        abdominals: defaultColor,
-        forearms: defaultColor,
-        biceps: defaultColor,
-        chest: defaultColor,
-        shoulders: defaultColor,
-        traps: defaultColor,
-        lowerback: defaultColor,
-        triceps: defaultColor,
-        hamstrings: defaultColor,
-        glutes: defaultColor,
-        lats: defaultColor,
-        "traps-middle": defaultColor,
+        calves: defaultColor, //legs
+        quads: defaultColor, //legs
+        obliques: defaultColor, //abs
+        abdominals: defaultColor, //abs
+        forearms: defaultColor, //arms
+        biceps: defaultColor, //arms
+        chest: defaultColor, //chest
+        shoulders: defaultColor, //arms
+        traps: defaultColor, //back
+        lowerback: defaultColor, //back
+        triceps: defaultColor, //arms
+        hamstrings: defaultColor, //legs
+        glutes: defaultColor, //legs
+        lats: defaultColor, //back
+        "traps-middle": defaultColor, //back
     });
 
     // Efecto para actualizar colores según recentMuscles y oldMuscles

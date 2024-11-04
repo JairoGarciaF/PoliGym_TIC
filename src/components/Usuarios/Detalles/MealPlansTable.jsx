@@ -2,22 +2,17 @@ import React, { useState } from 'react'
 import { PiBowlFoodFill } from "react-icons/pi";
 const planesAlimentacion = [
     {
-        "plan": "Plan de pérdida de peso",
+        "plan": "Plan Básico de Pérdida de Peso",
         "fecha": "2024-10-01",
         "estado": "Activo"
     },
     {
-        "plan": "Plan de aumento de masa muscular",
+        "plan": "Plan de Ganancia Muscular",
         "fecha": "2024-09-15",
         "estado": "Finalizado"
     },
     {
-        "plan": "Plan de dieta keto",
-        "fecha": "2024-09-10",
-        "estado": "Finalizado"
-    },
-    {
-        "plan": "Plan de mantenimiento",
+        "plan": "Plan de Mantenimiento",
         "fecha": "2024-08-25",
         "estado": "Activo"
     }

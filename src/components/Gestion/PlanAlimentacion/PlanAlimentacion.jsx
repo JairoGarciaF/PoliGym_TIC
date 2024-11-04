@@ -14,6 +14,7 @@ const initialRows = [
         nombre: "Plan Básico de Pérdida de Peso",
         imagenPlanAlimentacion: 'https://example.com/plan1',
         descripcion: "Un plan de alimentación diseñado para reducir la ingesta calórica y favorecer la pérdida de peso.",
+        usos: 32,
         duracion: 4,  // semanas
         categoria: "Pérdida de Peso",
         oculto: false,
@@ -60,6 +61,7 @@ const initialRows = [
         nombre: "Plan de Ganancia Muscular",
         imagenPlanAlimentacion: 'https://example.com/plan1',
         descripcion: "Un plan alto en proteínas y calorías para promover el desarrollo muscular.",
+        usos: 22,
         duracion: 6,  // semanas
         categoria: "Volumen",
         oculto: true,
@@ -106,6 +108,7 @@ const initialRows = [
         nombre: "Plan de Mantenimiento",
         imagenPlanAlimentacion: 'https://example.com/plan1',
         descripcion: "Un plan balanceado para mantener el peso y llevar una alimentación saludable.",
+        usos: 14,
         duracion: 8,  // semanas
         categoria: 'Definición',
         oculto: false,
@@ -148,7 +151,6 @@ const initialRows = [
         }
     }
 ];
-
 
 export const PlanAlimentacion = () => {
     const [searchText, setSearchText] = useState('');

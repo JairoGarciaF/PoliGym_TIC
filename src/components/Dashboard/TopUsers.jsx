@@ -1,305 +1,45 @@
 import React from 'react';
-import { FaMedal } from 'react-icons/fa';
+import { FaCrown } from 'react-icons/fa';
 import { IoMdPodium } from "react-icons/io";
 
-const defaultProfilePic = 'https://api.dicebear.com/9.x/initials/svg?seed=User';
-
-const personas = [
-    {
-        id: 1,
-        nombre: 'Carlos',
-        correo: 'carlos@example.com',
-        rol: 'Usuario',
-        edad: 25,
-        genero: 'Masculino',
-        diasActividad: 5,
-        peso: 55,
-        altura: 163,
-        objetivo: 'Ganar Musculo',
-        estadoFisico: 'Principiante',
-        comentarios: 10,
-        notificaciones: true,
-        problemasMedicos: 'Ninguno',
-        detalleProblemasMedicos: '',
-        horario: 'AM',
-        diasSeleccionados: ['Lunes', 'Martes', 'Viernes'],
-        imagenPerfil: defaultProfilePic,
-    },
-    {
-        id: 2,
-        nombre: 'Ana',
-        correo: 'ana@example.com',
-        rol: 'Usuario',
-        edad: 30,
-        genero: 'Femenino',
-        diasActividad: 3,
-        peso: 60,
-        altura: 170,
-        objetivo: 'Bajar de Peso',
-        estadoFisico: 'Intermedio',
-        comentarios: 5,
-        notificaciones: false,
-        problemasMedicos: 'Alergias',
-        detalleProblemasMedicos: 'Alergia a la mantequilla de maní',
-        horario: 'PM',
-        diasSeleccionados: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'],
-        imagenPerfil: defaultProfilePic,
-    },
-    {
-        id: 3,
-        nombre: 'Pedro',
-        correo: 'pedro@example.com',
-        rol: 'Admin',
-        edad: 40,
-        genero: 'Masculino',
-        diasActividad: 4,
-        peso: 70,
-        altura: 180,
-        objetivo: 'Ganar Musculo',
-        estadoFisico: 'Avanzado',
-        comentarios: 15,
-        notificaciones: true,
-        problemasMedicos: 'Lesiones',
-        detalleProblemasMedicos: 'Dolor en la rodilla derecha',
-        horario: 'AM',
-        diasSeleccionados: ['Lunes', 'Jueves', 'Viernes'],
-        imagenPerfil: defaultProfilePic,
-    },
-    {
-        id: 4,
-        nombre: 'Sofía',
-        correo: 'sofia@example.com',
-        rol: 'Usuario',
-        edad: 28,
-        genero: 'Femenino',
-        diasActividad: 6,
-        peso: 65,
-        altura: 165,
-        objetivo: 'Ganar Musculo',
-        estadoFisico: 'Intermedio',
-        comentarios: 8,
-        notificaciones: true,
-        problemasMedicos: 'Ninguno',
-        detalleProblemasMedicos: '',
-        horario: 'PM',
-        diasSeleccionados: ['Miercoles', 'Jueves'],
-        imagenPerfil: defaultProfilePic,
-    },
-    {
-        id: 5,
-        nombre: 'Javier',
-        correo: 'javier@example.com',
-        rol: 'Usuario',
-        edad: 35,
-        genero: 'Masculino',
-        diasActividad: 2,
-        peso: 75,
-        altura: 175,
-        objetivo: 'Bajar de Peso',
-        estadoFisico: 'Principiante',
-        comentarios: 12,
-        notificaciones: true,
-        problemasMedicos: 'Alergias',
-        detalleProblemasMedicos: '',
-        horario: 'AM',
-        diasSeleccionados: ['Martes', 'Viernes'],
-        imagenPerfil: defaultProfilePic,
-    },
-    {
-        id: 6,
-        nombre: 'María',
-        correo: 'maria@example.com',
-        rol: 'Usuario',
-        edad: 20,
-        genero: 'Femenino',
-        diasActividad: 7,
-        peso: 50,
-        altura: 160,
-        objetivo: 'Bajar de Peso',
-        estadoFisico: 'Avanzado',
-        comentarios: 20,
-        notificaciones: true,
-        problemasMedicos: 'Ninguno',
-        detalleProblemasMedicos: '',
-        horario: 'AM',
-        diasSeleccionados: ['Lunes', 'Miercoles'],
-        imagenPerfil: defaultProfilePic,
-    },
-    {
-        id: 7,
-        nombre: 'Luis',
-        correo: 'luis@example.com',
-        rol: 'Usuario',
-        edad: 45,
-        genero: 'Masculino',
-        diasActividad: 1,
-        peso: 80,
-        altura: 185,
-        objetivo: 'Mantenerse en Forma',
-        estadoFisico: 'Intermedio',
-        comentarios: 6,
-        notificaciones: true,
-        problemasMedicos: 'Alergias',
-        detalleProblemasMedicos: '',
-        horario: 'PM',
-        diasSeleccionados: ['Lunes', 'Martes', 'Jueves'],
-        imagenPerfil: defaultProfilePic,
-    },
-    {
-        id: 8,
-        nombre: 'Elena',
-        correo: 'elena@example.com',
-        rol: 'Admin',
-        edad: 22,
-        genero: 'Otro',
-        diasActividad: 5,
-        peso: 55,
-        altura: 163,
-        objetivo: 'Ganar Musculo',
-        estadoFisico: 'Principiante',
-        comentarios: 10,
-        notificaciones: true,
-        problemasMedicos: 'Ninguno',
-        detalleProblemasMedicos: '',
-        horario: 'AM',
-        diasSeleccionados: ['Miercoles', 'Viernes'],
-        imagenPerfil: defaultProfilePic,
-    },
-    {
-        id: 9,
-        nombre: 'Miguel',
-        correo: 'miguel@example.com',
-        rol: 'Usuario',
-        edad: 30,
-        genero: 'Masculino',
-        diasActividad: 3,
-        peso: 60,
-        altura: 170,
-        objetivo: 'Ganar Musculo',
-        estadoFisico: 'Intermedio',
-        comentarios: 5,
-        notificaciones: true,
-        problemasMedicos: 'Ninguno',
-        detalleProblemasMedicos: '',
-        horario: 'AM',
-        diasSeleccionados: ['Lunes', 'Jueves', 'Viernes'],
-        imagenPerfil: defaultProfilePic,
-    },
-    {
-        id: 10,
-        nombre: 'Laura',
-        correo: 'laura@example.com',
-        rol: 'Usuario',
-        edad: 40,
-        genero: 'Femenino',
-        diasActividad: 4,
-        peso: 70,
-        altura: 180,
-        objetivo: 'Ganar Musculo',
-        estadoFisico: 'Avanzado',
-        comentarios: 15,
-        notificaciones: true,
-        problemasMedicos: 'Ninguno',
-        detalleProblemasMedicos: '',
-        horario: 'AM',
-        diasSeleccionados: ['Lunes', 'Martes'],
-        imagenPerfil: defaultProfilePic,
-    },
-    {
-        id: 11,
-        nombre: 'Raúl',
-        correo: 'raul@example.com',
-        rol: 'Usuario',
-        edad: 28,
-        genero: 'Masculino',
-        diasActividad: 6,
-        peso: 65,
-        altura: 165,
-        objetivo: 'Bajar de Peso',
-        estadoFisico: 'Intermedio',
-        comentarios: 8,
-        notificaciones: true,
-        problemasMedicos: 'Ninguno',
-        detalleProblemasMedicos: '',
-        horario: 'AM',
-        diasSeleccionados: ['Martes', 'Miercoles', 'Jueves'],
-        imagenPerfil: defaultProfilePic,
-    },
-    {
-        id: 12,
-        nombre: 'Carmen',
-        correo: 'carmen@example.com',
-        rol: 'Usuario',
-        edad: 35,
-        genero: 'Otro',
-        diasActividad: 2,
-        peso: 75,
-        altura: 175,
-        objetivo: 'Ganar músculo',
-        estadoFisico: 'Principiante',
-        comentarios: 12,
-        notificaciones: true,
-        problemasMedicos: 'Alergias',
-        detalleProblemasMedicos: '',
-        horario: 'AM',
-        diasSeleccionados: ['Martes', 'Jueves'],
-        imagenPerfil: defaultProfilePic,
-    },
-    {
-        id: 13,
-        nombre: 'Jorge',
-        correo: 'jorge@example.com',
-        rol: 'Usuario',
-        edad: 20,
-        genero: 'Masculino',
-        diasActividad: 7,
-        peso: 50,
-        altura: 160,
-        objetivo: 'Mantenerse en Forma',
-        estadoFisico: 'Avanzado',
-        comentarios: 20,
-        notificaciones: true,
-        problemasMedicos: 'Ninguno',
-        detalleProblemasMedicos: '',
-        horario: 'AM',
-        diasSeleccionados: ['Lunes', 'Jueves', 'Viernes'],
-        imagenPerfil: defaultProfilePic,
-    }
-];
-
-
-export const TopUsers = () => {
-    const personasOrdenadas = [...personas].sort((a, b) => b.diasActividad - a.diasActividad);
-    const topUsers = personasOrdenadas.slice(0, 3);
+export const TopUsers = ({ usuarios }) => {
+    const usuariosOrdenados = [...usuarios].sort((a, b) => b.diasActividad - a.diasActividad);
+    const topUsers = usuariosOrdenados.slice(0, 3);
 
     return (
-        <div className='bg-white col-span-6 row-span-4 p-4 rounded-xl shadow'>
-            <h3 className='text-azul-marino-500 mb-4 flex items-center gap-2 font-medium'>
+        <div className='bg-white p-4 rounded-xl shadow col-span-4 row-span-6'>
+            <h3 className='text-azul-marino-500 mb-4 text-lg flex items-center gap-2 font-medium'>
                 <IoMdPodium className='size-5' /> Usuarios Frecuentes
             </h3>
-
             <div className='h-[calc(100%-44px)] flex items-center justify-center'>
 
-                <div className=' flex justify-center items-end gap-4'>
+                <div className='flex justify-center h-3/4 w-full items-end gap-4'>
                     {topUsers.map((user, index) => (
                         <div
-                            key={index}
-                            className={`flex flex-col items-center justify-top p-2 rounded-lg shadow-lg w-32 ${index === 0 ? 'bg-yellow-400 h-44 ' : index === 1 ? 'bg-gray-400 h-36 order-first' : 'bg-yellow-600 h-28'
-                                }`}
+                            key={user.id}
+                            className={`flex flex-col items-center w-24 ${index === 0 ? 'h-full' : index === 1 ? 'h-2/3 order-first' : 'h-2/3'}`}
                         >
-                            <div className={`flex flex-col rounded-lg mb-2 p-1 w-full ${index === 0 ? 'bg-yellow-200' : index === 1 ? 'bg-gray-300' : 'bg-yellow-400'}`}>
-                                <span className='font-semibold text-center text-slate-800'>{user.nombre}</span>
-                                <span className='text-sm text-center text-slate-600'>{user.diasActividad} días</span>
+                            {index === 0 && (
+                                <FaCrown className="text-yellow-500 text-2xl mb-1" />
+                            )}
+                            <div
+                                className={`relative rounded-full overflow-hidden border-4 
+                                ${index === 0 ? 'border-yellow-500  w-32 h-32 z-10' : index === 1 ? 'border-gray-400  w-24 h-24 z-0' : 'border-amber-700  w-24 h-24 z-0'}
+                            `}
+                            >
+                                <img
+                                    src={user.imagenPerfil}
+                                    alt={user.nombre}
+                                    className="w-full h-full object-cover"
+                                />
+
                             </div>
-                            <FaMedal
-                                size={25}
-                                className={index === 0 ? 'text-yellow-200' : index === 1 ? 'text-gray-300' : 'text-yellow-400'}
-                            />
+                            <span className='font-semibold text-center text-slate-800 mt-2'>{user.nombre}</span>
+                            <span className='text-sm text-center text-slate-600'>{user.diasActividad} días</span>
                         </div>
                     ))}
                 </div>
             </div>
-
         </div>
     );
-}
+};
