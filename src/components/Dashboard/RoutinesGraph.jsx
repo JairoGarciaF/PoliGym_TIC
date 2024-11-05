@@ -173,9 +173,11 @@ const calculateTotals = (routinesStats) => {
 };
 
 const generatePopularChartData = (routinesStats, infoMode) => {
-    const sortedRoutines = routinesStats.sort((a, b) =>
-        infoMode === 'Semanal' ? b.uso_semanal_total - a.uso_semanal_total : b.uso_mensual_total - a.uso_mensual_total
-    );
+    const sortedRoutines = routinesStats
+        .filter(routine => !routine.oculto)
+        .sort((a, b) =>
+            infoMode === 'Semanal' ? b.uso_semanal_total - a.uso_semanal_total : b.uso_mensual_total - a.uso_mensual_total
+        );
     const top = sortedRoutines.slice(0, 5);
     const otherTotal = sortedRoutines.slice(5).reduce((sum, routine) =>
         infoMode === 'Semanal' ? sum + routine.uso_semanal_total : sum + routine.uso_mensual_total, 0
@@ -246,14 +248,14 @@ export const RoutinesGraph = ({ infoMode }) => {
 
     return (
         <div className='bg-white col-span-4 row-span-6 p-4 rounded-xl shadow'>
-            <div className='flex justify-between'>
+            <div className='flex justify-between items-center'>
                 <h3 className='text-azul-marino-500 text-lg flex self-start items-center gap-2 font-medium'>
                     <FaCalendarAlt className='size-4' />
                     Rutinas Populares
                 </h3>
-                <h3 className='text-azul-marino-500   flex self-start items-center gap-2 font-medium'>
+                <h3 className='text-azul-marino-500   flex text-sm items-center gap-2 font-medium'>
                     <TbSum className='size-4' />
-                    Total: {routinesStats.length}
+                    Total Rutinas: {routinesStats.length}
                 </h3>
             </div>
             <div className='flex h-[calc(100%-28px)] items-center justify-center overflow-visible'>

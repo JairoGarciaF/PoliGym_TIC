@@ -53,15 +53,15 @@ export const ImplementsGraph = ({ data, total }) => {
         <div
             className='bg-white p-4 rounded-xl shadow h-full'
         >
-            <div className='flex justify-between'>
+            <div className='flex justify-between items-center'>
                 <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
                     <BsFire className='size-5' />
                     Implementos Populares
                 </h3>
 
-                <h3 className='text-azul-marino-500   flex self-start items-center gap-2 font-medium'>
+                <h3 className='text-azul-marino-500   flex text-sm items-center gap-2 font-medium'>
                     <TbSum className='size-4' />
-                    Total: {total}
+                    Total Implementos: {total}
                 </h3>
             </div>
 

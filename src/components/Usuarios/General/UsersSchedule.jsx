@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend } from 'recharts';
-import { IoMaleFemale } from "react-icons/io5";
+import { FaClock } from "react-icons/fa";
 
 const renderActiveShape = (props) => {
     const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
@@ -35,41 +35,26 @@ const renderActiveShape = (props) => {
     );
 };
 
-export const GenderGraph = ({ usuarios }) => {
+export const UsersSchedule = ({ usuarios }) => {
     const [activeIndex, setActiveIndex] = useState(0);
 
-    const onPieEnter = (_, index) => {
-        setActiveIndex(index);
-    };
+    const onPieEnter = (_, index) => setActiveIndex(index);
 
-    // Inicializamos un objeto para contar usuarios por género
-    const genderCount = { Masculino: 0, Femenino: 0, Otro: 0 };
+    const scheduleCount = { Mañana: 0, Tarde: 0, Noche: 0 };
 
     const filteredUsers = usuarios.filter(user => !user.oculto);
-    // Contamos los usuarios por género
-    filteredUsers.forEach(persona => {
-        if (genderCount[persona.genero] !== undefined) {
-            genderCount[persona.genero]++;
-        } else {
-            genderCount['Otro']++;
-        }
+    filteredUsers.forEach(user => {
+        scheduleCount[user.horario] = (scheduleCount[user.horario] || 0) + 1;
     });
 
-    // Creamos el nuevo arreglo para el gráfico circular
-    const usersPerGender = [
-        { name: 'Masculino', value: genderCount.Masculino },
-        { name: 'Femenino', value: genderCount.Femenino },
-        { name: 'Otro', value: genderCount.Otro },
-    ];
+    const data = Object.entries(scheduleCount).map(([name, value]) => ({ name, value }));
 
-    // Definimos colores para cada segmento
-    const COLORS = ['#0369a1', '#ec4899', '#94a3b8'];
+    const COLORS = ['#FFD700', '#FF6347', '#4682B4'];
 
     return (
         <div className='bg-white col-span-4 row-span-6 p-4 rounded-xl shadow flex flex-col items-center'>
             <h3 className='text-azul-marino-500 flex self-start items-center gap-2 font-medium'>
-                <IoMaleFemale className='size-5' />
-                Usuarios por Género
+                <FaClock className='size-5' /> Horarios de Usuarios
             </h3>
             <div className='h-[calc(100%-28px)] w-full flex items-center justify-center'>
                 <ResponsiveContainer width="100%" height="100%">
@@ -77,7 +62,7 @@ export const GenderGraph = ({ usuarios }) => {
                         <Pie
                             activeIndex={activeIndex}
                             activeShape={renderActiveShape}
-                            data={usersPerGender}
+                            data={data}
                             cx="50%"
                             cy="50%"
                             innerRadius="35%"
@@ -87,7 +72,7 @@ export const GenderGraph = ({ usuarios }) => {
                             dataKey="value"
                             onMouseEnter={onPieEnter}
                         >
-                            {usersPerGender.map((entry, index) => (
+                            {data.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                             ))}
                         </Pie>

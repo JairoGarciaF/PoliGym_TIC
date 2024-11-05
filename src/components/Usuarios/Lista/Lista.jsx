@@ -134,7 +134,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
                         className={`px-3 py-1 text-sm rounded-full font-medium flex items-center gap-1  ${params.row.tipo === 'Estudiante'
                             ? 'bg-blue-100 text-blue-800'
                             : params.row.tipo === 'Profesor' ? 'bg-rose-100 text-rose-800'
-                                : 'bg-gray-100 text-gray-800'
+                                : 'bg-teal-100 text-teal-800'
 
                             }`}
                     >

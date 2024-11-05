@@ -850,13 +850,13 @@ export const PlansGraph = () => {
 
     return (
         <div className='bg-white col-span-4 row-span-6 p-4 rounded-xl shadow '>
-            <div className='flex justify-between'>
+            <div className='flex justify-between items-center'>
 
                 <h3 className='text-azul-marino-500 text-lg  flex items-center gap-2 font-medium'> <TbChecklist className='size-5' />Planes Populares</h3>
 
-                <h3 className='text-azul-marino-500   flex self-start items-center gap-2 font-medium'>
+                <h3 className='text-azul-marino-500   flex text-sm items-center gap-2 font-medium'>
                     <TbSum className='size-4' />
-                    Total: {mealPlans.length + trainingPlans.length}
+                    Total Planes: {mealPlans.length + trainingPlans.length}
                 </h3>
             </div>
 

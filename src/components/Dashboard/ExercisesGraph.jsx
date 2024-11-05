@@ -266,15 +266,15 @@ export const ExercisesGraph = ({ infoMode }) => {
 
     return (
         <div className='bg-white col-span-4 row-span-6 p-4 rounded-xl shadow'>
-            <div className='flex justify-between'>
+            <div className='flex justify-between items-center'>
 
                 <h3 className='text-azul-marino-500 text-lg flex items-center gap-2 font-medium'>
                     <FaDumbbell className='size-4' />
                     Ejercicios Populares
                 </h3>
-                <h3 className='text-azul-marino-500   flex self-start items-center gap-2 font-medium'>
+                <h3 className='text-azul-marino-500   flex items-center gap-2 text-sm font-medium'>
                     <TbSum className='size-4' />
-                    Total: {ejercicios.length}
+                    Total Ejercicios: {ejercicios.length}
                 </h3>
             </div>
 

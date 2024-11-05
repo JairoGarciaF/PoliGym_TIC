@@ -48,20 +48,13 @@ export const UserCard = ({ user }) => {
                             className={`px-3 py-1 text-xs rounded-full font-semibold flex items-center gap-1  ${user.tipo === 'Estudiante'
                                 ? 'bg-blue-100 text-blue-800'
                                 : user.tipo === 'Profesor' ? 'bg-rose-100 text-rose-800'
-                                    : 'bg-gray-100 text-gray-800'
+                                    : 'bg-teal-100 text-teal-800'
 
                                 }`}
                         >
                             <FaUser />
                             {user.tipo}
                         </span>
-                        {/* <span
-                            className={`px-3 py-1 text-xs rounded-full font-semibold flex items-center gap-1  
-                                bg-blue-100 text-blue-700`}
-                        >
-                            <IoChatbox />
-                            {user.tipo}
-                        </span> */}
                         <span
                             className={`px-3 py-1 text-xs rounded-full font-semibold flex items-center gap-1  
                                 bg-orange-100 text-orange-600`}

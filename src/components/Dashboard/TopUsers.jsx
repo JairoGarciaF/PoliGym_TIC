@@ -3,7 +3,10 @@ import { FaCrown } from 'react-icons/fa';
 import { IoMdPodium } from "react-icons/io";
 
 export const TopUsers = ({ usuarios }) => {
-    const usuariosOrdenados = [...usuarios].sort((a, b) => b.diasActividad - a.diasActividad);
+    const usuariosOrdenados = [...usuarios]
+        .filter(user => !user.oculto)
+        .sort((a, b) => b.diasActividad - a.diasActividad);
+
     const topUsers = usuariosOrdenados.slice(0, 3);
 
     return (
