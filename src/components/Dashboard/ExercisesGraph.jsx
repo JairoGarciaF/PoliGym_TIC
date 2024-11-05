@@ -223,7 +223,7 @@ const renderActiveShape = (props) => {
 
     return (
         <g>
-            <text x={cx} y={cy - 110} textAnchor="middle" fill='#1e293b' className='text-base'>
+            <text x={cx} y={cy - 120} textAnchor="middle" fill='#1e293b' className='text-base'>
                 {payload.label}
             </text>
             <Sector
@@ -288,9 +288,9 @@ export const ExercisesGraph = ({ infoMode }) => {
                             activeShape={renderActiveShape}
                             data={ejerciciosData}
                             cx="50%"
-                            cy="50%"
-                            innerRadius="30%"
-                            outerRadius="60%"
+                            cy="55%"
+                            innerRadius="35%"
+                            outerRadius="70%"
                             paddingAngle={2}
                             cornerRadius={7}
                             dataKey="value"
