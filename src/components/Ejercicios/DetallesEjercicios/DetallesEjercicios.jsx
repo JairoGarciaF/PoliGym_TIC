@@ -1,6 +1,7 @@
 import React from 'react'
-import { TbTargetArrow } from "react-icons/tb";
-import { FaCircleInfo } from "react-icons/fa6";
+import { TbTargetArrow, TbCategoryFilled } from "react-icons/tb";
+import { FaCircleInfo, FaArrowTrendUp } from "react-icons/fa6";
+import { FaChartLine, FaFireAlt } from "react-icons/fa";
 import { BodyMap } from '../../BodyMap/BodyMap';
 import { DetallesGenderGraph } from './DetallesGenderGraph';
 import { DetallesUsageGraph } from './DetallesUsageGraph';
@@ -9,13 +10,13 @@ import { DetallesUsageGraph } from './DetallesUsageGraph';
 const getCategoryPillColor = (category) => {
     switch (category) {
         case "Fuerza":
-            return "bg-blue-100 text-blue-900";
+            return " text-blue-900";
         case "Cardio":
-            return "bg-orange-100 text-orange-700";
+            return " text-orange-700";
         case "Estiramiento":
-            return "bg-lime-100 text-lime-700";
+            return " text-lime-700";
         default:
-            return "bg-gray-100 text-gray-700";
+            return " text-gray-700";
     }
 };
 
@@ -23,19 +24,18 @@ const getCategoryPillColor = (category) => {
 const getDifficultyPillColor = (difficulty) => {
     switch (difficulty) {
         case "Baja":
-            return "bg-green-100 text-green-700";
+            return " text-green-700";
         case "Media":
-            return "bg-yellow-100 text-yellow-700";
+            return " text-yellow-700";
         case "Alta":
-            return "bg-red-100 text-red-700";
+            return " text-red-700";
         default:
-            return "bg-gray-100 text-gray-700";
+            return "text-gray-700";
     }
 };
 
 
 export const DetallesEjercicios = ({ ejercicio, infoMode }) => {
-
     return (
         <>
             {ejercicio ? (
@@ -48,33 +48,41 @@ export const DetallesEjercicios = ({ ejercicio, infoMode }) => {
                             className="h-full object-cover self-center"
                         />
                     </div>
-                    <div className='col-span-3 row-span-1 gap-4 grid grid-cols-1'>
+                    <div className='col-span-4 row-span-1 gap-4 grid grid-rows-3 grid-cols-1'>
                         <div className='bg-white py-2 px-4 rounded-xl shadow '>
                             <div className='flex flex-col justify-center h-full'>
                                 <h3 className='text-slate-500 text-xs'>Nombre</h3>
                                 <div className='flex items-center gap-1 text-azul-marino-500 '>
-                                    <p className='font-medium text-xl'>{ejercicio.nombre}</p>
+                                    <p className='font-medium text-3xl'>{ejercicio.nombre}</p>
                                 </div>
-
                             </div>
                         </div>
-                        <div className='grid gap-4 grid-cols-2'>
-                            <div className='bg-white py-2 px-4 rounded-xl shadow '>
-                                <div className='flex flex-col justify-center h-full'>
-                                    <h3 className='text-slate-500 text-xs'>Categoría</h3>
-                                    <span className={`px-2 py-0.5 mt-1 rounded-full w-fit  ${getCategoryPillColor(ejercicio.categoria)}`}>
-                                        {ejercicio.categoria}
-                                    </span>
-
+                        <div className='grid row-span-1 gap-4 grid-cols-3'>
+                            <div className='col-span-1 row-span-1 bg-white  open-sans p-4 rounded-xl shadow'>
+                                <div className='h-full flex flex-col justify-center'>
+                                    <h3 className='text-slate-500 text-xs '>Uso</h3>
+                                    <div className='open-sans flex text-azul-marino-500 gap-2 items-center'>
+                                        <FaArrowTrendUp className='size-7' />
+                                        <p className='font-semibold text-3xl'>  {infoMode === 'Semanal' ? ejercicio.uso_semanal_total : ejercicio.uso_mensual_total}</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div className='bg-white py-2 px-4 rounded-xl shadow '>
-                                <div className='flex flex-col justify-center h-full'>
-                                    <h3 className='text-slate-500 text-xs'>Dificultad</h3>
-                                    <span className={`px-2 py-0.5 mt-1 rounded-full w-fit  ${getDifficultyPillColor(ejercicio.dificultad)}`}>
-                                        {ejercicio.dificultad}
-                                    </span>
-
+                            <div className='col-span-1 row-span-1 bg-white  open-sans p-4 rounded-xl shadow'>
+                                <div className='h-full flex flex-col justify-center'>
+                                    <h3 className='text-slate-500 text-xs '>Categoría</h3>
+                                    <div className={`open-sans flex ${getCategoryPillColor(ejercicio.categoria)} gap-2 items-center`}>
+                                        <TbCategoryFilled className='size-7' />
+                                        <p className='font-semibold text-3xl'>  {ejercicio.categoria}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='col-span-1 row-span-1 bg-white  open-sans p-4 rounded-xl shadow'>
+                                <div className='h-full flex flex-col justify-center'>
+                                    <h3 className='text-slate-500 text-xs '>Dificultad</h3>
+                                    <div className={`open-sans flex ${getDifficultyPillColor(ejercicio.dificultad)} gap-2 items-center`}>
+                                        <FaFireAlt className='size-7' />
+                                        <p className='font-semibold text-3xl'>  {ejercicio.dificultad}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -82,13 +90,13 @@ export const DetallesEjercicios = ({ ejercicio, infoMode }) => {
                             <div className='flex flex-col justify-center h-full'>
                                 <h3 className='text-slate-500 text-xs'>Implemento</h3>
                                 <div className='flex items-center gap-1 text-azul-marino-500 '>
-                                    <p className='font-medium text-xl'>{ejercicio.implemento}</p>
+                                    <p className='font-medium text-3xl'>{ejercicio.implemento}</p>
                                 </div>
 
                             </div>
                         </div>
                     </div>
-                    <div className='col-span-5 flex flex-col justify-center row-span-1 bg-white p-4 rounded-xl shadow h-full '>
+                    <div className='col-span-4 flex flex-col justify-center row-span-1 bg-white p-4 rounded-xl shadow h-full '>
                         <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
                             <TbTargetArrow className='size-5' />
                             Grupos Musculares

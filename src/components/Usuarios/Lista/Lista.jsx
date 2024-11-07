@@ -135,7 +135,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
         ${params.row.tipo === 'Estudiante'
                                 ? 'bg-[#CCE0F3] text-[#03346E]'
                                 : params.row.tipo === 'Profesor'
-                                    ? 'bg-[#d7f1ff] text-[#3A5F87]'
+                                    ? 'bg-[#fed4da] text-[#B8001F]'
                                     : 'bg-[#F1F1D3] text-[#61614A]'
                             }`}
                     >

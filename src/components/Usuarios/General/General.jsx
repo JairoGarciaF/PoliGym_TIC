@@ -13,9 +13,9 @@ export const General = ({ usuarios }) => {
             <div className='col-span-6 row-span-2 grid-rows-1 grid grid-cols-2 gap-4'>
                 <div className={`col-span-1 row-span-1 bg-white  open-sans p-4 rounded-xl shadow`}>
 
-                    <div className='h-full flex flex-col justify-between'>
+                    <div className='h-full flex flex-col justify-center'>
                         <h3 className='text-stone-500 text-sm '>Usuarios</h3>
-                        <div className='open-sans flex gap-4 items-center'>
+                        <div className='open-sans flex text-azul-marino-500 gap-4 items-center'>
                             <FaUsers className='size-9' />
                             <p className='font-semibold text-4xl'>{totalUsuarios}</p>
                         </div>
@@ -24,9 +24,9 @@ export const General = ({ usuarios }) => {
                 </div>
                 <div className={`col-span-1 row-span-1 bg-white  open-sans p-4 rounded-xl shadow`}>
 
-                    <div className='h-full flex flex-col justify-between'>
+                    <div className='h-full flex flex-col justify-center'>
                         <h3 className='text-stone-500 text-sm '>Nuevos Usuarios</h3>
-                        <div className='open-sans flex gap-4 items-center'>
+                        <div className='open-sans text-azul-marino-500 flex gap-4 items-center'>
                             <FaUserPlus className='size-9' />
                             <p className='font-semibold text-4xl'>2</p>
                         </div>

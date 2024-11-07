@@ -47,7 +47,7 @@ export const UserCard = ({ user }) => {
                         <span
                             className={`px-3 py-1 text-xs rounded-full font-semibold flex items-center gap-1  ${user.tipo === 'Estudiante'
                                 ? 'bg-[#CCE0F3] text-[#03346E]'
-                                : user.tipo === 'Profesor' ? 'bg-[#d7f1ff] text-[#4B79A3]'
+                                : user.tipo === 'Profesor' ? 'bg-[#fed4da] text-[#B8001F]'
                                     : 'bg-[#F1F1D3] text-[#61614A'
 
                                 }`}

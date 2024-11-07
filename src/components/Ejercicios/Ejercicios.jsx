@@ -256,7 +256,7 @@ export const Ejercicios = () => {
                     disablePortal
                     getOptionLabel={(option) => option.nombre}
                     size='small'
-                    options={ejercicios}
+                    options={ejerciciosData}
                     onChange={handleExerciseSelect}
                     sx={{ width: 300 }}
                     renderInput={(params) => (

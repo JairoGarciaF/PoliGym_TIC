@@ -1,6 +1,5 @@
 import React from 'react';
-import { FaCrown } from 'react-icons/fa';
-import { IoMdPodium } from "react-icons/io";
+import { FaCrown, FaTrophy } from 'react-icons/fa';
 
 export const TopUsers = ({ usuarios }) => {
     const usuariosOrdenados = [...usuarios]
@@ -12,7 +11,7 @@ export const TopUsers = ({ usuarios }) => {
     return (
         <div className='bg-white p-4 rounded-xl shadow col-span-4 row-span-6'>
             <h3 className='text-azul-marino-500 mb-4 text-lg flex items-center gap-2 font-medium'>
-                <IoMdPodium className='size-5' /> Usuarios Frecuentes
+                <FaTrophy className='size-5' /> Usuarios Frecuentes
             </h3>
             <div className='h-[calc(100%-44px)] flex items-center justify-center'>
 

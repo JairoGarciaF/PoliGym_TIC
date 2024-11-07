@@ -40,7 +40,7 @@ export const UserStatsPieChart = ({ usuarios }) => {
 
     const categories = [
         { label: "Género", options: ["Masculino", "Femenino", "Otro"], field: "genero", colors: ['#0369a1', '#ec4899', '#94a3b8'] },
-        { label: "Tipo", options: ["Estudiante", "Profesor", "Administración"], field: "tipo", colors: ['#03346E', '#6EACDA', '#E2E2B6'] },
+        { label: "Tipo", options: ["Estudiante", "Profesor", "Administración"], field: "tipo", colors: ['#03346E', '#B8001F', '#E2E2B6'] },
         { label: "Horario", options: ["Mañana", "Tarde", "Noche"], field: "horario", colors: ['#06b6d4', '#facc15', '#172554'] },
         { label: "Objetivo", options: ["Ganar Músculo", "Bajar de Peso", "Mantenerse en Forma"], field: "objetivo", colors: ['#006769', '#E6FF94', '#40A578'] },
         { label: "Estado Físico", options: ["Principiante", "Intermedio", "Avanzado"], field: "estadoFisico", colors: ['#B9E5E8', '#7AB2D3', '#4A628A'] }

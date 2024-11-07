@@ -1,6 +1,9 @@
 import { LineChart } from '@mui/x-charts/LineChart';
 import React, { useRef, useState, useEffect } from 'react';
-import { FaArrowTrendUp, FaCircleInfo } from "react-icons/fa6";
+import { FaCircleInfo } from "react-icons/fa6";
+import { FaChartLine } from "react-icons/fa";
+import { TbSum } from "react-icons/tb";
+
 
 
 // Función que devuelve el color según la categoría
@@ -146,10 +149,17 @@ export const MachinesGraph = ({ data, infoMode }) => {
 
                 </div>
                 <div ref={containerRef} className='p-4  bg-white col-span-3 rounded-xl shadow'>
-                    <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
-                        <FaArrowTrendUp className='size-5' />
-                        Frecuencia de Uso
-                    </h3>
+                    <div className='flex justify-between items-center'>
+
+                        <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
+                            <FaChartLine className='size-5' />
+                            Frecuencia de Uso
+                        </h3>
+                        <h3 className='text-azul-marino-500   flex text-sm items-center gap-2 font-medium'>
+                            <TbSum className='size-4' />
+                            Uso Total: {infoMode === 'Semanal' ? selectedMachine.uso_semanal_total : selectedMachine.uso_mensual_total}
+                        </h3>
+                    </div>
 
 
                     {/* Gráfico de uso */}
