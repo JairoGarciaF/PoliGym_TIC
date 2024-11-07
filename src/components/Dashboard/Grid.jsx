@@ -301,7 +301,7 @@ const usuarios = [
 export const Grid = ({ infoMode }) => {
     return (
         <div className='h-[calc(100%-36px-8px)] grid grid-rows-12 p-4 bg-slate-100 rounded-xl mt-2 open-sans gap-4 grid-cols-12'>
-            <StatCards infoMode={infoMode} />
+            <StatCards usuarios={usuarios} />
             <TopUsers usuarios={usuarios} />
             <MuscleRadarChart />
             <ExercisesGraph infoMode={infoMode} />

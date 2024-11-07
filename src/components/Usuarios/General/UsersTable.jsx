@@ -78,10 +78,10 @@ export const UsersTable = ({ usuarios }) => {
                                         <span
                                             className={`px-3 py-1 rounded-full font-semibold 
                                                 ${usuario.tipo === 'Estudiante'
-                                                    ? 'bg-blue-100 text-blue-800'
+                                                    ? 'bg-[#CCE0F3] text-[#03346E]'
                                                     : usuario.tipo === 'Profesor'
-                                                        ? 'bg-rose-100 text-rose-800'
-                                                        : 'bg-teal-100 text-teal-800'
+                                                        ? 'bg-[#d7f1ff] text-[#3A5F87]'
+                                                        : 'bg-[#F1F1D3] text-[#61614A]'
                                                 }`}
                                         >
                                             {usuario.tipo}

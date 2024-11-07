@@ -1,14 +1,11 @@
 import React from 'react';
 import { FaUsers, FaUserPlus } from "react-icons/fa";
-import { GenderGraph } from './GenderGraph';
 import { UsersTable } from './UsersTable';
-import { UsersType } from './UsersType';
-import { UsersSchedule } from './UsersSchedule';
-
-//pastel tipo de usuario11
-//pastel horario de usuario
+import { UserStatsPieChart } from './UserStatsPieChart';
 
 export const General = ({ usuarios }) => {
+
+    const totalUsuarios = usuarios.filter(user => !user.oculto).length;
 
 
     return (
@@ -16,35 +13,30 @@ export const General = ({ usuarios }) => {
             <div className='col-span-6 row-span-2 grid-rows-1 grid grid-cols-2 gap-4'>
                 <div className={`col-span-1 row-span-1 bg-white  open-sans p-4 rounded-xl shadow`}>
 
-                    <div className='flex h-full  items-center justify-between gap-2 text-azul-marino-500 '>
-                        <div className='h-full flex flex-col justify-center'>
-                            <h3 className='text-stone-500 text-sm '>Usuarios</h3>
-                            <div className='open-sans self-start flex'>
-                                <FaUsers className='size-11' />
-                                <p className='font-semibold text-4xl'>245</p>
-                            </div>
+                    <div className='h-full flex flex-col justify-between'>
+                        <h3 className='text-stone-500 text-sm '>Usuarios</h3>
+                        <div className='open-sans flex gap-4 items-center'>
+                            <FaUsers className='size-9' />
+                            <p className='font-semibold text-4xl'>{totalUsuarios}</p>
                         </div>
                     </div>
 
                 </div>
                 <div className={`col-span-1 row-span-1 bg-white  open-sans p-4 rounded-xl shadow`}>
 
-                    <div className='flex h-full flex-col items-center justify-between gap-2 text-azul-marino-500 '>
-                        <div className='h-full flex flex-col justify-center'>
-                            <FaUserPlus className='size-11' />
+                    <div className='h-full flex flex-col justify-between'>
+                        <h3 className='text-stone-500 text-sm '>Nuevos Usuarios</h3>
+                        <div className='open-sans flex gap-4 items-center'>
+                            <FaUserPlus className='size-9' />
+                            <p className='font-semibold text-4xl'>2</p>
                         </div>
-                        <div className='open-sans self-start'>
-                            <h3 className='text-stone-500 text-sm '>Nuevos Usuarios</h3>
-                            <p className='font-semibold text-4xl'>28</p>
-                        </div>
+
                     </div>
 
                 </div>
             </div>
-            <GenderGraph usuarios={usuarios} />
             <UsersTable usuarios={usuarios} />
-            {/* <UsersType usuarios={usuarios} />
-            <UsersSchedule usuarios={usuarios} /> */}
+            <UserStatsPieChart usuarios={usuarios} />
 
 
 

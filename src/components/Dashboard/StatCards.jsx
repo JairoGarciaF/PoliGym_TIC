@@ -2,19 +2,21 @@ import React from 'react'
 import { FaUsers, FaUserPlus, FaFireAlt } from "react-icons/fa";
 import { BiSolidMessageAltDetail } from "react-icons/bi";
 
-export const StatCards = () => {
+export const StatCards = ({ usuarios }) => {
+    const totalUsuarios = usuarios.filter(user => !user.oculto).length;
+
     return (
         <div className='row-span-6 col-span-4 gap-4 grid grid-cols-6 grid-rows-2'>
             <Card
                 sx={'col-span-3'}
                 title={'Usuarios'}
-                value={'245'}
+                value={totalUsuarios}
                 Icon={FaUsers}
             />
             <Card
                 sx={'col-span-3'}
                 title={'Nuevos Usuarios'}
-                value={'28'}
+                value={'2'}
                 Icon={FaUserPlus}
             />
             <Card

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend } from 'recharts';
-import { FaUserTag } from "react-icons/fa";
+import { FaChartPie } from "react-icons/fa";
 
 const renderActiveShape = (props) => {
     const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
-
     return (
         <g>
-            <text x={cx} y={cy - 120} textAnchor="middle" fill='#1e293b' className='text-base'>
+            <text x={cx} y={cy * 0.2} textAnchor="middle" fill='#1e293b' className='text-base'>
                 {payload.name}
             </text>
             <Sector
@@ -35,28 +34,52 @@ const renderActiveShape = (props) => {
     );
 };
 
-export const UsersType = ({ usuarios }) => {
+export const UserStatsPieChart = ({ usuarios }) => {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [selectedCategory, setSelectedCategory] = useState("Género");
+
+    const categories = [
+        { label: "Género", options: ["Masculino", "Femenino", "Otro"], field: "genero", colors: ['#0369a1', '#ec4899', '#94a3b8'] },
+        { label: "Tipo", options: ["Estudiante", "Profesor", "Administración"], field: "tipo", colors: ['#03346E', '#6EACDA', '#E2E2B6'] },
+        { label: "Horario", options: ["Mañana", "Tarde", "Noche"], field: "horario", colors: ['#06b6d4', '#facc15', '#172554'] },
+        { label: "Objetivo", options: ["Ganar Músculo", "Bajar de Peso", "Mantenerse en Forma"], field: "objetivo", colors: ['#006769', '#E6FF94', '#40A578'] },
+        { label: "Estado Físico", options: ["Principiante", "Intermedio", "Avanzado"], field: "estadoFisico", colors: ['#B9E5E8', '#7AB2D3', '#4A628A'] }
+    ];
+
+    const currentCategory = categories.find(cat => cat.label === selectedCategory);
+
+    const filteredUsers = usuarios.filter(user => !user.oculto);
+
+    const data = currentCategory.options.map(option => ({
+        name: option,
+        value: filteredUsers.filter(user => user[currentCategory.field] === option).length
+    }));
 
     const onPieEnter = (_, index) => setActiveIndex(index);
 
-    const userTypeCount = { Estudiante: 0, Profesor: 0, Administración: 0 };
-
-    const filteredUsers = usuarios.filter(user => !user.oculto);
-    filteredUsers.forEach(user => {
-        userTypeCount[user.tipo] = (userTypeCount[user.tipo] || 0) + 1;
-    });
-
-    const data = Object.entries(userTypeCount).map(([name, value]) => ({ name, value }));
-
-    const COLORS = ['#4CAF50', '#FF9800', '#2196F3'];
-
     return (
-        <div className='bg-white col-span-4 row-span-6 p-4 rounded-xl shadow flex flex-col items-center'>
+        <div className='bg-white col-span-6 row-span-10 p-4 rounded-xl shadow flex flex-col items-center'>
             <h3 className='text-azul-marino-500 flex self-start items-center gap-2 font-medium'>
-                <FaUserTag className='size-5' /> Tipos de Usuario
+                <FaChartPie className='size-5' />
+                Usuarios por {selectedCategory}
             </h3>
-            <div className='h-[calc(100%-28px)] w-full flex items-center justify-center'>
+
+            <nav className="flex justify-start  open-sans border-b w-full">
+                {categories.map(category => (
+                    <button
+                        key={category.label}
+                        onClick={() => setSelectedCategory(category.label)}
+                        className={`p-2 text-xs transition-colors 
+                            ${selectedCategory === category.label
+                                ? 'text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
+                                : 'text-slate-500 hover:text-azul-marino-300'}`}
+                    >
+                        {category.label}
+                    </button>
+                ))}
+            </nav>
+
+            <div className='h-[calc(100%-24px-35px)] w-full flex items-center justify-center'>
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                         <Pie
@@ -64,8 +87,8 @@ export const UsersType = ({ usuarios }) => {
                             activeShape={renderActiveShape}
                             data={data}
                             cx="50%"
-                            cy="50%"
-                            innerRadius="35%"
+                            cy="55%"
+                            innerRadius="40%"
                             outerRadius="70%"
                             paddingAngle={2}
                             cornerRadius={7}
@@ -73,7 +96,7 @@ export const UsersType = ({ usuarios }) => {
                             onMouseEnter={onPieEnter}
                         >
                             {data.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                <Cell key={`cell-${index}`} fill={currentCategory.colors[index % currentCategory.colors.length]} />
                             ))}
                         </Pie>
                         <Legend

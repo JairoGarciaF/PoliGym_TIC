@@ -131,15 +131,18 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
             renderCell: (params) => (
                 <div className='flex items-center justify-start h-full'>
                     <span
-                        className={`px-3 py-1 text-sm rounded-full font-medium flex items-center gap-1  ${params.row.tipo === 'Estudiante'
-                            ? 'bg-blue-100 text-blue-800'
-                            : params.row.tipo === 'Profesor' ? 'bg-rose-100 text-rose-800'
-                                : 'bg-teal-100 text-teal-800'
-
+                        className={`px-3 py-1 text-sm rounded-full font-medium flex items-center gap-1 
+        ${params.row.tipo === 'Estudiante'
+                                ? 'bg-[#CCE0F3] text-[#03346E]'
+                                : params.row.tipo === 'Profesor'
+                                    ? 'bg-[#d7f1ff] text-[#3A5F87]'
+                                    : 'bg-[#F1F1D3] text-[#61614A]'
                             }`}
                     >
                         {params.row.tipo}
                     </span>
+
+
                 </div>
             ),
             flex: 0.35,
