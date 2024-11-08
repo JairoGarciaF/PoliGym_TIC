@@ -265,7 +265,7 @@ export const ExercisesGraph = ({ infoMode }) => {
 
 
     return (
-        <div className='bg-white col-span-4 row-span-6 p-4 rounded-xl shadow'>
+        <div className='bg-white xl:col-span-1 xl:h-auto h-[60svh] xl:row-span-1 p-4 rounded-xl shadow'>
             <div className='flex justify-between items-center'>
 
                 <h3 className='text-azul-marino-500 text-lg flex items-center gap-2 font-medium'>

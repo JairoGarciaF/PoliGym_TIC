@@ -7,7 +7,7 @@ export const Sidebar = ({ expanded, setExpanded }) => {
 
 
     return (
-        <nav className={`h-full py-4 pl-4 flex flex-col overflow-hidden transition-all duration-300 flex-shrink-0 ${expanded ? 'w-[15%]' : 'w-[4%]'}`}>
+        <nav className={`h-full py-4 pl-4 flex flex-col overflow-hidden transition-all duration-300 flex-shrink-0 ${expanded ? 'xl:w-[15%] lg:w-1/5 md:w-1/4 w-1/2' : 'xl:w-[4%] lg:w-[8%] md:w-[10%] w-[12%]'}`}>
             <button onClick={() => setExpanded(curr => !curr)} className={`p-1.5 flex  rounded-lg bg-slate-200 text-slate-800 hover:bg-slate-300 hover:text-azul-marino-500 ${expanded ? 'self-end' : ' justify-center'}`}>
                 {expanded ? <TbChevronLeftPipe className='size-5' /> : <TbChevronRightPipe className='size-5' />}
             </button>

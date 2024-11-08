@@ -10,8 +10,8 @@ export const RecuperarContrasena = () => {
             />
 
             {/* Contenedor para el formulario de recuperación de contraseña */}
-            <div className="w-full ml-auto h-full flex items-center justify-center backdrop-blur-sm bg-white/30">
-                <div className="w-3/4 max-w-md p-8 bg-white/70 rounded-lg shadow-lg">
+            <div className="w-full ml-auto h-full flex items-center justify-center backdrop-blur-sm bg-white/20">
+                <div className="xl:w-1/3 lg:w-1/2 md:w-2/3 w-[90%]  p-8 bg-white/70 rounded-lg shadow-lg">
 
                     {/* Logo */}
                     <div className="flex justify-center mb-4">

@@ -40,11 +40,11 @@ const muscleTranslation = {
 
 const MuscleRadarChart = () => {
     return (
-        <div className='bg-white p-4 rounded-lg shadow col-span-4 row-span-6'>
+        <div className='bg-white p-4 rounded-lg shadow xl:h-auto xl:col-span-1 xl:row-span-1  '>
             <h3 className='text-azul-marino-500 text-lg flex items-center gap-2 font-medium'>
                 <FaDumbbell className='size-5' />Entrenamiento de Músculos
             </h3>
-            <div className='h-[calc(100%-28px)] flex items-center justify-center'>
+            <div className='xl:h-[calc(100%-28px)] h-max flex items-center justify-center'>
 
                 <ResponsiveContainer width="100%" height="100%">
                     <RadarChart cx="50%" cy="48%" outerRadius="80%" data={data}>

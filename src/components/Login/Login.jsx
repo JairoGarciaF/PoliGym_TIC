@@ -12,8 +12,8 @@ export const Login = () => {
             />
 
             {/* Contenedor para el formulario de login */}
-            <div className="w-1/2 ml-auto h-full flex items-center justify-center backdrop-blur-lg bg-white/30">
-                <div className="w-3/4 max-w-md p-8 bg-white/70 rounded-lg shadow-lg">
+            <div className="xl:w-1/2 lg:w-2/3  w-full ml-auto h-full flex items-center justify-center backdrop-blur-sm bg-white/20">
+                <div className="lg:w-3/4 md:w-2/3 w-[90%] p-8 bg-white/70 rounded-lg shadow-lg">
                     {/* Logo */}
                     <div className="flex justify-center mb-6">
                         <img src="./PoliGymLogo.png" alt="Logo" className="h-16" />

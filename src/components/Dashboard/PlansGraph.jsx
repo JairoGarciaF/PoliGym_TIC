@@ -849,7 +849,7 @@ export const PlansGraph = () => {
     const plansData = generatePopularChartData(trainingPlans, mealPlans);
 
     return (
-        <div className='bg-white col-span-4 row-span-6 p-4 rounded-xl shadow '>
+        <div className='bg-white xl:col-span-1 xl:row-span-1 p-4 rounded-xl shadow '>
             <div className='flex justify-between items-center'>
 
                 <h3 className='text-azul-marino-500 text-lg  flex items-center gap-2 font-medium'> <TbChecklist className='size-5' />Planes Populares</h3>

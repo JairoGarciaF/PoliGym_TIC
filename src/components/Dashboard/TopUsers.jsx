@@ -9,24 +9,24 @@ export const TopUsers = ({ usuarios }) => {
     const topUsers = usuariosOrdenados.slice(0, 3);
 
     return (
-        <div className='bg-white p-4 rounded-xl shadow col-span-4 row-span-6'>
+        <div className='bg-white p-4 rounded-xl shadow xl:h-auto h-[40svh] xl:col-span-1 xl:row-span-1'>
             <h3 className='text-azul-marino-500 mb-4 text-lg flex items-center gap-2 font-medium'>
                 <FaTrophy className='size-5' /> Usuarios Frecuentes
             </h3>
             <div className='h-[calc(100%-44px)] flex items-center justify-center'>
 
-                <div className='flex justify-center h-3/4 w-full items-end gap-4'>
+                <div className='flex justify-center w-full items-end '>
                     {topUsers.map((user, index) => (
                         <div
                             key={user.id}
-                            className={`flex flex-col items-center w-24 ${index === 0 ? 'h-full' : index === 1 ? 'h-2/3 order-first' : 'h-2/3'}`}
+                            className={`flex flex-col items-center  ${index === 0 ? 'h-full w-2/5' : index === 1 ? 'h-2/3 order-first w-1/4' : 'h-2/3 w-1/4'}`}
                         >
                             {index === 0 && (
                                 <FaCrown className="text-yellow-500 text-2xl mb-1" />
                             )}
                             <div
-                                className={`relative rounded-full overflow-hidden border-4 
-                                ${index === 0 ? 'border-yellow-500  w-32 h-32 z-10' : index === 1 ? 'border-gray-400  w-24 h-24 z-0' : 'border-amber-700  w-24 h-24 z-0'}
+                                className={`relative rounded-full aspect-square overflow-hidden border-4 
+                                ${index === 0 ? 'border-yellow-500 z-10' : index === 1 ? 'border-gray-400   z-0' : 'border-amber-700   z-0'}
                             `}
                             >
                                 <img

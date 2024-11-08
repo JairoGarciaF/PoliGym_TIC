@@ -10,8 +10,8 @@ export const PageNotFound = () => {
             />
 
             {/* Contenedor principal */}
-            <div className="relative w-full h-full flex items-center justify-center backdrop-blur-lg bg-white/30">
-                <div className="w-[50%] h-[80%] p-8 bg-white/70 rounded-lg shadow-lg flex flex-col justify-evenly items-center">
+            <div className="relative w-full h-full flex items-center justify-center backdrop-blur-sm bg-white/20">
+                <div className="lg:w-1/2 md:w-2/3 w-[90%] md:h-[80%] h-2/3 p-8 bg-white/70 rounded-lg shadow-lg flex flex-col justify-evenly items-center">
                     {/* Logo */}
                     <div className="mb-4">
                         <img src="./PoliGymLogo.png" alt="PoliGym Logo" className="h-24" />
@@ -19,8 +19,8 @@ export const PageNotFound = () => {
 
                     <div>
                         {/* Ícono 404 */}
-                        <div className="mb-4 text-azul-marino-500">
-                            <TbRocket className='size-20' />
+                        <div className="mb-4 text-azul-marino-500 flex justify-center">
+                            <TbRocket className='md:size-20 size-14' />
                         </div>
 
                         {/* Texto 404 */}

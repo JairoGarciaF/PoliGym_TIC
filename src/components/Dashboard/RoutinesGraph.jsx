@@ -247,7 +247,7 @@ export const RoutinesGraph = ({ infoMode }) => {
     const routinesData = generatePopularChartData(calculateTotals(routinesStats), infoMode);
 
     return (
-        <div className='bg-white col-span-4 row-span-6 p-4 rounded-xl shadow'>
+        <div className='bg-white xl:col-span-1 xl:row-span-1 p-4 rounded-xl shadow'>
             <div className='flex justify-between items-center'>
                 <h3 className='text-azul-marino-500 text-lg flex self-start items-center gap-2 font-medium'>
                     <FaCalendarAlt className='size-4' />
@@ -258,7 +258,7 @@ export const RoutinesGraph = ({ infoMode }) => {
                     Total Rutinas: {routinesStats.length}
                 </h3>
             </div>
-            <div className='flex h-[calc(100%-28px)] items-center justify-center overflow-visible'>
+            <div className='flex h-[calc(100%-28px)] items-center justify-center'>
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                         <Pie
