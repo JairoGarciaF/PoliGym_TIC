@@ -38,13 +38,37 @@ const muscleTranslation = {
     "traps-middle": 'Trapecio medio',
 };
 
+const renderLegend = (props) => {
+    const { payload } = props;
+    return (
+        <ul style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', fontSize: '12px', padding: 0, margin: 0 }}>
+            {payload.map((entry, index) => (
+                <li key={`item-${index}`} style={{ display: 'flex', alignItems: 'center', marginRight: '12px' }}>
+                    <span
+                        style={{
+                            display: 'inline-block',
+                            width: '10px',
+                            height: '10px',
+                            backgroundColor: entry.color,
+                            borderRadius: '50%',
+                            marginRight: '6px',
+                        }}
+                    />
+                    {entry.value}
+                </li>
+            ))}
+        </ul>
+    );
+};
+
+
 const MuscleRadarChart = () => {
     return (
-        <div className='bg-white p-4 rounded-lg shadow xl:h-auto xl:col-span-1 xl:row-span-1  '>
-            <h3 className='text-azul-marino-500 text-lg flex items-center gap-2 font-medium'>
-                <FaDumbbell className='size-5' />Entrenamiento de Músculos
+        <div className='bg-white p-4 rounded-xl shadow  flex flex-col  xl:col-span-1 xl:row-span-1  '>
+            <h3 className='text-azul-marino-500 xl:text-lg md:text-base text-sm flex items-center gap-2 font-medium'>
+                <FaDumbbell className='xl:size-5 md:size-4 size-3' />Entrenamiento de Músculos
             </h3>
-            <div className='xl:h-[calc(100%-28px)] h-max flex items-center justify-center'>
+            <div className='flex-1  flex items-center justify-center'>
 
                 <ResponsiveContainer width="100%" height="100%">
                     <RadarChart cx="50%" cy="48%" outerRadius="80%" data={data}>
@@ -52,13 +76,13 @@ const MuscleRadarChart = () => {
                         <PolarAngleAxis
                             dataKey="muscle"
                             tickFormatter={(muscle) => muscleTranslation[muscle] || muscle} // Traducción de músculo
+                            fontSize={12}
                         />
                         <PolarRadiusAxis angle={30} domain={[0, 160]} />
                         <Radar name="Masculino" dataKey="masculino" stroke="#0369a1" fill="#0369a1" fillOpacity={0.5} />
                         <Radar name="Femenino" dataKey="femenino" stroke="#ec4899" fill="#ec4899" fillOpacity={0.5} />
                         <Radar name="Otro" dataKey="otro" stroke="#64748b" fill="#94a3b8" fillOpacity={0.5} />
-                        <Legend />
-                    </RadarChart>
+                        <Legend content={renderLegend} />                    </RadarChart>
                 </ResponsiveContainer>
             </div>
         </div>

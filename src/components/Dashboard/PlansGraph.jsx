@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Sector, ResponsiveContainer, Legend, Cell } from 'recharts';
 import { TbChecklist } from "react-icons/tb";
 import { TbSum } from "react-icons/tb";
@@ -808,7 +808,7 @@ const renderActiveShape = (props) => {
 
     return (
         <g >
-            <text x={cx} y={cy - 120} textAnchor="middle" fill='#1e293b' className='text-base'>
+            <text x={cx} y={cy * 0.2} textAnchor="middle" fill='#1e293b' className='sm:text-base text-sm'>
                 {payload.label}
             </text>
             <Sector
@@ -830,8 +830,8 @@ const renderActiveShape = (props) => {
                 outerRadius={outerRadius + 10}
                 fill={fill}
             />
-            <text x={cx} y={cy} textAnchor="middle" fill="#333" className='text-base'>{value}</text>
-            <text x={cx} y={cy + 20} textAnchor="middle" fill="#999" className='text-sm'>
+            <text x={cx} y={cy} textAnchor="middle" fill="#333" className='sm:text-base text-sm'>{value}</text>
+            <text x={cx} y={cy + 20} textAnchor="middle" fill="#999" className='sm:text-sm text-xs'>
                 {`${(percent * 100).toFixed(2)}%`}
             </text>
         </g >
@@ -841,6 +841,8 @@ const renderActiveShape = (props) => {
 export const PlansGraph = () => {
 
     const [activeIndex, setActiveIndex] = useState(0);
+    const [showLegend, setShowLegend] = useState(true);
+
 
     const onPieEnter = (_, index) => {
         setActiveIndex(index);
@@ -848,19 +850,33 @@ export const PlansGraph = () => {
 
     const plansData = generatePopularChartData(trainingPlans, mealPlans);
 
+    useEffect(() => {
+        const handleResize = () => {
+            // Oculta la leyenda si el ancho es menor a 640px (equivalente a `sm` en Tailwind)
+            setShowLegend(window.innerWidth >= 640);
+        };
+
+        handleResize(); // Verifica el tamaño inicial
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     return (
-        <div className='bg-white xl:col-span-1 xl:row-span-1 p-4 rounded-xl shadow '>
+        <div className='bg-white xl:col-span-1 flex flex-col xl:row-span-1 p-4 rounded-xl shadow'>
             <div className='flex justify-between items-center'>
 
-                <h3 className='text-azul-marino-500 text-lg  flex items-center gap-2 font-medium'> <TbChecklist className='size-5' />Planes Populares</h3>
+                <h3 className='text-azul-marino-500 xl:text-lg md:text-base text-sm flex items-center gap-2 font-medium'>
+                    <TbChecklist className='xl:size-5 md:size-4 size-3' />
+                    Planes Populares
+                </h3>
 
-                <h3 className='text-azul-marino-500   flex text-sm items-center gap-2 font-medium'>
-                    <TbSum className='size-4' />
+                <h3 className='text-azul-marino-500 flex xl:text-sm text-xs items-center gap-2 font-medium'>
+                    <TbSum className='xl:size-4 size-3' />
                     Total Planes: {mealPlans.length + trainingPlans.length}
                 </h3>
             </div>
 
-            <div className='h-[calc(100%-28px)] flex items-center justify-center'>
+            <div className='flex-1 flex items-center justify-center'>
 
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -881,16 +897,18 @@ export const PlansGraph = () => {
                                 <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
                             ))}
                         </Pie>
-                        <Legend
-                            layout="horizontal"
-                            align="bottom"
-                            verticalAlign="bottom"
-                            iconSize={10}
-                            wrapperStyle={{ fontSize: 14, fontFamily: 'Open Sans' }}
-                            formatter={(value, entry) => (
-                                <span className='text-slate-800'>{entry.payload.label}</span>
-                            )}
-                        />
+                        {showLegend && (
+                            <Legend
+                                layout="horizontal"
+                                align="bottom"
+                                verticalAlign="bottom"
+                                iconSize={10}
+                                wrapperStyle={{ fontSize: 14, fontFamily: 'Open Sans' }}
+                                formatter={(value, entry) => (
+                                    <span className='text-slate-800'>{entry.payload.label}</span>
+                                )}
+                            />
+                        )}
                     </PieChart>
                 </ResponsiveContainer>
 

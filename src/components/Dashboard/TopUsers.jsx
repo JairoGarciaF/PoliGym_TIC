@@ -9,13 +9,13 @@ export const TopUsers = ({ usuarios }) => {
     const topUsers = usuariosOrdenados.slice(0, 3);
 
     return (
-        <div className='bg-white p-4 rounded-xl shadow xl:h-auto h-[40svh] xl:col-span-1 xl:row-span-1'>
-            <h3 className='text-azul-marino-500 mb-4 text-lg flex items-center gap-2 font-medium'>
-                <FaTrophy className='size-5' /> Usuarios Frecuentes
+        <div className='bg-white p-4 rounded-xl shadow flex flex-col xl:col-span-1 xl:row-span-1'>
+            <h3 className='text-azul-marino-500 xl:text-lg md:text-base text-sm flex items-center gap-2 font-medium'>
+                <FaTrophy className='xl:size-5 md:size-4 size-3' /> Usuarios Frecuentes
             </h3>
-            <div className='h-[calc(100%-44px)] flex items-center justify-center'>
+            <div className='flex-1 flex items-center justify-center'>
 
-                <div className='flex justify-center w-full items-end '>
+                <div className='flex justify-center aspect-video sm:h-3/4 items-end '>
                     {topUsers.map((user, index) => (
                         <div
                             key={user.id}
