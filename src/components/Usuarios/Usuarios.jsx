@@ -325,7 +325,7 @@ export const Usuarios = () => {
         ${activeTab === 'lista'
                                 ? 'text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
                                 : 'text-stone-500 hover:text-azul-marino-300'}`}
-                    >
+                    >``
                         Lista
                     </button>
                     <button
