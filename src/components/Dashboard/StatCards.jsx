@@ -44,7 +44,7 @@ const Card = ({ sx, title, value, Icon }) => {
                     <Icon className='2xl:size-1/2 size-1/2' />
                 </div>
                 <div className='open-sans xl:self-start'>
-                    <h3 className='text-stone-500 text-xs '>{title}</h3>
+                    <h3 className='text-stone-500 md:text-sm text-xs '>{title}</h3>
                     <div className='flex gap-2 items-center'>
                         <div className='aspect-square xl:hidden flex items-center justify-center'>
                             <Icon className='size-5' />

@@ -50,7 +50,7 @@ export const LastRoutinesTable = ({ ultimasRutinas }) => {
 
 
     return (
-        <div className="relative h-1/2 overflow-x-auto border rounded-xl">
+        <div className="relative xl:h-1/2 overflow-x-auto border rounded-xl">
             <div className="h-full overflow-y-auto">
                 <table className="w-full text-sm text-left rtl:text-right text-azul-marino-500 ">
                     <thead className="text-xs text-white rounded uppercase bg-azul-marino-500 ">
@@ -72,25 +72,25 @@ export const LastRoutinesTable = ({ ultimasRutinas }) => {
                     <tbody>
                         {sortedRutinas.map((rutina, index) => (
                             <tr key={index} className="bg-white border-b hover:bg-slate-100 ">
-                                <th scope="row" className="p-2 whitespace-nowrap font-medium text-azul-marino-900 ">
+                                <th scope="row" className="p-2 whitespace-nowrap md:text-sm text-xs font-medium text-azul-marino-900 ">
                                     {rutina.rutina}
                                 </th>
                                 <td className="p-2 text-center">
                                     {rutina.musculos.map((muscle) => (
                                         <span
                                             key={muscle}
-                                            className={`${getMuscleColor(rutina.fecha)} px-2 py-1 rounded-full whitespace-nowrap mx-1`}
+                                            className={`${getMuscleColor(rutina.fecha)} px-2 py-1 rounded-full lg:text-sm text-xs whitespace-nowrap mx-1`}
                                         >
                                             {muscleTranslation[muscle] || muscle}
                                         </span>
                                     ))}
                                 </td>
                                 <td className="p-2 text-center">
-                                    <span className={`px-2 py-1 rounded-full whitespace-nowrap bg-blue-100 text-blue-700`}>
+                                    <span className={`px-2 py-1 rounded-full whitespace-nowrap lg:text-sm text-xs bg-blue-100 text-blue-700`}>
                                         {rutina.duracion}
                                     </span>
                                 </td>
-                                <td className="p-2 whitespace-nowrap text-center">
+                                <td className="p-2 whitespace-nowrap md:text-sm text-xs text-center">
                                     {rutina.fecha}
                                 </td>
                             </tr>

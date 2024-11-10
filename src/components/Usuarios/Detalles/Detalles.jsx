@@ -77,51 +77,51 @@ export const Detalles = ({ user }) => {
     return (
         <>
             {user ? (
-                <div className="grid open-sans grid-cols-12 grid-rows-12 gap-4 p-4 items-start h-[calc(100%-36px-49px)] bg-slate-100 rounded-xl">
+                <div className="grid open-sans xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 xl:grid-rows-2 gap-4 p-4 items-start flex-1 overflow-auto bg-slate-100 rounded-xl">
 
                     <UserCard user={user} />
 
                     {/* Información del usuario en cuadrícula */}
-                    <div className="col-span-4 h-full row-span-6 grid grid-cols-12 gap-4 text-left text-slate-600 w-full">
+                    <div className="col-span-1 h-full xl:row-span-1 grid grid-cols-6 gap-2 text-left text-slate-600 w-full">
                         <Card
                             Icon={MdCake}
-                            colSpan={'col-span-4'}
+                            colSpan={'col-span-2'}
                             title={'Edad'}
                             value={user.edad + ' años'}
                         />
                         <Card
                             Icon={FaWeight}
-                            colSpan={'col-span-4'}
+                            colSpan={'col-span-2'}
                             title={'Peso'}
                             value={user.peso + ' kg'}
                         />
                         <Card
                             Icon={FaRuler}
-                            colSpan={'col-span-4'}
+                            colSpan={'col-span-2'}
                             title={'Altura'}
                             value={user.altura + ' cm'}
                         />
                         <Card
                             Icon={TbTargetArrow}
-                            colSpan={'col-span-6'}
+                            colSpan={'col-span-3'}
                             title={'Objetivo'}
                             value={user.objetivo}
                         />
                         <Card
                             Icon={FaArrowTrendUp}
-                            colSpan={'col-span-6'}
+                            colSpan={'col-span-3'}
                             title={'Estado Físico'}
                             value={user.estadoFisico}
                         />
                         <Card
                             Icon={{ 'Mañana': IoPartlySunny, 'Tarde': IoSunny, 'Noche': IoCloudyNight }[user.horario]}
-                            colSpan={'col-span-3'}
+                            colSpan={'col-span-2'}
                             title={'Horario'}
                             value={user.horario}
                         />
-                        <div className={`bg-white flex flex-col  justify-center col-span-9 p-2 rounded-xl shadow `}>
+                        <div className={`bg-white flex flex-col  justify-center col-span-4 p-2 rounded-xl shadow `}>
                             <h3 className="text-stone-500 text-xs">Días de Entreno</h3>
-                            <div className="flex gap-1 overflow-auto mt-1">
+                            <div className="flex gap-1  mt-1">
                                 {user.diasSeleccionados.map((dia, index) => {
                                     // Define el color según el género
                                     let bgColor = '';
@@ -145,7 +145,7 @@ export const Detalles = ({ user }) => {
                                     return (
                                         <span
                                             key={index}
-                                            className={`${bgColor} ${textColor} text-sm font-medium px-2 py-1 rounded-full`}
+                                            className={`${bgColor} ${textColor} sm:text-sm text-xs truncate font-medium px-2 py-1 rounded-full`}
                                         >
                                             {dia}
                                         </span>
@@ -156,7 +156,7 @@ export const Detalles = ({ user }) => {
                         </div>
 
 
-                        <div className="relative flex items-center col-span-12 bg-white p-2 rounded-xl shadow">
+                        <div className="relative flex items-center col-span-6 bg-white p-2 rounded-xl shadow">
                             {/* Header del acordeón */}
 
                             <div
@@ -166,8 +166,8 @@ export const Detalles = ({ user }) => {
                                 <div className="flex flex-col justify-center h-full">
                                     <h3 className="text-stone-500 text-xs">Problemas Médicos</h3>
                                     <div className="flex items-center gap-1 text-azul-marino-500">
-                                        <IoFitness className="size-5" />
-                                        <p className="font-medium text-xl">{user.problemasMedicos}</p>
+                                        <IoFitness className="xl:size-5 size-4" />
+                                        <p className="font-medium xl:text-xl md:text-lg text-sm">{user.problemasMedicos}</p>
                                     </div>
                                 </div>
                                 {user.problemasMedicos !== 'Ninguno' && (
@@ -188,12 +188,12 @@ export const Detalles = ({ user }) => {
 
                     </div>
 
-                    <div className='col-span-5 row-span-12 gap-2 p-2 h-full bg-white shadow rounded-xl flex flex-col'>
-                        <h3 className='text-azul-marino-500 mb-1 flex items-center font-medium gap-1'> <FaClockRotateLeft />Últimas Rutinas</h3>
+                    <div className='xl:col-span-1 lg:col-span-2 xl:row-span-2 gap-2 p-4 h-full bg-white shadow rounded-xl flex flex-col'>
+                        <h3 className='text-azul-marino-500 xl:text-lg md:text-base text-sm  mb-1 flex items-center font-medium gap-1'> <FaClockRotateLeft className='xl:size-5 md:size-4 size-3' />Últimas Rutinas</h3>
 
-                        <div className='h-[calc(100%-28px)] flex flex-col gap-2'>
+                        <div className='flex-1 flex xl:flex-col sm:flex-row flex-col gap-2'>
 
-                            <div className='flex justify-center h-1/2'>
+                            <div className='flex justify-center xl:h-1/2'>
                                 <BodyMap gender={user.genero} view='front' className='w-1/3' recentMuscles={uniqueRecentMuscles} oldMuscles={uniqueOldMuscles} />
                                 <BodyMap gender={user.genero} view='back' className='w-1/3' recentMuscles={uniqueRecentMuscles} oldMuscles={uniqueOldMuscles} />
                             </div>
@@ -218,12 +218,12 @@ export const Detalles = ({ user }) => {
 
 const Card = ({ Icon, colSpan, title, value }) => {
     return (
-        <div className={`bg-white ${colSpan} p-2 rounded-xl shadow`}>
+        <div className={`bg-white ${colSpan} row-span-1 p-2 rounded-xl shadow`}>
             <div className='flex flex-col justify-center h-full'>
                 <h3 className='text-stone-500 text-xs'>{title}</h3>
                 <div className='flex items-center gap-1 text-azul-marino-500 '>
-                    <Icon className='size-5' />
-                    <p className='font-medium text-xl'>{value}</p>
+                    <Icon className='xl:size-5 size-4' />
+                    <p className='font-medium xl:text-xl md:text-lg text-sm'>{value}</p>
                 </div>
 
             </div>

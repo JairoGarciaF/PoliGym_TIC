@@ -66,15 +66,15 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
     );
 
     const columns = [
-        { field: 'nombre', headerName: 'Nombre', flex: 0.75, },
-        { field: 'correo', headerName: 'Correo', flex: 0.6, },
+        { field: 'nombre', headerName: 'Nombre', flex: 0.75, minWidth: 200, },
+        { field: 'correo', headerName: 'Correo', flex: 0.6, minWidth: 200, },
         {
             field: 'horario',
             headerName: 'Horario',
             renderCell: (params) => (
                 <div className='flex items-center justify-start h-full'>
                     <span
-                        className={`px-3 py-1 text-sm rounded-full font-medium flex items-center gap-1 ${params.row.horario === 'Mañana' ? 'bg-cyan-100 text-cyan-600'
+                        className={`px-3 py-1 lg:text-sm text-xs rounded-full whitespace-nowrap font-medium flex items-center gap-1 ${params.row.horario === 'Mañana' ? 'bg-cyan-100 text-cyan-600'
                             : params.row.horario === 'Tarde' ? 'bg-yellow-100 text-yellow-600'
                                 : 'bg-blue-100 text-blue-950'
                             }`}
@@ -85,6 +85,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
                 </div>
             ),
             flex: 0.35,
+            minWidth: 150,
         },
         {
             field: 'genero',
@@ -92,7 +93,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
             renderCell: (params) => (
                 <div className='flex items-center justify-start h-full'>
                     <span
-                        className={`px-3 py-1 text-sm rounded-full font-medium flex items-center gap-1 ${params.row.genero === 'Masculino' ? 'bg-sky-100 text-sky-700'
+                        className={`px-3 py-1 lg:text-sm text-xs rounded-full font-medium flex items-center gap-1 ${params.row.genero === 'Masculino' ? 'bg-sky-100 text-sky-700'
                             : params.row.genero === 'Femenino' ? 'bg-pink-100 text-pink-700'
                                 : 'bg-gray-100 text-gray-700'
                             }`}
@@ -102,7 +103,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
                     </span>
                 </div>
             ),
-            flex: 0.35,
+            minWidth: 150,
         },
         {
             field: 'rol',
@@ -110,7 +111,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
             renderCell: (params) => (
                 <div className='flex items-center justify-start h-full'>
                     <span
-                        className={`px-3 py-1 text-sm rounded-full font-medium flex items-center gap-1  ${params.row.rol === 'Admin'
+                        className={`px-3 py-1 lg:text-sm text-xs rounded-full font-medium flex items-center gap-1  ${params.row.rol === 'Admin'
                             ? 'bg-violet-100 text-violet-700'
                             : 'bg-green-100 text-green-700'
 
@@ -123,7 +124,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
                     </span>
                 </div>
             ),
-            flex: 0.35,
+            minWidth: 150,
         },
         {
             field: 'tipo',
@@ -131,7 +132,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
             renderCell: (params) => (
                 <div className='flex items-center justify-start h-full'>
                     <span
-                        className={`px-3 py-1 text-sm rounded-full font-medium flex items-center gap-1 
+                        className={`px-3 py-1 lg:text-sm text-xs rounded-full font-medium flex items-center gap-1 
         ${params.row.tipo === 'Estudiante'
                                 ? 'bg-[#CCE0F3] text-[#03346E]'
                                 : params.row.tipo === 'Profesor'
@@ -145,7 +146,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
 
                 </div>
             ),
-            flex: 0.35,
+            minWidth: 150,
         },
         {
             field: 'acciones',
@@ -163,10 +164,10 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
     ];
 
     return (
-        <div className="pt-1 h-[calc(100%-36px-41px)] space-y-2 open-sans">
+        <div className="pt-1  overflow-auto flex-1 flex flex-col space-y-2 open-sans">
 
 
-            <div className="flex justify-between items-center">
+            <div className="flex sm:flex-row gap-2 pt-0.5 flex-col justify-between items-center">
                 <TextField
                     label="Buscar"
                     variant="outlined"
@@ -175,6 +176,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
                     size="small"
                     InputProps={{
                         startAdornment: <FaSearch className='pr-1 size-5' />,
+
                     }}
                 />
                 <FormControlLabel
@@ -198,7 +200,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
 
             </div>
 
-            <div className='w-full h-[calc(100%-40px-16px)]'>
+            <div className='w-full flex-1'>
                 <DataGrid
                     rows={filteredRows}
                     columns={columns}

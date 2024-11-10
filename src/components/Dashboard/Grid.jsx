@@ -300,7 +300,7 @@ const usuarios = [
 
 export const Grid = ({ infoMode }) => {
     return (
-        <div className='h-[calc(100%-36px-8px)] overflow-auto grid  xl:grid-rows-2  p-4 bg-slate-100 rounded-xl mt-2 open-sans gap-4 xl:grid-cols-3 lg:grid-cols-2'>
+        <div className='flex-1 overflow-auto grid xl:grid-rows-2  p-4 bg-slate-100 rounded-xl mt-2 open-sans gap-4 xl:grid-cols-3 lg:grid-cols-2'>
             <StatCards usuarios={usuarios} />
             <TopUsers usuarios={usuarios} />
             <MuscleRadarChart />

@@ -14,14 +14,14 @@ export const UsersTable = ({ usuarios }) => {
     const totalUsuarios = usuariosFiltrados.length;
 
     return (
-        <div className='bg-white col-span-6 row-span-12 p-4 rounded-xl shadow'>
+        <div className='bg-white flex flex-col col-span-1 xl:row-span-12 p-4 rounded-xl shadow'>
             <div className='flex items-center justify-between'>
-                <h3 className='text-azul-marino-500 flex items-center gap-2 font-medium'>
-                    <FaClock className='size-4' />
+                <h3 className='text-azul-marino-500 xl:text-lg md:text-base text-sm flex items-center gap-2 font-medium'>
+                    <FaClock className='xl:size-5 md:size-4 size-3' />
                     Usuarios por Horario
                 </h3>
-                <h3 className='text-azul-marino-500 flex items-center gap-2 text-sm font-medium'>
-                    <TbSum className='size-4' />
+                <h3 className='text-azul-marino-500 flex items-center gap-2 xl:text-sm text-xs font-medium'>
+                    <TbSum className='xl:size-4 size-3' />
                     Total {horarioSeleccionado}: {totalUsuarios}
                 </h3>
             </div>
@@ -44,26 +44,26 @@ export const UsersTable = ({ usuarios }) => {
             </nav>
 
             {/* Tabla de usuarios */}
-            <div className="relative h-[calc(100%-24px-39px)] overflow-x-auto border rounded-xl">
+            <div className="relative flex-1 overflow-x-auto border rounded-xl">
                 <div className="h-full overflow-y-auto">
                     <table className="w-full text-sm text-left text-azul-marino-500">
                         <thead className="text-xs text-white uppercase bg-azul-marino-500">
                             <tr>
-                                <th scope="col" className="px-6 py-3">Nombre</th>
-                                <th scope="col" className="px-6 py-3 text-center">Género</th>
-                                <th scope="col" className="px-6 py-3 text-center">Tipo</th>
-                                <th scope="col" className="px-6 py-3">Días activo</th>
+                                <th scope="col" className="px-6 py-3 ">Nombre</th>
+                                <th scope="col" className="px-6 py-3  text-center">Género</th>
+                                <th scope="col" className="px-6 py-3  text-center">Tipo</th>
+                                <th scope="col" className="px-6 py-3 ">Días activo</th>
                             </tr>
                         </thead>
                         <tbody>
                             {usuariosFiltrados.map((usuario) => (
                                 <tr key={usuario.id} className="bg-white border-b hover:bg-slate-100">
-                                    <th scope="row" className="px-6 py-4 font-medium text-azul-marino-900 whitespace-nowrap">
+                                    <th scope="row" className="px-6 lg:py-4 py-2 lg:text-sm text-xs font-medium text-azul-marino-900 whitespace-nowrap">
                                         {usuario.nombre}
                                     </th>
-                                    <td className="px-6 py-4 text-center">
+                                    <td className="px-6 lg:py-4 py-2 text-center">
                                         <span
-                                            className={`px-3 py-1 rounded-full font-semibold 
+                                            className={`px-3 py-1 lg:text-sm text-xs rounded-full font-semibold 
                                                 ${usuario.genero === 'Masculino'
                                                     ? 'bg-sky-100 text-sky-700'
                                                     : usuario.genero === 'Femenino'
@@ -74,9 +74,9 @@ export const UsersTable = ({ usuarios }) => {
                                             {usuario.genero}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-4 text-center">
+                                    <td className="px-6 lg:py-4 py-2 text-center">
                                         <span
-                                            className={`px-3 py-1 rounded-full font-semibold 
+                                            className={`px-3 py-1 rounded-full lg:text-sm text-xs font-semibold 
                                                 ${usuario.tipo === 'Estudiante'
                                                     ? 'bg-[#CCE0F3] text-[#03346E]'
                                                     : usuario.tipo === 'Profesor'
@@ -87,7 +87,7 @@ export const UsersTable = ({ usuarios }) => {
                                             {usuario.tipo}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-4">{usuario.diasActividad} días</td>
+                                    <td className="px-6 lg:py-4 py-2 lg:text-sm text-xs">{usuario.diasActividad} días</td>
                                 </tr>
                             ))}
                         </tbody>

@@ -29,8 +29,8 @@ export const MealPlansTable = () => {
 
 
     return (
-        <div className='col-span-3 row-span-6 p-2 bg-white h-full rounded-xl shadow '>
-            <h3 className='text-azul-marino-500 font-medium flex items-center gap-1'> <PiBowlFoodFill />Planes de Alimentación</h3>
+        <div className='col-span-1 row-span-1 p-4 bg-white h-full rounded-xl shadow '>
+            <h3 className='text-azul-marino-500 xl:text-lg md:text-base text-sm  font-medium flex items-center gap-1'> <PiBowlFoodFill className='xl:size-5 md:size-4 size-3' />Planes de Alimentación</h3>
             <nav className="flex justify-start mb-1 open-sans border-b  ">
                 <button
                     onClick={() => setActiveTab('Activo')}
@@ -67,10 +67,10 @@ export const MealPlansTable = () => {
                         <tbody>
                             {filteredPlans.map((plan, index) => (
                                 <tr key={index} className="bg-white border-b hover:bg-slate-100 ">
-                                    <th scope="row" className="p-2  font-medium  text-azul-marino-900 ">
+                                    <th scope="row" className="p-2 md:text-sm text-xs font-medium  text-azul-marino-900 ">
                                         {plan.plan}
                                     </th>
-                                    <td className="p-2 whitespace-nowrap text-center">
+                                    <td className="p-2 whitespace-nowrap md:text-sm text-xs text-center">
                                         {plan.fecha}
                                     </td>
                                 </tr>

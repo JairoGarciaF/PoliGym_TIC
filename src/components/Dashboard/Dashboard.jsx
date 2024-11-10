@@ -4,7 +4,7 @@ import { Grid } from './Grid'
 export const Dashboard = () => {
     const [infoMode, setInfoMode] = useState('Semanal');
     return (
-        <div className='bg-white rounded-xl shadow h-full p-4'>
+        <div className='bg-white rounded-xl flex flex-col shadow h-full p-4'>
             <div className='flex justify-between mb-1 overflow-hidden'>
                 <h1 className='montserrat-alternates text-azul-marino-500  text-3xl font-semibold'>Dashboard</h1>
                 <nav className="flex justify-start md:w-auto w-1/3 open-sans">

@@ -9,15 +9,15 @@ export const General = ({ usuarios }) => {
 
 
     return (
-        <div className="h-[calc(100%-36px-49px)]  grid grid-rows-12 p-4 bg-slate-100 rounded-xl mt-2 open-sans gap-4 grid-cols-12">
-            <div className='col-span-6 row-span-2 grid-rows-1 grid grid-cols-2 gap-4'>
+        <div className="flex-1 overflow-auto grid xl:grid-rows-12 p-4 bg-slate-100 rounded-xl open-sans gap-4 xl:grid-cols-2">
+            <div className='col-span-1 xl:row-span-2 grid-rows-1 grid grid-cols-2 gap-4'>
                 <div className={`col-span-1 row-span-1 bg-white  open-sans p-4 rounded-xl shadow`}>
 
                     <div className='h-full flex flex-col justify-center'>
-                        <h3 className='text-stone-500 text-sm '>Usuarios</h3>
+                        <h3 className='text-stone-500 md:text-sm text-xs'>Usuarios</h3>
                         <div className='open-sans flex text-azul-marino-500 gap-4 items-center'>
-                            <FaUsers className='size-9' />
-                            <p className='font-semibold text-4xl'>{totalUsuarios}</p>
+                            <FaUsers className='md:size-9 size-5' />
+                            <p className='font-semibold md:text-3xl text-2xl'>{totalUsuarios}</p>
                         </div>
                     </div>
 
@@ -25,10 +25,10 @@ export const General = ({ usuarios }) => {
                 <div className={`col-span-1 row-span-1 bg-white  open-sans p-4 rounded-xl shadow`}>
 
                     <div className='h-full flex flex-col justify-center'>
-                        <h3 className='text-stone-500 text-sm '>Nuevos Usuarios</h3>
+                        <h3 className='text-stone-500 md:text-sm text-xs '>Nuevos Usuarios</h3>
                         <div className='open-sans text-azul-marino-500 flex gap-4 items-center'>
-                            <FaUserPlus className='size-9' />
-                            <p className='font-semibold text-4xl'>2</p>
+                            <FaUserPlus className='md:size-9 size-5' />
+                            <p className='font-semibold md:text-3xl text-2xl'>2</p>
                         </div>
 
                     </div>

@@ -63,8 +63,8 @@ export const TrainingPlansTable = () => {
 
 
     return (
-        <div className='col-span-4 row-span-6 p-2 bg-white h-full  rounded-xl shadow'>
-            <h3 className='text-azul-marino-500 font-medium flex items-center gap-1'> <FaDumbbell />Planes de Entrenamiento</h3>
+        <div className='col-span-1 row-span-1 p-4 bg-white h-full  rounded-xl shadow'>
+            <h3 className='text-azul-marino-500 xl:text-lg md:text-base text-sm  font-medium flex items-center gap-1'> <FaDumbbell className='xl:size-5 md:size-4 size-3' />Planes de Entrenamiento</h3>
             <nav className="flex justify-start mb-1 open-sans border-b  ">
                 <button
                     onClick={() => setActiveTab('Activo')}
@@ -105,15 +105,15 @@ export const TrainingPlansTable = () => {
                         <tbody>
                             {filteredPlans.map((plan, index) => (
                                 <tr key={index} className="bg-white border-b hover:bg-slate-100 ">
-                                    <th scope="row" className="p-2 font-medium  whitespace-nowrap text-azul-marino-900 ">
+                                    <th scope="row" className="p-2 font-medium md:text-sm text-xs whitespace-nowrap text-azul-marino-900 ">
                                         {plan.plan}
                                     </th>
                                     <td className="p-2 text-center">
-                                        <span className={`px-2 py-1 rounded-full whitespace-nowrap ${getPillColor(plan.dificultad)}`}>
+                                        <span className={`px-2 py-1 rounded-full lg:text-sm text-xs whitespace-nowrap ${getPillColor(plan.dificultad)}`}>
                                             {plan.dificultad}
                                         </span>
                                     </td>
-                                    <td className="p-2 text-center whitespace-nowrap">
+                                    <td className="p-2 md:text-sm text-xs text-center whitespace-nowrap">
                                         {plan.fecha}
                                     </td>
                                 </tr>

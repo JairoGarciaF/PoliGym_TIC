@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { PieChart, Pie, Sector, ResponsiveContainer, Legend, Cell } from 'recharts';
 import { TbChecklist } from "react-icons/tb";
 import { TbSum } from "react-icons/tb";
@@ -841,7 +841,6 @@ const renderActiveShape = (props) => {
 export const PlansGraph = () => {
 
     const [activeIndex, setActiveIndex] = useState(0);
-    const [showLegend, setShowLegend] = useState(true);
 
 
     const onPieEnter = (_, index) => {
@@ -850,16 +849,6 @@ export const PlansGraph = () => {
 
     const plansData = generatePopularChartData(trainingPlans, mealPlans);
 
-    useEffect(() => {
-        const handleResize = () => {
-            // Oculta la leyenda si el ancho es menor a 640px (equivalente a `sm` en Tailwind)
-            setShowLegend(window.innerWidth >= 640);
-        };
-
-        handleResize(); // Verifica el tamaño inicial
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
 
     return (
         <div className='bg-white xl:col-span-1 flex flex-col xl:row-span-1 p-4 rounded-xl shadow'>
@@ -897,18 +886,6 @@ export const PlansGraph = () => {
                                 <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
                             ))}
                         </Pie>
-                        {showLegend && (
-                            <Legend
-                                layout="horizontal"
-                                align="bottom"
-                                verticalAlign="bottom"
-                                iconSize={10}
-                                wrapperStyle={{ fontSize: 14, fontFamily: 'Open Sans' }}
-                                formatter={(value, entry) => (
-                                    <span className='text-slate-800'>{entry.payload.label}</span>
-                                )}
-                            />
-                        )}
                     </PieChart>
                 </ResponsiveContainer>
 

@@ -7,27 +7,27 @@ export const UserCard = ({ user }) => {
     return (
         <>
             {/* Imagen de perfil */}
-            <div className="col-span-3 h-full bg-white rounded-xl shadow row-span-6 flex flex-col justify-between ">
-                <div className='h-64 flex justify-center items-center '>
+            <div className="col-span-1 h-full bg-white rounded-xl shadow xl:row-span-1 flex flex-col justify-between ">
+                <div className='flex-1 flex justify-center items-center '>
                     {user.imagenPerfil != null ? (
                         <img
                             src={user.imagenPerfil}
                             alt={user.nombre}
-                            className="h-28 rounded-full object-cover self-center border-slate-200 border"
+                            className="size-28 my-6 rounded-full object-cover self-center border-slate-200 border"
                         />
                     ) : (
                         <div className=" bg-gray-200 rounded-full" />
                     )}
                 </div>
-                <div className='p-4 flex flex-col justify-end '>
+                <div className='px-4 pb-4 flex flex-col justify-end '>
                     <div className='flex gap-2 border-t pt-2 border-slate-300'>
-                        <span className='font-semibold text-2xl block  text-azul-marino-500'>{user.nombre}</span>
+                        <span className='font-semibold md:text-2xl text-xl block  text-azul-marino-500'>{user.nombre}</span>
                         {(user.rol === 'Admin') ? (
                             <span
                                 className='py-1 px-2 text-xs rounded-full font-semibold flex items-center gap-1
                                 bg-violet-100 text-violet-700'
                             >
-                                <FaShieldAlt size={18} />
+                                <FaShieldAlt className='md:size-4 size-3' />
                             </span>
                         ) : (
                             <div className='hidden'></div>
