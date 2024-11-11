@@ -242,16 +242,26 @@ export const Rutinas = () => {
     );
 
     const columns = [
-        { field: 'nombre', headerName: 'Nombre', flex: 0.75, },
+        {
+            field: 'nombre',
+            headerName: 'Nombre',
+            renderCell: (params) => (
+                <div className='flex items-center gap-2 justify-start h-full'>
+                    <span className='lg:text-sm text-xs text-balance font-semibold'>{params.row.nombre}</span>
+                </div>
+            ),
+            flex: 0.5,
+            minWidth: 200,
+        },
         {
             field: 'musculos',
             headerName: 'Grupos Musculares',
             renderCell: (params) => (
-                <div className='flex items-center gap-2 justify-start h-full'>
+                <div className='flex items-center overflow-auto gap-2 justify-start h-full'>
                     {params.row.musculos.map((musculo) => (
                         <span
                             key={musculo} // Añadido el key único para cada musculo
-                            className='px-3 py-1 text-sm rounded-full font-medium flex items-center gap-1 bg-indigo-100 text-indigo-700'
+                            className='px-3 py-1 lg:text-sm text-xs rounded-full font-medium flex items-center gap-1 bg-indigo-100 text-indigo-700 '
                         >
                             {muscleTranslation[musculo] || musculo}
                         </span>
@@ -259,6 +269,7 @@ export const Rutinas = () => {
                 </div>
             ),
             flex: 1,
+            minWidth: 200
         },
         {
             field: 'dificultad',
@@ -266,7 +277,7 @@ export const Rutinas = () => {
             renderCell: (params) => (
                 <div className='flex items-center justify-start h-full'>
                     <span
-                        className={`px-3 py-1 text-sm rounded-full font-medium flex items-center gap-1  
+                        className={`px-3 py-1 lg:text-sm text-xs rounded-full font-medium flex items-center gap-1  
                             ${params.row.dificultad === 'Baja' ? 'bg-green-100 text-green-700'
                                 : params.row.dificultad === 'Media' ? 'bg-yellow-100 text-yellow-700'
                                     : 'bg-red-100 text-red-700'
@@ -278,6 +289,7 @@ export const Rutinas = () => {
                 </div>
             ),
             flex: 0.3,
+            minWidth: 100
         },
         {
             field: 'acciones',
@@ -295,7 +307,7 @@ export const Rutinas = () => {
     ];
 
     return (
-        <div className="pt-4 h-[calc(100%-36px-41px)] space-y-4 open-sans">
+        <div className="pt-1 flex-1 overflow-auto flex flex-col space-y-4 open-sans">
             {currentView === 'list' && (
 
                 <>
@@ -330,7 +342,7 @@ export const Rutinas = () => {
                         />
                     </div>
 
-                    <div className='w-full h-[calc(100%-40px-32px-36px)]'>
+                    <div className='w-full flex-1 overflow-auto'>
                         <DataGrid
                             rows={filteredRows}
                             columns={columns}
@@ -343,6 +355,8 @@ export const Rutinas = () => {
                                 '& .MuiDataGrid-columnHeader': {
                                     backgroundColor: '#16243e',
                                     color: '#fff',
+                                    fontFamily: 'Montserrat Alternates',
+                                    fontSize: window.innerWidth < 640 ? 13 : 14,
                                 },
                                 '& .MuiSvgIcon-root': {
                                     color: '#fff',
@@ -381,12 +395,12 @@ export const Rutinas = () => {
                     </Menu>
 
 
-                    <div className='flex justify-end'>
+                    <div className='flex flex-initial justify-end'>
                         <Button variant="contained"
                             type="submit"
                             onClick={handleAnadirRutina}
 
-                            endIcon={<FaPlus className='size-4' />}
+                            endIcon={<FaPlus className='xl:size-4 size-3' />}
                             sx={{
                                 backgroundColor: '#16243e',
                                 fontFamily: 'Montserrat Alternates',
@@ -394,8 +408,8 @@ export const Rutinas = () => {
                                 '&:hover': {
                                     color: '#16243e',
                                     backgroundColor: '#e2e6ee',
-                                }
-
+                                },
+                                fontSize: window.innerWidth < 640 ? 10 : window.innerWidth < 1024 ? 12 : 14,
                             }}
                         >
                             Añadir

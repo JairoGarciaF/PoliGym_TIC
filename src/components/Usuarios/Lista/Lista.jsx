@@ -103,6 +103,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
                     </span>
                 </div>
             ),
+            flex: 0.35,
             minWidth: 150,
         },
         {
@@ -124,6 +125,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
                     </span>
                 </div>
             ),
+            flex: 0.35,
             minWidth: 150,
         },
         {
@@ -146,6 +148,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
 
                 </div>
             ),
+            flex: 0.35,
             minWidth: 150,
         },
         {
@@ -164,7 +167,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
     ];
 
     return (
-        <div className="pt-1  overflow-auto flex-1 flex flex-col space-y-2 open-sans">
+        <div className="pt-1 overflow-auto flex-1 flex flex-col space-y-4 open-sans">
 
 
             <div className="flex sm:flex-row gap-2 pt-0.5 flex-col justify-between items-center">
@@ -200,7 +203,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
 
             </div>
 
-            <div className='w-full flex-1'>
+            <div className='w-full flex-1 overflow-auto'>
                 <DataGrid
                     rows={filteredRows}
                     columns={columns}

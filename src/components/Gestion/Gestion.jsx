@@ -7,10 +7,10 @@ export const Gestion = () => {
     const [activeTab, setActiveTab] = useState('rutinas');
 
     return (
-        <div className='bg-white rounded-xl pb-4 shadow h-full p-4'>
+        <div className='bg-white rounded-xl pb-4 shadow p-4 h-full flex flex-col'>
             <h1 className='montserrat-alternates text-azul-marino-500 sm:text-3xl text-2xl font-semibold'>Gestión</h1>
 
-            <nav className="flex justify-start open-sans border-b  ">
+            <nav className="flex justify-start open-sans border-b mb-2  ">
                 <button
                     onClick={() => setActiveTab('rutinas')}
                     className={`px-4 py-1 font-semibold lg:text-sm text-xs transition-colors 
