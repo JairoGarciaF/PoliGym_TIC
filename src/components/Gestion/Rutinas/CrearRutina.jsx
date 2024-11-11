@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableHead, TableRow, IconButton, Select, MenuItem, Checkbox, ListItemText, TextField, FormControl, InputLabel, Button } from '@mui/material';
+import { Table, TableBody, TableCell, TableHead, TableRow, IconButton, Select, MenuItem, TextField, FormControl, InputLabel, Button } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import Swal from 'sweetalert2';
 import { MdOutlineFileUpload } from "react-icons/md";
@@ -310,12 +310,12 @@ export const CrearRutina = ({ onBack }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white open-sans px-24 h-full flex flex-col">
-            <div className='flex flex-col h-[calc(100%-37px)]'>
-                <h2 className="text-lg font-semibold montserrat-alternates text-azul-marino-500 pb-4">Crear Rutina</h2>
+        <form onSubmit={handleSubmit} className="bg-white open-sans flex-1 overflow-auto lg:px-24 md:px-12  h-full flex flex-col">
+            <h2 className="text-base font-semibold montserrat-alternates sm:text-lg  text-azul-marino-500 pb-4">Crear Rutina</h2>
+            <div className='flex flex-col flex-1 overflow-y-auto pb-2'>
 
                 {/* Subir Imagen */}
-                <div className='grid grid-cols-2 justify-center items-center divide-x-2'>
+                <div className='grid sm:grid-cols-2 justify-center sm:gap-0 gap-4 items-center sm:divide-x-2 sm:divide-y-0 divide-y-2'>
 
                     <div className="flex items-center justify-center space-x-4">
                         {imagenRutina ? (
@@ -329,7 +329,7 @@ export const CrearRutina = ({ onBack }) => {
                         )}
                         <div className='flex gap-2 items-center'>
                             <label className="cursor-pointer text-azul-marino-500 hover:bg-azul-marino-100  p-1 rounded ">
-                                <MdOutlineFileUpload className='size-7' />
+                                <MdOutlineFileUpload className='xl:size-7 size-6' />
                                 <input type="file" className="hidden" accept=".png, .jpeg, .jpg" onChange={handleImagenChange} />
                             </label>
                             {imagenRutina && (
@@ -337,19 +337,19 @@ export const CrearRutina = ({ onBack }) => {
                                     onClick={handleEliminarImagen}
                                     className=" hover:bg-rojo-100 text-red-500 rounded  p-1.5"
                                 >
-                                    <AiOutlineDelete className='size-6' />
+                                    <AiOutlineDelete className='xl:size-7 size-6' />
                                 </button>
                             )}
                         </div>
                     </div>
                     <div className="flex flex-col items-center justify-center h-full">
-                        <p className=" text-azul-marino-500">
+                        <p className="md:text-base text-sm text-azul-marino-500">
                             Requisitos:
                         </p>
-                        <p className="text-sm text-gray-500 mt-2">
+                        <p className="xl:text-sm text-xs text-center text-gray-500 mt-2">
                             Formatos soportados: JPG, JPEG, PNG.
                         </p>
-                        <p className="text-sm text-gray-500">
+                        <p className="xl:text-sm text-xs text-center text-gray-500">
                             Tamaño máximo: 2MB.
                         </p>
                     </div>
@@ -362,44 +362,106 @@ export const CrearRutina = ({ onBack }) => {
                             fontFamily: 'Open Sans',
                         },
                     }}>
-                    <Grid size={5}>
+                    <Grid size={{ lg: 5, xs: 12 }}>
                         <TextField
                             label="Nombre"
                             value={nombre}
                             onChange={handleNombreChange}
                             fullWidth
                             size='small'
+                            sx={{
+                                '& .MuiInputBase-input': {
+                                    fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                },
+                                '& .MuiInputLabel-root': {
+                                    fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                },
+                            }}
                         />
                     </Grid>
-                    <Grid size={2}>
+                    <Grid size={{ lg: 2, md: 4, sm: 4, xs: 6 }}>
                         <FormControl size='small' fullWidth>
-                            <InputLabel>Dificultad</InputLabel>
+                            <InputLabel
+                                sx={{
+                                    fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                }}
+                            >
+                                Dificultad
+                            </InputLabel>
                             <Select
                                 label='Dificultad'
                                 value={dificultad}
                                 onChange={(e) => setDificultad(e.target.value)}
                                 fullWidth
-
+                                sx={{
+                                    '& .MuiSelect-select': {
+                                        fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                    },
+                                }}
                             >
-                                <MenuItem value="Baja">Baja</MenuItem>
-                                <MenuItem value="Media">Media</MenuItem>
-                                <MenuItem value="Alta">Alta</MenuItem>
+                                <MenuItem
+                                    sx={{
+                                        '& .MuiSelect-select': {
+                                            fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                        },
+                                    }}
+                                    value="Baja"
+                                >
+                                    Baja
+                                </MenuItem>
+                                <MenuItem
+                                    sx={{
+                                        '& .MuiSelect-select': {
+                                            fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                        },
+                                    }}
+                                    value="Media"
+                                >
+                                    Media
+                                </MenuItem>
+                                <MenuItem
+                                    sx={{
+                                        '& .MuiSelect-select': {
+                                            fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                        },
+                                    }}
+                                    value="Alta"
+                                >
+                                    Alta
+                                </MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
 
-                    <Grid size={4}>
+                    <Grid size={{ lg: 4, md: 7, xs: 6 }}>
                         <FormControl fullWidth size='small'>
-                            <InputLabel>Ejercicio</InputLabel>
+                            <InputLabel
+                                sx={{
+                                    fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                }}
+                            >
+                                Ejercicio
+                            </InputLabel>
                             <Select
                                 label='Ejercicio'
                                 value={ejercicioSeleccionado}
                                 onChange={(e) => setEjercicioSeleccionado(e.target.value)}
                                 fullWidth
-
+                                sx={{
+                                    '& .MuiSelect-select': {
+                                        fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                    },
+                                }}
                             >
                                 {initialExercises.map((exercise) => (
-                                    <MenuItem key={exercise.id} value={exercise.id}>
+                                    <MenuItem
+                                        sx={{
+                                            '& .MuiSelect-select': {
+                                                fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                            },
+                                        }}
+                                        key={exercise.id} value={exercise.id}
+                                    >
                                         {exercise.nombre}
                                     </MenuItem>
                                 ))}
@@ -408,7 +470,9 @@ export const CrearRutina = ({ onBack }) => {
 
                         </FormControl>
                     </Grid>
-                    <Grid size={1}>
+                    <Grid
+                        display="flex" justifyContent="center" alignItems="center"
+                        size={{ md: 1, sm: 2, xs: 12 }} >
                         <IconButton
                             onClick={agregarEjercicio}
                             sx={{
@@ -420,16 +484,12 @@ export const CrearRutina = ({ onBack }) => {
                                 }
                             }}
                         >
-                            <AiOutlinePlus />
+                            <AiOutlinePlus className='xl:size-5 size-4' />
                         </IconButton>
                     </Grid>
-
-
-
-
                 </Grid>
 
-                <div className='overflow-auto my-4'>
+                <div className='my-4'>
                     {/* Tabla de ejercicios */}
                     <Table
                         size='small'
@@ -461,6 +521,11 @@ export const CrearRutina = ({ onBack }) => {
                                             onKeyPress={handleNumeroInput}
                                             inputMode="numeric"
                                             onChange={(e) => handleChange(item.id, 'series', parseInt(e.target.value))}
+                                            sx={{
+                                                '& .MuiInputBase-input': {
+                                                    fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                                }
+                                            }}
                                         />
                                     </TableCell>
                                     <TableCell>
@@ -472,6 +537,11 @@ export const CrearRutina = ({ onBack }) => {
                                             onKeyPress={handleNumeroInput}
                                             inputMode="numeric"
                                             onChange={(e) => handleChange(item.id, 'repeticiones', parseInt(e.target.value))}
+                                            sx={{
+                                                '& .MuiInputBase-input': {
+                                                    fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                                }
+                                            }}
                                         />
                                     </TableCell>
                                     <TableCell>
@@ -483,11 +553,16 @@ export const CrearRutina = ({ onBack }) => {
                                             onKeyPress={handleNumeroInput}
                                             inputMode="numeric"
                                             onChange={(e) => handleChange(item.id, 'tiempoDescanso', parseInt(e.target.value))}
+                                            sx={{
+                                                '& .MuiInputBase-input': {
+                                                    fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                                }
+                                            }}
                                         />
                                     </TableCell>
                                     <TableCell>
                                         <IconButton onClick={() => removerEjercicio(item.id)} color="error">
-                                            <AiOutlineDelete />
+                                            <AiOutlineDelete className='xl:size-6 size-5' />
                                         </IconButton>
                                     </TableCell>
                                 </TableRow>
@@ -500,7 +575,7 @@ export const CrearRutina = ({ onBack }) => {
             <div className='flex gap-2 justify-end justify-self-end'>
                 <Grid size={12} display="flex" justifyContent="flex-end" gap={2}>
                     <Button variant="outlined" onClick={onBack}
-                        startIcon={<FaChevronLeft className='size-4' />}
+                        startIcon={<FaChevronLeft className='xl:size-4 size-3' />}
                         sx={{
                             fontFamily: 'Montserrat Alternates',
                             borderColor: '#16243e',
@@ -508,13 +583,14 @@ export const CrearRutina = ({ onBack }) => {
                             borderWidth: 1,
                             '&:hover': {
                                 backgroundColor: '#e2e6ee',
-                            }
+                            },
+                            fontSize: window.innerWidth < 640 ? 10 : window.innerWidth < 1024 ? 12 : 14,
                         }}>
                         Volver
                     </Button>
                     <Button variant="contained"
                         type="submit"
-                        endIcon={<FaPlus className='size-4' />}
+                        endIcon={<FaPlus className='xl:size-4 size-3' />}
                         sx={{
                             backgroundColor: '#16243e',
                             fontFamily: 'Montserrat Alternates',
@@ -522,8 +598,8 @@ export const CrearRutina = ({ onBack }) => {
                             '&:hover': {
                                 color: '#16243e',
                                 backgroundColor: '#e2e6ee',
-                            }
-
+                            },
+                            fontSize: window.innerWidth < 640 ? 10 : window.innerWidth < 1024 ? 12 : 14,
                         }}
                     >
                         Crear

@@ -66,8 +66,28 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
     );
 
     const columns = [
-        { field: 'nombre', headerName: 'Nombre', flex: 0.75, minWidth: 200, },
-        { field: 'correo', headerName: 'Correo', flex: 0.6, minWidth: 200, },
+        {
+            field: 'nombre',
+            headerName: 'Nombre',
+            renderCell: (params) => (
+                <div className='flex items-center gap-2 justify-start h-full'>
+                    <span className='lg:text-sm text-xs text-balance font-semibold'>{params.row.nombre}</span>
+                </div>
+            ),
+            flex: 0.75,
+            minWidth: 200,
+        },
+        {
+            field: 'correo',
+            headerName: 'Correo',
+            renderCell: (params) => (
+                <div className='flex items-center gap-2 justify-start h-full'>
+                    <span className='lg:text-sm text-xs text-balance font-semibold'>{params.row.correo}</span>
+                </div>
+            ),
+            flex: 0.6,
+            minWidth: 200,
+        },
         {
             field: 'horario',
             headerName: 'Horario',
@@ -216,6 +236,8 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
                         '& .MuiDataGrid-columnHeader': {
                             backgroundColor: '#16243e',
                             color: '#fff',
+                            fontFamily: 'Montserrat Alternates',
+                            fontSize: window.innerWidth < 640 ? 13 : 14,
                         },
                         '& .MuiSvgIcon-root': {
                             color: '#fff',
