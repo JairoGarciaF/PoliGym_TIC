@@ -216,7 +216,7 @@ const generatePopularChartData = (ejercicios, infoMode) => {
     return popularChartData;
 };
 
-const colors = ['#92400e', '#dc2626', '#fef08a', '#fb923c', '#facc15', '#cbd5e1']
+const colors = ['#9d0208', '#d00000', '#e85d04', '#faa307', '#ffea00', '#cbd5e1']
 
 const renderActiveShape = (props) => {
     const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
@@ -264,10 +264,10 @@ export const ExercisesGraph = ({ infoMode }) => {
 
 
     return (
-        <div className='bg-white xl:col-span-1 flex flex-col xl:row-span-1 p-4 rounded-xl shadow'>
+        <div className='bg-white xl:col-span-1 flex flex-col xl:h-auto h-[40svh] xl:row-span-1 p-4 rounded-xl shadow'>
             <div className='flex justify-between items-center'>
-                <h3 className='text-azul-marino-500 xl:text-lg md:text-base text-sm flex items-center gap-2 font-medium'>
-                    <FaDumbbell className='xl:size-5 md:size-4 size-3' />
+                <h3 className='text-azul-marino-500 xl:text-base text-sm flex items-center gap-2 font-medium'>
+                    <FaDumbbell className='xl:size-4 size-3' />
                     Ejercicios Populares
                 </h3>
                 <h3 className='text-azul-marino-500 flex items-center gap-2 xl:text-sm text-xs font-medium'>

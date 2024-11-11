@@ -205,13 +205,13 @@ export const Comunidad = () => {
     const filteredComentarios = comentarios.filter((comentario) => comentario.oculto === showHidden);
 
     return (
-        <div className='bg-white rounded-xl shadow h-full pl-4 py-4'>
-            <h1 className='montserrat-alternates pr-4 text-azul-marino-500 text-3xl font-semibold'>Comunidad</h1>
+        <div className='bg-white rounded-xl flex flex-col shadow h-full pl-4 py-4'>
+            <h1 className='montserrat-alternates pr-4 text-azul-marino-500 sm:text-3xl text-2xl font-semibold'>Comunidad</h1>
 
 
             <nav className="flex justify-between border-b  mr-4">
                 <span
-                    className='px-4 py-2 font-semibold text-sm transition-colors text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
+                    className='px-4 py-1 font-semibold text-sm transition-colors text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
                 >
                     Feed
                 </span>
@@ -233,7 +233,7 @@ export const Comunidad = () => {
                     }}
                 />
             </nav>
-            <div className='overflow-y-auto pr-4 mt-4 h-[calc(100%-36px-41px-16px)]'>
+            <div className='overflow-y-auto pr-4 mt-2 flex-1'>
                 <div className=' flex p-4 bg-slate-100 rounded-xl flex-col gap-4'>
                     {filteredComentarios.map((comentario) => (
                         <div key={comentario.id} className={`p-4  rounded-xl shadow ${comentario.oculto ? 'bg-slate-50' : 'bg-white'}`}>
@@ -243,12 +243,12 @@ export const Comunidad = () => {
                                         <Avatar src={comentario.imagenPerfil} alt={comentario.nombre} />
                                     </div>
                                     <div className='flex flex-col justify-center'>
-                                        <h2 className={`text-xl font-semibold ${comentario.oculto ? 'text-gray-400' : 'text-gray-800'}`}>{comentario.nombre}</h2>
+                                        <h2 className={`sm:text-xl text-lg font-semibold ${comentario.oculto ? 'text-gray-400' : 'text-gray-800'}`}>{comentario.nombre}</h2>
                                         <span className={`text-xs ${comentario.oculto ? 'text-gray-400' : 'text-gray-500'}`}>{comentario.fecha}</span>
                                     </div>
                                 </div>
                                 <button
-                                    className='flex border rounded px-2 py-1 items-center gap-1 text-sm text-gray-500 hover:text-gray-800'
+                                    className='flex border rounded px-2 py-1 items-center gap-1 sm:text-sm text-xs text-gray-500 hover:text-gray-800'
                                     onClick={() => toggleOculto(comentario.id)}
                                 >
                                     {comentario.oculto ? <FaEye /> : <FaEyeSlash />}
@@ -256,10 +256,10 @@ export const Comunidad = () => {
                                 </button>
                             </div>
                             <div className='pl-12 py-2'>
-                                <p className={`${comentario.oculto ? 'text-gray-400' : 'text-gray-800'} `}>{comentario.nombre} {comentario.mensaje}</p>
-                                <div className='flex gap-2 pt-1'>
-                                    <span className={`px-3 py-1 text-sm rounded-full font-medium bg-orange-100 ${comentario.oculto ? 'text-orange-400' : 'text-orange-700'}`}>{comentario.rutina}</span>
-                                    <span className={`px-3 py-1 text-sm rounded-full font-medium 
+                                <p className={`sm:text-base text-sm ${comentario.oculto ? 'text-gray-400' : 'text-gray-800'} `}>{comentario.nombre} {comentario.mensaje}</p>
+                                <div className='flex sm:flex-row flex-col sm:gap-2 gap-1 pt-2'>
+                                    <span className={`px-3 w-fit py-1 sm:text-sm text-xs rounded-full  bg-orange-100 ${comentario.oculto ? 'text-orange-400' : 'text-orange-700'}`}>{comentario.rutina}</span>
+                                    <span className={`px-3 w-fit py-1 sm:text-sm text-xs rounded-full  
                                         ${comentario.dificultad === 'Baja' ? `bg-green-100 ${comentario.oculto ? 'text-green-400' : 'text-green-700'}`
                                             : comentario.dificultad === 'Media' ? `bg-yellow-100 ${comentario.oculto ? 'text-yellow-400' : 'text-yellow-700'}`
                                                 : `bg-red-100 ${comentario.oculto ? 'text-red-400' : 'text-red-700'}`
@@ -267,12 +267,12 @@ export const Comunidad = () => {
                                         {comentario.dificultad}
                                     </span>
 
-                                    <span className={`px-3 py-1 text-sm rounded-full font-medium bg-blue-100 ${comentario.oculto ? 'text-blue-400' : 'text-blue-700'}`}>{comentario.duracion}</span>
+                                    <span className={`px-3 w-fit py-1 sm:text-sm text-xs rounded-full  bg-blue-100 ${comentario.oculto ? 'text-blue-400' : 'text-blue-700'}`}>{comentario.duracion}</span>
                                 </div>
                             </div>                            <div className='flex items-center justify-start pl-12 pt-2 gap-4'>
                                 <div className='flex items-center gap-1'>
                                     <FaHeart className={`${comentario.oculto ? "text-red-400" : "text-red-500"} size-4`} />
-                                    <span className={comentario.oculto ? "text-red-400" : "text-red-500"}>{comentario.likes}</span>
+                                    <span className={`sm:text-base text-sm ${comentario.oculto ? "text-red-400" : "text-red-500"}`}>{comentario.likes}</span>
                                 </div>
                             </div>
                         </div>

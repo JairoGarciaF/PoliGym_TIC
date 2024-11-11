@@ -64,7 +64,7 @@ export const TrainingPlansTable = () => {
 
     return (
         <div className='col-span-1 row-span-1 p-4 bg-white h-full  rounded-xl shadow'>
-            <h3 className='text-azul-marino-500 xl:text-lg md:text-base text-sm  font-medium flex items-center gap-1'> <FaDumbbell className='xl:size-5 md:size-4 size-3' />Planes de Entrenamiento</h3>
+            <h3 className='text-azul-marino-500 xl:text-base text-sm  font-medium flex items-center gap-1'> <FaDumbbell className='xl:size-4 size-3' />Planes de Entrenamiento</h3>
             <nav className="flex justify-start mb-1 open-sans border-b  ">
                 <button
                     onClick={() => setActiveTab('Activo')}

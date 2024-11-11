@@ -64,9 +64,9 @@ const renderLegend = (props) => {
 
 const MuscleRadarChart = () => {
     return (
-        <div className='bg-white p-4 rounded-xl shadow  flex flex-col  xl:col-span-1 xl:row-span-1  '>
-            <h3 className='text-azul-marino-500 xl:text-lg md:text-base text-sm flex items-center gap-2 font-medium'>
-                <FaDumbbell className='xl:size-5 md:size-4 size-3' />Entrenamiento de Músculos
+        <div className='bg-white p-4 rounded-xl shadow lg:h-auto h-[40svh]  flex flex-col  xl:col-span-1 xl:row-span-1  '>
+            <h3 className='text-azul-marino-500 xl:text-base text-sm flex items-center gap-2 font-medium'>
+                <FaDumbbell className='xl:size-4 size-3' />Entrenamiento de Músculos
             </h3>
             <div className='flex-1  flex items-center justify-center'>
 

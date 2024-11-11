@@ -189,7 +189,7 @@ export const Detalles = ({ user }) => {
                     </div>
 
                     <div className='xl:col-span-1 lg:col-span-2 xl:row-span-2 gap-2 p-4 h-full bg-white shadow rounded-xl flex flex-col'>
-                        <h3 className='text-azul-marino-500 xl:text-lg md:text-base text-sm  mb-1 flex items-center font-medium gap-1'> <FaClockRotateLeft className='xl:size-5 md:size-4 size-3' />Últimas Rutinas</h3>
+                        <h3 className='text-azul-marino-500 xl:text-base text-sm  mb-1 flex items-center font-medium gap-1'> <FaClockRotateLeft className='xl:size-4 size-3' />Últimas Rutinas</h3>
 
                         <div className='flex-1 flex xl:flex-col sm:flex-row flex-col gap-2'>
 

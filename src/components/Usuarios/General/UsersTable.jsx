@@ -16,8 +16,8 @@ export const UsersTable = ({ usuarios }) => {
     return (
         <div className='bg-white flex flex-col col-span-1 xl:row-span-12 p-4 rounded-xl shadow'>
             <div className='flex items-center justify-between'>
-                <h3 className='text-azul-marino-500 xl:text-lg md:text-base text-sm flex items-center gap-2 font-medium'>
-                    <FaClock className='xl:size-5 md:size-4 size-3' />
+                <h3 className='text-azul-marino-500 xl:text-base text-sm flex items-center gap-2 font-medium'>
+                    <FaClock className='xl:size-4 size-3' />
                     Usuarios por Horario
                 </h3>
                 <h3 className='text-azul-marino-500 flex items-center gap-2 xl:text-sm text-xs font-medium'>

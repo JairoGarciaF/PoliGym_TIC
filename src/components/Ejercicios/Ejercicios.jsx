@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import { FaSearch } from "react-icons/fa";
 import { GeneralEjercicios } from './GeneralEjercicios/GeneralEjercicios';
 import { DetallesEjercicios } from './DetallesEjercicios/DetallesEjercicios';
 
@@ -128,7 +125,7 @@ const ejercicios = [
                 "mensual": 20
             }
         },
-        "uso_semanal": [12, 8, 10, 12, 8, 4, 6],
+        "uso_semanal": [12, 8, 10, 12, 8, 4, 5],
         "uso_mensual": [145, 150, 160, 155, 140, 170, 160, 155, 150, 165, 0, 0]
     },
     {
@@ -199,80 +196,82 @@ export const Ejercicios = () => {
     const [selectedExercise, setSelectedExercise] = useState(null); // Para guardar el ejercicio seleccionado
     const ejerciciosData = calculateTotals(ejercicios);
 
-    const handleExerciseSelect = (event, value) => {
-        if (value) {
-            setSelectedExercise(value); // Almacena el ejercicio seleccionado
+    const handleExerciseSelect = (event) => {
+        if (event) {
+            const exercise = ejerciciosData.find((item) => item.nombre === event);
+            setSelectedExercise(exercise); // Almacena el ejercicio seleccionado
             setActiveTab('detalles'); // Cambia a la pestaña de detalles
         }
     };
 
     return (
-        <div className='bg-white rounded-xl shadow h-full p-4'>
-            <div className='flex justify-between mb-1'>
-                <h1 className='montserrat-alternates text-azul-marino-500 text-3xl font-semibold'>Ejercicios</h1>
-                <nav className="flex justify-startopen-sans">
-                    <button
-                        onClick={() => setInfoMode('Semanal')}
-                        className={`p-2 text-xs rounded-l-lg transition-colors 
+        <div className='bg-white rounded-xl flex flex-col shadow h-full p-4'>
+            <div>
+                <div className='flex justify-between overflow-hidden'>
+                    <h1 className='montserrat-alternates text-azul-marino-500 sm:text-3xl text-2xl font-semibold'>Ejercicios</h1>
+                    <nav className="flex justify-start md:w-auto w-1/3 open-sans">
+                        <button
+                            onClick={() => setInfoMode('Semanal')}
+                            className={`sm:p-2 p-1 text-xs truncate rounded-l-lg transition-colors 
                     ${infoMode === 'Semanal'
-                                ? 'text-blue-700   bg-blue-100'
-                                : 'text-slate-500 border hover:bg-slate-50'}`}
-                    >
-                        Semanal
-                    </button>
-                    <button
-                        onClick={() => setInfoMode('Mensual')}
-                        className={`p-2 text-xs rounded-r-lg  transition-colors 
+                                    ? 'text-blue-700   bg-blue-100'
+                                    : 'text-slate-500 border hover:bg-slate-50'}`}
+                        >
+                            Semanal
+                        </button>
+                        <button
+                            onClick={() => setInfoMode('Mensual')}
+                            className={`sm:p-2 p-1 text-xs truncate rounded-r-lg  transition-colors 
                     ${infoMode === 'Mensual'
-                                ? 'text-cyan-700  bg-cyan-100'
-                                : 'text-slate-500 border hover:bg-slate-50'}`}
-                    >
-                        Mensual
-                    </button>
-                </nav>
-            </div>
-            <nav className="flex justify-between items-end open-sans border-b mb-2">
-                <div >
-                    <button
-                        onClick={() => setActiveTab('general')}
-                        className={`px-4 py-2 font-semibold text-sm transition-colors 
-                    ${activeTab === 'general'
-                                ? 'text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
-                                : 'text-stone-500 hover:text-azul-marino-300'}`}
-                    >
-                        General
-                    </button>
-                    <button
-                        onClick={() => setActiveTab('detalles')}
-                        className={`px-4 py-2 font-semibold text-sm transition-colors 
-                    ${activeTab === 'detalles'
-                                ? 'text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
-                                : 'text-stone-500 '}`}
-                    >
-                        Detalles
-                    </button>
+                                    ? 'text-cyan-700  bg-cyan-100'
+                                    : 'text-slate-500 border hover:bg-slate-50'}`}
+                        >
+                            Mensual
+                        </button>
+                    </nav>
                 </div>
-                <Autocomplete
-                    disablePortal
-                    getOptionLabel={(option) => option.nombre}
-                    size='small'
-                    options={ejerciciosData}
-                    onChange={handleExerciseSelect}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            label="Ejercicios"
-                            variant="outlined"
-                            InputProps={{
-                                ...params.InputProps,
-                                startAdornment: <FaSearch className='pl-1 size-5' />,
-                            }}
-                        />
+                <nav className="flex justify-between items-end open-sans border-b mb-2">
+                    <div >
+                        <button
+                            onClick={() => setActiveTab('general')}
+                            className={`px-4 py-1 font-semibold text-sm transition-colors 
+                    ${activeTab === 'general'
+                                    ? 'text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
+                                    : 'text-stone-500 hover:text-azul-marino-300'}`}
+                        >
+                            General
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('detalles')}
+                            className={`px-4 py-1 font-semibold text-sm transition-colors 
+                    ${activeTab === 'detalles'
+                                    ? 'text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
+                                    : 'text-stone-500 '}`}
+                        >
+                            Detalles
+                        </button>
+                    </div>
+                    {activeTab === 'detalles' && (
+                        <nav className="flex justify-start sm:w-auto w-1/3 text-sm">
+                            <select
+                                className="px-4 py-1 w-full bg-white text-azul-marino-500"
+                                onChange={(e) => handleExerciseSelect(e.target.value)}
+                                defaultValue=""
+                            >
+                                <option value="" disabled>
+                                    Selecciona un ejercicio
+                                </option>
+                                {ejerciciosData.map((exercise) => (
+                                    <option key={exercise.nombre} value={exercise.nombre} className="font-medium">
+                                        {exercise.nombre}
+                                    </option>
+                                ))}
+                            </select>
+                        </nav>
                     )}
 
-                />
-            </nav>
+                </nav>
+            </div>
 
             {activeTab === 'general' && <GeneralEjercicios ejercicios={ejerciciosData} infoMode={infoMode} />}
             {activeTab === 'detalles' && <DetallesEjercicios ejercicio={selectedExercise} infoMode={infoMode} />}

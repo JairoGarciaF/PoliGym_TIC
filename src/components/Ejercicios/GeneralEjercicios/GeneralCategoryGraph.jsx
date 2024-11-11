@@ -1,32 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { BarChart } from '@mui/x-charts/BarChart';
+import React from 'react';
 import { TbCategoryFilled } from "react-icons/tb";
+import { BarChart, Cell, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export const GeneralCategoryGraph = ({ data, infoMode }) => {
-    const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-    const containerRef = useRef(null);
-
-    useEffect(() => {
-        const resizeObserver = new ResizeObserver(entries => {
-            for (let entry of entries) {
-                setContainerSize({
-                    width: entry.contentRect.width,
-                    height: entry.contentRect.height,
-                });
-            }
-        });
-
-        if (containerRef.current) {
-            resizeObserver.observe(containerRef.current);
-        }
-
-        return () => {
-            if (containerRef.current) {
-                resizeObserver.unobserve(containerRef.current);
-            }
-        };
-    }, []);
-
     // Agrupar ejercicios por categoría y sumar el uso
     const categoriasUso = data.reduce((acc, ejercicio) => {
         const categoria = ejercicio.categoria;
@@ -44,41 +20,41 @@ export const GeneralCategoryGraph = ({ data, infoMode }) => {
     }, {});
 
     // Preparar los datos para el gráfico
-    const categorias = Object.keys(categoriasUso);
-    const usoCategorias = Object.values(categoriasUso);
+    const chartData = Object.keys(categoriasUso).map((categoria) => ({
+        categoria,
+        uso: categoriasUso[categoria]
+    }));
+
+    const COLORS = ['#1e3a8a', '#f97316', '#84cc16']
 
     return (
-        <div
-            ref={containerRef}
-            className='bg-white p-4 rounded-xl shadow flex flex-col col-span-5 h-full'
-        >
-            <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
-                <TbCategoryFilled className='size-5' />
+        <div className='bg-white p-4 rounded-xl xl:h-auto h-[40svh] shadow flex flex-col items-end xl:col-span-5'>
+            <h3 className='text-azul-marino-500 xl:text-base text-sm mb-1 flex self-start items-center gap-2 font-medium'>
+                <TbCategoryFilled className='xl:size-4 size-3' />
                 Uso por Categoría
             </h3>
-            <BarChart
-                xAxis={[{
-                    scaleType: 'linear', // Cambiar el tipo de escala
 
-
-                }]}
-                yAxis={[{
-                    scaleType: 'band',
-
-                    data: categorias, // Colocar las categorías en el eje Y
-                    colorMap: {
-                        type: "ordinal",
-                        values: categorias,
-                        colors: ['#1e3a8a', '#f97316', '#84cc16'],
-                    },
-                }]}
-                series={[{
-                    data: usoCategorias,
-                }]}
-                layout='horizontal' // Cambiar la disposición de las barras a horizontal\
-                width={containerSize.width * 1}
-                height={containerSize.height * 1}
-            />
+            <div className='flex-1 w-full'>
+                <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                        layout="vertical"
+                        data={chartData}
+                        margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis type="number" tick={{ fontSize: window.innerWidth < 640 ? 10 : window.innerWidth < 1024 ? 12 : 14 }} />
+                        <YAxis
+                            tick={{ fontSize: window.innerWidth < 640 ? 10 : window.innerWidth < 1024 ? 12 : 14 }}
+                            type="category" dataKey="categoria" width={100} />
+                        <Tooltip />
+                        <Bar dataKey="uso" barSize={20}>
+                            {chartData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                        </Bar>
+                    </BarChart>
+                </ResponsiveContainer>
+            </div>
         </div>
-    )
-}
+    );
+};

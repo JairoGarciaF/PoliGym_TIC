@@ -40,48 +40,48 @@ export const DetallesEjercicios = ({ ejercicio, infoMode }) => {
         <>
             {ejercicio ? (
 
-                <div className="p-4 h-[calc(100%-40px-49px)] open-sans gap-4 grid grid-cols-12 grid-rows-2 bg-slate-100 rounded-xl">
-                    <div className='col-span-4 row-span-1 h-full flex justify-center bg-white p-4 rounded-xl shadow '>
+                <div className="p-4 flex-1 overflow-auto open-sans gap-4 grid xl:grid-cols-3 lg:grid-cols-2 xl:grid-rows-2 bg-slate-100 rounded-xl">
+                    <div className='lg:col-span-1 xl:row-span-1 flex justify-center bg-white p-4 rounded-xl shadow '>
                         <img
                             src='./Navy-Seal-Burpee.gif' //ejercicio.url
                             alt={ejercicio.nombre}
                             className="h-full object-cover self-center"
                         />
                     </div>
-                    <div className='col-span-4 row-span-1 gap-4 grid grid-rows-3 grid-cols-1'>
+                    <div className='lg:col-span-1 xl:row-span-1 gap-4 grid grid-rows-3 grid-cols-1'>
                         <div className='bg-white py-2 px-4 rounded-xl shadow '>
                             <div className='flex flex-col justify-center h-full'>
                                 <h3 className='text-slate-500 text-xs'>Nombre</h3>
                                 <div className='flex items-center gap-1 text-azul-marino-500 '>
-                                    <p className='font-medium text-3xl'>{ejercicio.nombre}</p>
+                                    <p className='font-medium xl:text-xl md:text-lg text-sm'>{ejercicio.nombre}</p>
                                 </div>
                             </div>
                         </div>
-                        <div className='grid row-span-1 gap-4 grid-cols-3'>
-                            <div className='col-span-1 row-span-1 bg-white  open-sans p-4 rounded-xl shadow'>
+                        <div className='grid xl:row-span-1 gap-4 grid-cols-3'>
+                            <div className='col-span-1 xl:row-span-1 bg-white  open-sans p-4 rounded-xl shadow'>
                                 <div className='h-full flex flex-col justify-center'>
                                     <h3 className='text-slate-500 text-xs '>Uso</h3>
                                     <div className='open-sans flex text-azul-marino-500 gap-2 items-center'>
-                                        <FaArrowTrendUp className='size-7' />
-                                        <p className='font-semibold text-3xl'>  {infoMode === 'Semanal' ? ejercicio.uso_semanal_total : ejercicio.uso_mensual_total}</p>
+                                        <FaArrowTrendUp className='xl:size-5 size-4' />
+                                        <p className='font-semibold xl:text-xl md:text-lg text-sm'>  {infoMode === 'Semanal' ? ejercicio.uso_semanal_total : ejercicio.uso_mensual_total}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className='col-span-1 row-span-1 bg-white  open-sans p-4 rounded-xl shadow'>
+                            <div className='col-span-1 xl:row-span-1 bg-white  open-sans p-4 rounded-xl shadow'>
                                 <div className='h-full flex flex-col justify-center'>
                                     <h3 className='text-slate-500 text-xs '>Categoría</h3>
                                     <div className={`open-sans flex ${getCategoryPillColor(ejercicio.categoria)} gap-2 items-center`}>
-                                        <TbCategoryFilled className='size-7' />
-                                        <p className='font-semibold text-3xl'>  {ejercicio.categoria}</p>
+                                        <TbCategoryFilled className='xl:size-5 size-4' />
+                                        <p className='font-semibold xl:text-xl md:text-lg text-sm'>  {ejercicio.categoria}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className='col-span-1 row-span-1 bg-white  open-sans p-4 rounded-xl shadow'>
+                            <div className='col-span-1 xl:row-span-1 bg-white  open-sans p-4 rounded-xl shadow'>
                                 <div className='h-full flex flex-col justify-center'>
                                     <h3 className='text-slate-500 text-xs '>Dificultad</h3>
                                     <div className={`open-sans flex ${getDifficultyPillColor(ejercicio.dificultad)} gap-2 items-center`}>
-                                        <FaFireAlt className='size-7' />
-                                        <p className='font-semibold text-3xl'>  {ejercicio.dificultad}</p>
+                                        <FaFireAlt className='xl:size-5 size-4' />
+                                        <p className='font-semibold xl:text-xl md:text-lg text-sm'>  {ejercicio.dificultad}</p>
                                     </div>
                                 </div>
                             </div>
@@ -90,18 +90,18 @@ export const DetallesEjercicios = ({ ejercicio, infoMode }) => {
                             <div className='flex flex-col justify-center h-full'>
                                 <h3 className='text-slate-500 text-xs'>Implemento</h3>
                                 <div className='flex items-center gap-1 text-azul-marino-500 '>
-                                    <p className='font-medium text-3xl'>{ejercicio.implemento}</p>
+                                    <p className='font-medium xl:text-xl md:text-lg text-sm'>{ejercicio.implemento}</p>
                                 </div>
 
                             </div>
                         </div>
                     </div>
-                    <div className='col-span-4 flex flex-col justify-center row-span-1 bg-white p-4 rounded-xl shadow h-full '>
-                        <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
-                            <TbTargetArrow className='size-5' />
+                    <div className='lg:col-span-1 flex flex-col justify-center xl:row-span-1 bg-white p-4 rounded-xl shadow h-full '>
+                        <h3 className='text-azul-marino-500 xl:text-base text-sm mb-1 flex self-start items-center gap-2 font-medium'>
+                            <TbTargetArrow className='xl:size-4 size-3' />
                             Grupos Musculares
                         </h3>
-                        <div className='flex justify-center h-[calc(100%-28px)]'>
+                        <div className='flex justify-center flex-1'>
                             <BodyMap gender='Masculino' view='front' className='w-1/3' recentMuscles={ejercicio.musculos} oldMuscles={[]} />
                             <BodyMap gender='Masculino' view='back' className='w-1/3' recentMuscles={ejercicio.musculos} oldMuscles={[]} />
                         </div>

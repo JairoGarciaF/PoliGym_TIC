@@ -172,13 +172,13 @@ export const Implementos = () => {
     const tableData = generateTableData(implementosData, infoMode);
 
     return (
-        <div className='bg-white rounded-xl pb-4 shadow open-sans h-full flex flex-col p-4'>
-            <div className='flex justify-between'>
-                <h1 className='montserrat-alternates text-azul-marino-500 text-3xl font-semibold'>Implementos</h1>
-                <nav className="flex justify-startopen-sans">
+        <div className='bg-white rounded-xl pb-4  shadow open-sans h-full flex flex-col p-4'>
+            <div className='flex justify-between overflow-hidden'>
+                <h1 className='montserrat-alternates text-azul-marino-500 sm:text-3xl text-2xl font-semibold'>Implementos</h1>
+                <nav className="flex justify-start md:w-auto w-1/3 open-sans">
                     <button
                         onClick={() => setInfoMode('Semanal')}
-                        className={`p-2 text-xs rounded-l-lg transition-colors 
+                        className={`sm:p-2 p-1 text-xs truncate rounded-l-lg transition-colors 
                     ${infoMode === 'Semanal'
                                 ? 'text-blue-700   bg-blue-100'
                                 : 'text-slate-500 border hover:bg-slate-50'}`}
@@ -187,7 +187,7 @@ export const Implementos = () => {
                     </button>
                     <button
                         onClick={() => setInfoMode('Mensual')}
-                        className={`p-2 text-xs rounded-r-lg  transition-colors 
+                        className={`sm:p-2 p-1 text-xs truncate rounded-r-lg  transition-colors 
                     ${infoMode === 'Mensual'
                                 ? 'text-cyan-700  bg-cyan-100'
                                 : 'text-slate-500 border hover:bg-slate-50'}`}
@@ -196,24 +196,24 @@ export const Implementos = () => {
                     </button>
                 </nav>
             </div>
-            <div className='grid grid-rows-2 gap-2 h-[calc(100%-36px)]'>
+            <div className='overflow-auto flex-1 grid xl:grid-rows-2 gap-2 '>
                 <div className='row-span-1 flex flex-col'>
                     <nav className="flex justify-start border-b  mb-2">
                         <span
-                            className='px-4 py-2  font-semibold text-sm transition-colors text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
+                            className='px-4 py-1  font-semibold text-sm transition-colors text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
                         >
                             General
                         </span>
                     </nav>
-                    <div className='grid h-[calc(100%-49px)] grid-rows-1 bg-slate-100 gap-4 p-4 rounded-xl grid-cols-2'>
+                    <div className='grid overflow-auto flex-1 xl:grid-rows-1 bg-slate-100 gap-4 p-4 rounded-xl xl:grid-cols-2'>
                         <ImplementsGraph data={pieChartData} total={implementos.length} />
                         <ImplementsTable data={tableData} infoMode={infoMode} />
                     </div>
                 </div>
-                <div className='row-span-1 flex  flex-col'>
+
+                <div className='row-span-1 flex-1 flex flex-col'>
                     <MachinesGraph data={implementosData} infoMode={infoMode} />
                 </div>
-
             </div>
         </div>
     )

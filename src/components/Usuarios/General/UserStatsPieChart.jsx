@@ -58,9 +58,9 @@ export const UserStatsPieChart = ({ usuarios }) => {
     const onPieEnter = (_, index) => setActiveIndex(index);
 
     return (
-        <div className='bg-white col-span-1 row-span-10 p-4 rounded-xl shadow flex flex-col items-center'>
-            <h3 className='text-azul-marino-500 xl:text-lg md:text-base text-sm flex self-start items-center gap-2 font-medium'>
-                <FaChartPie className='xl:size-5 md:size-4 size-3' />
+        <div className='bg-white col-span-1 row-span-10 xl:h-auto h-[50svh] p-4 rounded-xl shadow flex flex-col items-center'>
+            <h3 className='text-azul-marino-500 xl:text-base text-sm flex self-start items-center gap-2 font-medium'>
+                <FaChartPie className='xl:size-4 size-3' />
                 Usuarios por {selectedCategory}
             </h3>
 

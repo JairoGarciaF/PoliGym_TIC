@@ -743,7 +743,7 @@ export const PlanEntrenamiento = () => {
             {currentView === 'list' && (
 
                 <>
-                    <div className="flex justify-between items-center">
+                    <div className="flex sm:flex-row gap-2 pt-0.5 flex-col justify-between items-center">
 
                         <TextField
                             label="Buscar"

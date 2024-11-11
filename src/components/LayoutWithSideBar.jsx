@@ -1,9 +1,22 @@
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar/Sidebar';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export const LayoutWithSidebar = () => {
-    const [sidebarExpanded, setSidebarExpanded] = useState(true);
+    const [sidebarExpanded, setSidebarExpanded] = useState(window.innerWidth >= 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 768 && sidebarExpanded) {
+                setSidebarExpanded(false);
+            } else if (window.innerWidth > 768 && !sidebarExpanded) {
+                setSidebarExpanded(true);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [sidebarExpanded]);
 
     return (
         <div className="text-gray-950 bg-slate-100 h-screen flex">

@@ -99,13 +99,13 @@ export const MachinesGraph = ({ data, infoMode }) => {
         <>
             <nav className="flex justify-between border-b  mb-2">
                 <span
-                    className='px-4 py-2 font-semibold text-sm transition-colors text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
+                    className='px-4 py-1 font-semibold text-sm transition-colors text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
                 >
                     Detalles
                 </span>
                 <nav className="flex justify-start  text-sm ">
                     <select
-                        className='px-4 py-2 w-full bg-white text-azul-marino-500 '
+                        className='px-4 py-1 w-full bg-white text-azul-marino-500 '
                         onChange={handleMachineChange}
                     >
                         {data.map(machine => (
@@ -117,30 +117,30 @@ export const MachinesGraph = ({ data, infoMode }) => {
 
                 </nav>
             </nav>
-            <div className='grid grid-cols-4 gap-4 grid-rows-1 h-[calc(100%-49px)] bg-slate-100 p-4 rounded-xl'>
+            <div className='flex-1 overflow-auto grid lg:grid-cols-4 grid-cols-1 gap-4 grid-rows-1 bg-slate-100 p-4 rounded-xl'>
                 <div ref={containerRef} className=' p-4  bg-white col-span-1 rounded-xl shadow'>
 
-                    <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
-                        <FaCircleInfo className='size-5' />
+                    <h3 className='text-azul-marino-500 xl:text-base text-sm  mb-1 flex self-start items-center gap-2 font-medium'>
+                        <FaCircleInfo className='xl:size-4 size-3' />
                         Información
                     </h3>
-                    <div className='mt-4 text-sm'>
-                        <p className='pb-4 text-base'>
+                    <div className='mt-4 xl:text-sm text-xs'>
+                        <p className='pb-4 xl:text-base text-sm '>
                             <span className='font-semibold'>Descripción: </span>
                             <span >{selectedMachine.detalles.descripcion}</span>
                         </p>
                         <div className='flex flex-col gap-3'>
                             <p>
                                 <span className='font-semibold'>Tipo: </span>
-                                <span className={`px-2 py-1 rounded-full text-sm ${getTypePillColor(selectedMachine.tipo)}`}>{selectedMachine.tipo}</span>
+                                <span className={`px-2 py-1 rounded-full xl:text-sm text-xs ${getTypePillColor(selectedMachine.tipo)}`}>{selectedMachine.tipo}</span>
                             </p>
                             <p>
                                 <span className='font-semibold'>Categoría: </span>
-                                <span className={`px-2 py-1 rounded-full text-sm ${getCategoryPillColor(selectedMachine.detalles.categoria)}`}>{selectedMachine.detalles.categoria}</span>
+                                <span className={`px-2 py-1 rounded-full xl:text-sm text-xs ${getCategoryPillColor(selectedMachine.detalles.categoria)}`}>{selectedMachine.detalles.categoria}</span>
                             </p>
                             <p>
                                 <span className='font-semibold'>Dificultad: </span>
-                                <span className={`px-2 py-1 rounded-full text-sm ${getDifficultyPillColor(selectedMachine.detalles.dificultad)}`}>{selectedMachine.detalles.dificultad || 'No especificada'}</span>
+                                <span className={`px-2 py-1 rounded-full xl:text-sm text-xs ${getDifficultyPillColor(selectedMachine.detalles.dificultad)}`}>{selectedMachine.detalles.dificultad || 'No especificada'}</span>
                             </p>
                         </div>
                     </div>
@@ -148,15 +148,15 @@ export const MachinesGraph = ({ data, infoMode }) => {
 
 
                 </div>
-                <div ref={containerRef} className='p-4  bg-white col-span-3 rounded-xl shadow'>
+                <div ref={containerRef} className='p-4  bg-white lg:col-span-3 rounded-xl shadow'>
                     <div className='flex justify-between items-center'>
 
-                        <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
-                            <FaChartLine className='size-5' />
+                        <h3 className='text-azul-marino-500 xl:text-base text-sm  mb-1 flex self-start items-center gap-2 font-medium'>
+                            <FaChartLine className='xl:size-4 size-3' />
                             Frecuencia de Uso
                         </h3>
-                        <h3 className='text-azul-marino-500   flex text-sm items-center gap-2 font-medium'>
-                            <TbSum className='size-4' />
+                        <h3 className='text-azul-marino-500 xl:text-sm text-xs flex items-center gap-2 font-medium'>
+                            <TbSum className='xl:size-4 size-3' />
                             Uso Total: {infoMode === 'Semanal' ? selectedMachine.uso_semanal_total : selectedMachine.uso_mensual_total}
                         </h3>
                     </div>

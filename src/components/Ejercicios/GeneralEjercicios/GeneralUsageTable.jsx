@@ -38,16 +38,16 @@ export const GeneralUsageTable = ({ data, infoMode }) => {
 
 
     return (
-        <div className='bg-white p-4 rounded-xl shadow col-span-7  h-full'>
-            <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
-                <FaDumbbell className='size-5' />
+        <div className='flex flex-col bg-white p-4 rounded-xl shadow xl:col-span-7 h-full'>
+            <h3 className='text-azul-marino-500 xl:text-base text-sm mb-1 flex self-start items-center gap-2 font-medium'>
+                <FaDumbbell className='xl:size-4 size-3' />
                 Uso de Ejercicios
             </h3>
 
             {/* Control del contenedor de la tabla */}
-            <div className="relative h-[calc(100%-28px)] overflow-x-auto overflow-y-auto border sm:rounded-lg">
+            <div className="relative flex-1 overflow-x-auto overflow-y-auto border sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-azul-marino-500">
-                    <thead className="text-xs text-white rounded uppercase bg-azul-marino-500">
+                    <thead className="text-xs text-white  rounded uppercase bg-azul-marino-500">
                         <tr>
                             <th scope="col" className="p-2">Ejercicios</th>
                             <th scope="col" className="p-2 text-center">Categoría</th>
@@ -58,20 +58,20 @@ export const GeneralUsageTable = ({ data, infoMode }) => {
                     <tbody>
                         {filteredData.map((ejercicio, index) => (
                             <tr key={index} className="bg-white border-b hover:bg-slate-100">
-                                <th scope="row" className="p-2 font-medium w-2/5 whitespace-nowrap text-azul-marino-900">
+                                <th scope="row" className="p-2 md:text-sm text-xs font-medium w-2/5 whitespace-nowrap text-azul-marino-900">
                                     {ejercicio.nombre}
                                 </th>
                                 <td className="p-2 text-center w-1/5 ">
-                                    <span className={`px-2 py-1 rounded-full whitespace-nowrap ${getCategoryPillColor(ejercicio.categoria)}`}>
+                                    <span className={`px-2 py-1 lg:text-sm text-xs rounded-full whitespace-nowrap ${getCategoryPillColor(ejercicio.categoria)}`}>
                                         {ejercicio.categoria}
                                     </span>
                                 </td>
-                                <td className="p-2 text-center w-1/5 ">
+                                <td className="p-2 text-center lg:text-sm text-xs w-1/5 ">
                                     <span className={`px-2 py-1 rounded-full whitespace-nowrap ${getDifficultyPillColor(ejercicio.dificultad)}`}>
                                         {ejercicio.dificultad}
                                     </span>
                                 </td>
-                                <td className="p-2 text-center whitespace-nowrap">
+                                <td className="p-2 text-center md:text-sm text-xs whitespace-nowrap">
                                     {ejercicio.uso}
                                 </td>
                             </tr>

@@ -200,7 +200,7 @@ const generatePopularChartData = (routinesStats, infoMode) => {
     return popularChartData;
 };
 
-const colors = ['#0c4a6e', '#0ea5e9', '#a5f3fc', '#1e40af', '#7dd3fc', '#cbd5e1'];
+const colors = ['#03045e', '#0077b6', '#00b4d8', '#90e0ef', '#caf0f8', '#cbd5e1'];
 
 const renderActiveShape = (props) => {
     const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
@@ -247,10 +247,10 @@ export const RoutinesGraph = ({ infoMode }) => {
     const routinesData = generatePopularChartData(calculateTotals(routinesStats), infoMode);
 
     return (
-        <div className='bg-white xl:col-span-1 flex flex-col xl:row-span-1 p-4 rounded-xl shadow'>
+        <div className='bg-white xl:col-span-1 flex flex-col xl:h-auto h-[40svh] xl:row-span-1 p-4 rounded-xl shadow'>
             <div className='flex justify-between items-center'>
-                <h3 className='text-azul-marino-500 xl:text-lg md:text-base text-sm flex items-center gap-2 font-medium'>
-                    <FaCalendarAlt className='xl:size-5 md:size-4 size-3' />
+                <h3 className='text-azul-marino-500 xl:text-base text-sm flex items-center gap-2 font-medium'>
+                    <FaCalendarAlt className='xl:size-4 size-3' />
                     Rutinas Populares
                 </h3>
                 <h3 className='text-azul-marino-500 flex items-center gap-2 xl:text-sm text-xs font-medium'>

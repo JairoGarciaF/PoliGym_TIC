@@ -42,9 +42,9 @@ export const DetallesUsageGraph = ({ ejercicio, infoMode }) => {
 
 
     return (
-        <div ref={containerRef} className='bg-white p-4 rounded-xl shadow col-span-7 row-span-1'>
-            <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
-                <FaChartLine className='size-5' />
+        <div ref={containerRef} className='bg-white p-4 rounded-xl shadow lg:col-span-2 xl:row-span-1 '>
+            <h3 className='text-azul-marino-500 xl:text-base text-sm mb-1 flex self-start items-center gap-2 font-medium'>
+                <FaChartLine className='xl:size-4 size-3' />
                 Frecuencia de Uso
             </h3>
             {/* Gráfico de uso */}

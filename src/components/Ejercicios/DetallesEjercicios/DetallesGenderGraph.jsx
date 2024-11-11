@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend } from 'recharts';
 import { IoMaleFemale } from "react-icons/io5";
 
@@ -10,7 +10,7 @@ const renderActiveShape = (props) => {
 
     return (
         <g>
-            <text x={cx} y={cy * 0.2} textAnchor="middle" fill='#1e293b' className='text-base'>
+            <text x={cx} y={cy * 0.15} textAnchor="middle" fill='#1e293b' className='sm:text-base text-sm'>
                 {payload.name}
             </text>
             <Sector
@@ -32,8 +32,8 @@ const renderActiveShape = (props) => {
                 outerRadius={outerRadius + 10}
                 fill={fill}
             />
-            <text x={cx} y={cy} textAnchor="middle" fill="#333" className='text-lg'>{value}</text>
-            <text x={cx} y={cy + 20} textAnchor="middle" fill="#999" className='text-sm'>{`${(percent * 100).toFixed(2)}%`}</text>
+            <text x={cx} y={cy} textAnchor="middle" fill="#333" className='sm:text-base text-sm'>{value}</text>
+            <text x={cx} y={cy + 20} textAnchor="middle" fill="#999" className='sm:text-sm text-xs'>{`${(percent * 100).toFixed(2)}%`}</text>
         </g>
     );
 };
@@ -41,28 +41,17 @@ const renderActiveShape = (props) => {
 export const DetallesGenderGraph = ({ ejercicio, infoMode }) => {
     const data = ejercicio.uso_genero;
     const [activeIndex, setActiveIndex] = useState(0);  // Estado para el sector activo
-    const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-    const containerRef = useRef(null);
+    const [showLegend, setShowLegend] = useState(true);
 
     useEffect(() => {
-        const resizeObserver = new ResizeObserver(entries => {
-            for (let entry of entries) {
-                setContainerSize({
-                    width: entry.contentRect.width,
-                    height: entry.contentRect.height,
-                });
-            }
-        });
-
-        if (containerRef.current) {
-            resizeObserver.observe(containerRef.current);
-        }
-
-        return () => {
-            if (containerRef.current) {
-                resizeObserver.unobserve(containerRef.current);
-            }
+        const handleResize = () => {
+            // Oculta la leyenda si el ancho es menor a 640px (equivalente a `sm` en Tailwind)
+            setShowLegend(window.innerWidth >= 640);
         };
+
+        handleResize(); // Verifica el tamaño inicial
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     const chartData = infoMode === 'Semanal'
@@ -82,22 +71,22 @@ export const DetallesGenderGraph = ({ ejercicio, infoMode }) => {
     };
 
     return (
-        <div ref={containerRef} className='bg-white p-4 rounded-xl shadow col-span-5 row-span-1'>
-            <h3 className='text-azul-marino-500 mb-1 flex self-start items-center gap-2 font-medium'>
-                <IoMaleFemale className='size-5' />
+        <div className='flex flex-col bg-white lg:h-auto h-[40svh] p-4 rounded-xl shadow xl:col-span-1 lg:col-span-1 xl:row-span-1'>
+            <h3 className='text-azul-marino-500 xl:text-base text-sm mb-1 flex self-start items-center gap-2 font-medium'>
+                <IoMaleFemale className='xl:size-4 size-3' />
                 Uso por Género
             </h3>
-            <div className='flex items-center justify-center h-[calc(100%-24px-4px)]'>
+            <div className='flex items-center justify-center flex-1'>
                 <ResponsiveContainer width="100%" height="100%">
-                    <PieChart width={containerSize.width * 0.9} height={containerSize.height * 0.9}>
+                    <PieChart>
                         <Pie
                             activeIndex={activeIndex}
                             activeShape={renderActiveShape}
                             data={chartData}
                             cx="50%"
-                            cy="50%"
-                            innerRadius="30%"
-                            outerRadius="70%"
+                            cy="55%"
+                            innerRadius="40%"
+                            outerRadius="80%"
                             paddingAngle={2}
                             cornerRadius={7}
                             dataKey="value"
@@ -107,16 +96,18 @@ export const DetallesGenderGraph = ({ ejercicio, infoMode }) => {
                                 <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
                             ))}
                         </Pie>
-                        <Legend
-                            layout="vertical"
-                            align="right"
-                            verticalAlign="middle"
-                            iconSize={10}
-                            wrapperStyle={{ fontSize: 14, fontFamily: 'Open Sans' }}
-                            formatter={(value, entry) => (
-                                <span className='text-slate-800'>{entry.payload.name}</span>
-                            )}
-                        />
+                        {showLegend && (
+                            <Legend
+                                layout="vertical"
+                                align="right"
+                                verticalAlign="middle"
+                                iconSize={10}
+                                wrapperStyle={{ fontSize: 14, fontFamily: 'Open Sans' }}
+                                formatter={(value, entry) => (
+                                    <span className='text-slate-800'>{entry.payload.name}</span>
+                                )}
+                            />
+                        )}
                     </PieChart>
                 </ResponsiveContainer>
             </div>
