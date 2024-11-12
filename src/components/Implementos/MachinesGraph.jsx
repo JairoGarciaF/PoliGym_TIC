@@ -118,13 +118,13 @@ export const MachinesGraph = ({ data, infoMode }) => {
                 </nav>
             </nav>
             <div className='flex-1 overflow-auto grid lg:grid-cols-4 grid-cols-1 gap-4 grid-rows-1 bg-slate-100 p-4 rounded-xl'>
-                <div ref={containerRef} className=' p-4  bg-white col-span-1 rounded-xl shadow'>
+                <div ref={containerRef} className=' p-4  bg-white col-span-1 rounded-xl shadow flex flex-col'>
 
                     <h3 className='text-azul-marino-500 xl:text-base text-sm  mb-1 flex self-start items-center gap-2 font-medium'>
                         <FaCircleInfo className='xl:size-4 size-3' />
                         Información
                     </h3>
-                    <div className='mt-4 xl:text-sm text-xs'>
+                    <div className='mt-4 xl:text-sm text-xs flex-1 overflow-auto'>
                         <p className='pb-4 xl:text-base text-sm '>
                             <span className='font-semibold'>Descripción: </span>
                             <span >{selectedMachine.detalles.descripcion}</span>

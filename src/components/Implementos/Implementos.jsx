@@ -5,117 +5,139 @@ import { ImplementsTable } from './ImplementsTable';
 
 const implementos = [
     {
-        "nombre": "Máquina de press de banca",
+        "nombre": "Bicicleta Estática",
         "tipo": "Máquina",
-        "uso_semanal": [2, 3, 2, 4, 1, 1, 2],
-        "uso_mensual": [35, 26, 35, 24, 36, 27, 37, 25, 36, 26, 0, 0],
+        "uso_semanal": [3, 4, 3, 5, 2, 3, 4],
+        "uso_mensual": [40, 32, 34, 38, 36, 31, 39, 30, 35, 33, 0, 0],
         "detalles": {
-            "descripcion": "Ideal para entrenar pecho y tríceps.",
+            "descripcion": "Máquina cardiovascular ideal para mejorar la resistencia y quemar calorías.",
+            "categoria": "Cardio",
+            "dificultad": "Baja"
+        }
+    },
+    {
+        "nombre": "Máquina Paralela",
+        "tipo": "Máquina",
+        "uso_semanal": [1, 2, 1, 3, 1, 1, 2],
+        "uso_mensual": [20, 18, 19, 16, 17, 15, 20, 19, 18, 17, 0, 0],
+        "detalles": {
+            "descripcion": "Máquina diseñada para ejercicios de abdominales y fuerza del tronco superior.",
             "categoria": "Fuerza",
             "dificultad": "Media"
         }
     },
     {
-        "nombre": "Máquina de remo",
+        "nombre": "Máquina de Bíceps",
         "tipo": "Máquina",
-        "uso_semanal": [1, 2, 3, 1, 1, 1, 1],
-        "uso_mensual": [13, 14, 24, 25, 14, 23, 15, 23, 13, 14, 0, 0],
+        "uso_semanal": [3, 3, 4, 3, 2, 3, 4],
+        "uso_mensual": [30, 28, 29, 26, 27, 24, 29, 27, 28, 26, 0, 0],
         "detalles": {
-            "descripcion": "Excelente para entrenamiento de cuerpo completo.",
-            "categoria": "Cardio",
+            "descripcion": "Máquina diseñada para fortalecer los bíceps mediante movimientos controlados.",
+            "categoria": "Fuerza",
+            "dificultad": "Media"
+        }
+    },
+    {
+        "nombre": "Máquina de Lumbares",
+        "tipo": "Máquina",
+        "uso_semanal": [2, 3, 2, 2, 2, 3, 2],
+        "uso_mensual": [24, 20, 22, 21, 22, 20, 21, 19, 23, 21, 0, 0],
+        "detalles": {
+            "descripcion": "Máquina fija diseñada para el entrenamiento de los músculos de la espalda baja.",
+            "categoria": "Fuerza",
+            "dificultad": "Media"
+        }
+    },
+    {
+        "nombre": "Máquina de Halterofilia",
+        "tipo": "Máquina",
+        "uso_semanal": [4, 3, 4, 3, 4, 3, 4],
+        "uso_mensual": [35, 34, 32, 30, 33, 31, 32, 30, 33, 31, 0, 0],
+        "detalles": {
+            "descripcion": "Máquina con barra fija para entrenamientos de levantamiento de peso.",
+            "categoria": "Fuerza",
             "dificultad": "Alta"
         }
     },
     {
-        "nombre": "Máquina de prensa de piernas",
+        "nombre": "Máquina de Aperturas",
         "tipo": "Máquina",
-        "uso_semanal": [1, 1, 1, 2, 1, 1, 1],
-        "uso_mensual": [22, 23, 12, 23, 12, 24, 14, 23, 14, 13, 0, 0],
+        "uso_semanal": [2, 3, 2, 3, 2, 3, 2],
+        "uso_mensual": [28, 26, 27, 25, 28, 26, 27, 25, 28, 27, 0, 0],
         "detalles": {
-            "descripcion": "Ideal para fortalecer las piernas.",
+            "descripcion": "Máquina con poleas para trabajar hombros y pecho mediante aperturas.",
             "categoria": "Fuerza",
             "dificultad": "Media"
         }
     },
     {
-        "nombre": "Bicicleta estática",
+        "nombre": "Máquina Multiusos",
         "tipo": "Máquina",
-        "uso_semanal": [2, 2, 2, 3, 2, 1, 4],
-        "uso_mensual": [24, 35, 25, 24, 35, 26, 25, 24, 25, 24, 0, 0],
+        "uso_semanal": [3, 4, 3, 5, 4, 3, 4],
+        "uso_mensual": [40, 39, 38, 37, 40, 38, 39, 37, 39, 38, 0, 0],
         "detalles": {
-            "descripcion": "Perfecta para cardio y quema de grasa.",
-            "categoria": "Cardio",
-            "dificultad": "Baja"
+            "descripcion": "Máquina de poleas que permite realizar una variedad de ejercicios para todo el cuerpo.",
+            "categoria": "Fuerza",
+            "dificultad": "Alta"
         }
     },
     {
-        "nombre": "Máquina de poleas",
+        "nombre": "Máquina de Press de Hombros",
         "tipo": "Máquina",
-
-        "uso_semanal": [2, 1, 1, 2, 1, 1, 2],
-        "uso_mensual": [13, 24, 13, 13, 23, 23, 14, 24, 13, 14, 0, 0],
+        "uso_semanal": [3, 3, 3, 4, 3, 3, 3],
+        "uso_mensual": [33, 30, 31, 29, 33, 30, 32, 29, 31, 30, 0, 0],
         "detalles": {
-            "descripcion": "Versátil para entrenamiento de fuerza y resistencia.",
+            "descripcion": "Máquina de gran tamaño para realizar press de hombros y fortalecer el deltoides.",
             "categoria": "Fuerza",
             "dificultad": "Media"
         }
     },
     {
-        "nombre": "Cinta de correr",
+        "nombre": "Máquina Polea Alta",
         "tipo": "Máquina",
-        "uso_semanal": [4, 4, 4, 4, 2, 1, 1],
-        "uso_mensual": [16, 28, 36, 27, 26, 28, 27, 26, 27, 26, 0, 0],
+        "uso_semanal": [2, 2, 3, 2, 2, 2, 3],
+        "uso_mensual": [26, 25, 27, 24, 25, 23, 27, 24, 26, 25, 0, 0],
         "detalles": {
-            "descripcion": "Perfecta para correr y caminar en casa.",
-            "categoria": "Cardio",
-            "dificultad": "Baja"
+            "descripcion": "Máquina de polea alta para ejercicios de espalda y brazos.",
+            "categoria": "Fuerza",
+            "dificultad": "Media"
+        }
+    },
+    {
+        "nombre": "Máquina de Remo",
+        "tipo": "Máquina",
+        "uso_semanal": [4, 3, 4, 3, 4, 3, 4],
+        "uso_mensual": [30, 29, 30, 28, 30, 29, 28, 29, 30, 28, 0, 0],
+        "detalles": {
+            "descripcion": "Máquina de remo que simula el movimiento de remar para un entrenamiento completo de la espalda.",
+            "categoria": "Fuerza",
+            "dificultad": "Alta"
+        }
+    },
+    {
+        "nombre": "Barras",
+        "tipo": "Implemento",
+        "uso_semanal": [2, 3, 2, 3, 3, 2, 3],
+        "uso_mensual": [24, 22, 23, 21, 24, 22, 23, 21, 24, 22, 0, 0],
+        "detalles": {
+            "descripcion": "Barras para entrenamientos de peso libre, especialmente útiles en ejercicios de fuerza.",
+            "categoria": "Fuerza",
+            "dificultad": "Media"
         }
     },
     {
         "nombre": "Mancuernas",
         "tipo": "Implemento",
-        "uso_semanal": [5, 5, 5, 5, 3, 2, 2],
-        "uso_mensual": [39, 40, 30, 38, 39, 39, 40, 39, 48, 40, 0, 0],
+        "uso_semanal": [4, 4, 5, 4, 3, 4, 4],
+        "uso_mensual": [40, 38, 39, 37, 40, 38, 39, 36, 40, 37, 0, 0],
         "detalles": {
-            "descripcion": "Perfectas para entrenamiento de fuerza en casa.",
+            "descripcion": "Mancuernas convencionales ideales para ejercicios de fuerza, especialmente en brazos y pecho.",
             "categoria": "Fuerza",
             "dificultad": "Media"
         }
-    },
-    {
-        "nombre": "Barra de pesas",
-        "tipo": "Implemento",
-        "uso_semanal": [3, 4, 4, 4, 2, 1, 2],
-        "uso_mensual": [26, 28, 36, 37, 27, 37, 26, 37, 27, 28, 0, 0],
-        "detalles": {
-            "descripcion": "Ideal para entrenamiento de fuerza en casa.",
-            "categoria": "Fuerza",
-            "dificultad": "Media"
-        }
-    },
-    {
-        "nombre": "Pelota de yoga",
-        "tipo": "Implemento",
-        "uso_semanal": [2, 3, 2, 4, 1, 1, 2],
-        "uso_mensual": [16, 28, 36, 27, 26, 28, 27, 26, 27, 25, 0, 0],
-        "detalles": {
-            "descripcion": "Perfecta para ejercicios de equilibrio y flexibilidad.",
-            "categoria": "Estiramiento",
-            "dificultad": "Baja"
-        }
-    },
-    {
-        "nombre": "Banda elástica",
-        "tipo": "Implemento",
-        "uso_semanal": [1, 2, 1, 2, 1, 1, 1],
-        "uso_mensual": [23, 14, 23, 24, 24, 23, 33, 24, 13, 23, 0, 0],
-        "detalles": {
-            "descripcion": "Ideal para ejercicios de resistencia y tonificación.",
-            "categoria": "Fuerza",
-            "dificultad": "Baja"
-        }
-    },
+    }
 ];
+
 
 const calculateTotals = (implementos) => {
     return implementos.map(implemento => ({
@@ -140,13 +162,7 @@ const generatePieChartData = (implementos, infoMode) => {
         label: machine.nombre,
     }));
 
-    if (otherTotal > 0) {
-        pieChartData.push({
-            id: topMachines.length,
-            value: otherTotal,
-            label: "Otras",
-        });
-    }
+
 
     return pieChartData;
 };

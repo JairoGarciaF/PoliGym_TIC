@@ -789,13 +789,6 @@ const generatePopularChartData = (trainingPlans, mealPlans) => {
         label: plan.nombre,
     }));
 
-    if (otherTotal > 0) {
-        popularChartData.push({
-            id: topPlans.length,
-            value: otherTotal,
-            label: "Otros",
-        });
-    }
 
     return popularChartData;
 

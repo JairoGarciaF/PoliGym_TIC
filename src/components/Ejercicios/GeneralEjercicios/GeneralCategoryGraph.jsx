@@ -19,13 +19,16 @@ export const GeneralCategoryGraph = ({ data, infoMode }) => {
         return acc;
     }, {});
 
-    // Preparar los datos para el gráfico
-    const chartData = Object.keys(categoriasUso).map((categoria) => ({
+    // Ordenar las categorías: Fuerza, Cardio, Estiramiento
+    const categoriasOrdenadas = ['Fuerza', 'Cardio', 'Estiramiento'];
+
+    // Preparar los datos para el gráfico, asegurando el orden deseado
+    const chartData = categoriasOrdenadas.map((categoria) => ({
         categoria,
-        uso: categoriasUso[categoria]
+        uso: categoriasUso[categoria] || 0, // Si no hay uso para la categoría, asigna 0
     }));
 
-    const COLORS = ['#1e3a8a', '#f97316', '#84cc16']
+    const COLORS = ['#1e3a8a', '#f97316', '#84cc16'];
 
     return (
         <div className='bg-white p-4 rounded-xl xl:h-auto h-[40svh] shadow flex flex-col items-end xl:col-span-5'>

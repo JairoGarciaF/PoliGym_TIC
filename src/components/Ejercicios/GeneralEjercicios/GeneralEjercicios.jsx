@@ -19,14 +19,6 @@ const generatePopularChartData = (ejercicios, infoMode) => {
         label: exercise.nombre,
     }));
 
-    if (otherTotal > 0) {
-        popularChartData.push({
-            id: topEjercicios.length,
-            value: otherTotal,
-            label: "Otros",
-        });
-    }
-
     return popularChartData;
 };
 

@@ -189,14 +189,6 @@ const generatePopularChartData = (routinesStats, infoMode) => {
         label: routine.nombre,
     }));
 
-    if (otherTotal > 0) {
-        popularChartData.push({
-            id: top.length,
-            value: otherTotal,
-            label: "Otras",
-        });
-    }
-
     return popularChartData;
 };
 

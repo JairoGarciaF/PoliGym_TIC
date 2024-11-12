@@ -18,14 +18,7 @@ const generatePopularChartData = (ejercicios, infoMode) => {
         Otro: exercise.uso_genero.otro[infoMode.toLowerCase()],
     }));
 
-    if (otherTotal > 0) {
-        popularChartData.push({
-            nombre: "Otros",
-            Masculino: sortedEjercicios.slice(5).reduce((sum, exercise) => sum + exercise.uso_genero.masculino[infoMode.toLowerCase()], 0),
-            Femenino: sortedEjercicios.slice(5).reduce((sum, exercise) => sum + exercise.uso_genero.femenino[infoMode.toLowerCase()], 0),
-            Otro: sortedEjercicios.slice(5).reduce((sum, exercise) => sum + exercise.uso_genero.otro[infoMode.toLowerCase()], 0),
-        });
-    }
+
 
     return popularChartData;
 };
