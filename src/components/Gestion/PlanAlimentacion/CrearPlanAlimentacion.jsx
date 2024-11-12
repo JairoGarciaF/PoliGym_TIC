@@ -265,7 +265,7 @@ export const CrearPlanAlimentacion = ({ onBack }) => {
                 <Grid container spacing={2} className='pt-2'>
                     {Object.keys(detalleDias).map((day) => (
                         <Grid item size={12} key={day}>
-                            <h3 className='text-azul-marino-500 pb-1'>{day.charAt(0).toUpperCase() + day.slice(1)}</h3>
+                            <h3 className='text-azul-marino-500 sm:text-base text-sm pb-1'>{day.charAt(0).toUpperCase() + day.slice(1)}</h3>
                             <Grid container spacing={2} columns={{ xs: 1, sm: 2, md: 3 }}>
                                 <Grid item size={1}>
                                     <TextField
@@ -329,19 +329,31 @@ export const CrearPlanAlimentacion = ({ onBack }) => {
             {/* Botones */}
             <div className='flex gap-2 justify-end'>
                 <Button variant="outlined" onClick={onBack}
-                    startIcon={<FaChevronLeft />}
+                    startIcon={<FaChevronLeft className='xl:size-4 size-3' />}
                     sx={{
                         fontFamily: 'Montserrat Alternates',
                         borderColor: '#16243e',
                         color: '#16243e',
+                        borderWidth: 1,
+                        '&:hover': {
+                            backgroundColor: '#e2e6ee',
+                        },
+                        fontSize: window.innerWidth < 640 ? 10 : window.innerWidth < 1024 ? 12 : 14,
+
                     }}>
                     Volver
                 </Button>
                 <Button variant="contained" type="submit"
-                    endIcon={<FaPlus />}
+                    endIcon={<FaPlus className='xl:size-4 size-3' />}
                     sx={{
                         backgroundColor: '#16243e',
                         fontFamily: 'Montserrat Alternates',
+                        color: '#fff',
+                        '&:hover': {
+                            color: '#16243e',
+                            backgroundColor: '#e2e6ee',
+                        },
+                        fontSize: window.innerWidth < 640 ? 10 : window.innerWidth < 1024 ? 12 : 14,
                     }}>
                     Crear
                 </Button>

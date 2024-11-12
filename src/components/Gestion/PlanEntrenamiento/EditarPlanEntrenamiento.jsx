@@ -256,17 +256,18 @@ export const EditarPlanEntrenamiento = ({ trainingPlan, onBack }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white open-sans px-24 h-full flex flex-col">
-            <div className='flex flex-col h-[calc(100%-37px)]'>
-                <h2 className="text-lg font-semibold montserrat-alternates text-azul-marino-500 pb-4">Editar Plan de Entrenamiento</h2>
+        <form onSubmit={handleSubmit} className="bg-white open-sans flex-1 overflow-auto lg:px-24 md:px-12  h-full flex flex-col">
+            <h2 className="text-base font-semibold montserrat-alternates sm:text-lg  text-azul-marino-500 pb-4">Editar Plan de Entrenamiento</h2>
+            <div className='flex flex-col flex-1 pb-2 overflow-y-auto '>
+
                 {/* Subir Imagen */}
-                <div className='grid grid-cols-2 justify-center items-center divide-x-2'>
+                <div className='grid sm:grid-cols-2 justify-center sm:gap-0 gap-4 items-center sm:divide-x-2 sm:divide-y-0 divide-y-2'>
 
                     <div className="flex items-center justify-center space-x-4">
                         {imagenPlanEntrenamiento ? (
                             <img
                                 src={imagenPlanEntrenamiento}
-                                alt="Plan de Entrenamiento"
+                                alt="Perfil"
                                 className="h-28 w-28 rounded-lg object-cover border-stone-200 border"
                             />
                         ) : (
@@ -274,7 +275,7 @@ export const EditarPlanEntrenamiento = ({ trainingPlan, onBack }) => {
                         )}
                         <div className='flex gap-2 items-center'>
                             <label className="cursor-pointer text-azul-marino-500 hover:bg-azul-marino-100  p-1 rounded ">
-                                <MdOutlineFileUpload className='size-7' />
+                                <MdOutlineFileUpload className='xl:size-7 size-6' />
                                 <input type="file" className="hidden" accept=".png, .jpeg, .jpg" onChange={handleImagenChange} />
                             </label>
                             {imagenPlanEntrenamiento && (
@@ -282,19 +283,19 @@ export const EditarPlanEntrenamiento = ({ trainingPlan, onBack }) => {
                                     onClick={handleEliminarImagen}
                                     className=" hover:bg-rojo-100 text-red-500 rounded  p-1.5"
                                 >
-                                    <AiOutlineDelete className='size-6' />
+                                    <AiOutlineDelete className='xl:size-7 size-6' />
                                 </button>
                             )}
                         </div>
                     </div>
                     <div className="flex flex-col items-center justify-center h-full">
-                        <p className=" text-azul-marino-500">
+                        <p className="md:text-base text-sm text-azul-marino-500">
                             Requisitos:
                         </p>
-                        <p className="text-sm text-gray-500 mt-2">
+                        <p className="xl:text-sm text-xs text-center text-gray-500 mt-2">
                             Formatos soportados: JPG, JPEG, PNG.
                         </p>
-                        <p className="text-sm text-gray-500">
+                        <p className="xl:text-sm text-xs text-center text-gray-500">
                             Tamaño máximo: 2MB.
                         </p>
                     </div>
@@ -309,13 +310,21 @@ export const EditarPlanEntrenamiento = ({ trainingPlan, onBack }) => {
                             fontFamily: 'Open Sans',
                         },
                     }}>
-                    <Grid size={6}>
+                    <Grid size={{ sm: 6, xs: 12 }}>
                         <TextField
                             label="Nombre"
                             value={nombre}
                             onChange={handleNombreChange}
                             fullWidth
                             size='small'
+                            sx={{
+                                '& .MuiInputBase-input': {
+                                    fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                },
+                                '& .MuiInputLabel-root': {
+                                    fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                },
+                            }}
                         />
                     </Grid>
                     <Grid size={3}>
@@ -332,7 +341,7 @@ export const EditarPlanEntrenamiento = ({ trainingPlan, onBack }) => {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid size={3}>
+                    <Grid size={{ sm: 3, xs: 6 }}>
                         <TextField
                             label="Duración (semanas)"
                             size='small'
@@ -343,6 +352,14 @@ export const EditarPlanEntrenamiento = ({ trainingPlan, onBack }) => {
                             inputMode='numeric'
                             onChange={(e) => setDuracion(parseInt(e.target.value))}
                             fullWidth
+                            sx={{
+                                '& .MuiInputBase-input': {
+                                    fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                },
+                                '& .MuiInputLabel-root': {
+                                    fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                },
+                            }}
                         />
                     </Grid>
                     <Grid size={12}>
@@ -355,12 +372,20 @@ export const EditarPlanEntrenamiento = ({ trainingPlan, onBack }) => {
                             multiline
                             rows={2}
                             fullWidth
+                            sx={{
+                                '& .MuiInputBase-input': {
+                                    fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                },
+                                '& .MuiInputLabel-root': {
+                                    fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                },
+                            }}
                         />
                     </Grid>
                 </Grid>
 
                 {/* Tabla para seleccionar rutinas por día */}
-                <Grid container spacing={2} className='pt-4' columns={10}
+                <Grid container spacing={2} className='pt-4' columns={{ xs: 1, sm: 2, md: 3, lg: 5 }}
                     sx={{
                         '& .MuiFormLabel-root':
                         {
@@ -369,17 +394,44 @@ export const EditarPlanEntrenamiento = ({ trainingPlan, onBack }) => {
                     }}
                 >
                     {daysOfWeek.map((day) => (
-                        <Grid size={2} key={day}>
+                        <Grid size={1} key={day}>
                             <FormControl fullWidth size='small'>
-                                <InputLabel>{day.charAt(0).toUpperCase() + day.slice(1)}</InputLabel>
+                                <InputLabel
+                                    sx={{
+                                        fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                    }}
+                                >
+                                    {day.charAt(0).toUpperCase() + day.slice(1)}
+                                </InputLabel>
                                 <Select
                                     label={day.charAt(0).toUpperCase() + day.slice(1)}
                                     value={detalleDias[day]?.id || "Descanso"}
                                     onChange={(e) => handleDayChange(day, e.target.value)}
+                                    sx={{
+                                        '& .MuiSelect-select': {
+                                            fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                        },
+                                    }}
                                 >
-                                    <MenuItem value="Descanso">Descanso</MenuItem>
+                                    <MenuItem
+                                        sx={{
+                                            '& .MuiSelect-select': {
+                                                fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                            },
+                                        }}
+                                        value="Descanso"
+                                    >
+                                        Descanso
+                                    </MenuItem>
                                     {visibleRoutines.map(rutina => (
-                                        <MenuItem key={rutina.id} value={rutina.id}>
+                                        <MenuItem
+                                            sx={{
+                                                '& .MuiSelect-select': {
+                                                    fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                                },
+                                            }}
+                                            key={rutina.id} value={rutina.id}
+                                        >
                                             {rutina.nombre}
                                         </MenuItem>
                                     ))}
@@ -392,19 +444,31 @@ export const EditarPlanEntrenamiento = ({ trainingPlan, onBack }) => {
             {/* Botones */}
             <div className='flex gap-2 justify-end'>
                 <Button variant="outlined" onClick={onBack}
-                    startIcon={<FaChevronLeft />}
+                    startIcon={<FaChevronLeft className='xl:size-4 size-3' />}
                     sx={{
                         fontFamily: 'Montserrat Alternates',
                         borderColor: '#16243e',
                         color: '#16243e',
+                        borderWidth: 1,
+                        '&:hover': {
+                            backgroundColor: '#e2e6ee',
+                        },
+                        fontSize: window.innerWidth < 640 ? 10 : window.innerWidth < 1024 ? 12 : 14,
                     }}>
                     Volver
                 </Button>
                 <Button variant="contained" type="submit"
-                    endIcon={<FaSave />}
+                    endIcon={<FaPlus className='xl:size-4 size-3' />}
                     sx={{
                         backgroundColor: '#16243e',
                         fontFamily: 'Montserrat Alternates',
+                        color: '#fff',
+                        '&:hover': {
+                            color: '#16243e',
+                            backgroundColor: '#e2e6ee',
+                        },
+                        fontSize: window.innerWidth < 640 ? 10 : window.innerWidth < 1024 ? 12 : 14,
+
                     }}>
                     Guardar
                 </Button>
