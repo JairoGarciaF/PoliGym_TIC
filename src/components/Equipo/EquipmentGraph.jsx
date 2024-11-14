@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { PieChart, Pie, Sector, ResponsiveContainer, Legend, Cell } from 'recharts';
+import React, { useState } from 'react'
+import { PieChart, Pie, Sector, ResponsiveContainer, Cell } from 'recharts';
 import { BsFire } from "react-icons/bs";
 import { TbSum } from "react-icons/tb";
 
@@ -42,24 +42,13 @@ const renderActiveShape = (props) => {
 
 
 
-export const ImplementsGraph = ({ data, total }) => {
+export const EquipmentGraph = ({ data, total }) => {
     const [activeIndex, setActiveIndex] = useState(0);
-    const [showLegend, setShowLegend] = useState(true);
 
     const onPieEnter = (_, index) => {
         setActiveIndex(index);
     };
 
-    useEffect(() => {
-        const handleResize = () => {
-            // Oculta la leyenda si el ancho es menor a 640px (equivalente a `sm` en Tailwind)
-            setShowLegend(window.innerWidth >= 640);
-        };
-
-        handleResize(); // Verifica el tamaño inicial
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
 
     return (
         <div
@@ -68,12 +57,12 @@ export const ImplementsGraph = ({ data, total }) => {
             <div className='flex justify-between items-center'>
                 <h3 className='text-azul-marino-500 xl:text-base text-sm  mb-1 flex self-start items-center gap-2 font-medium'>
                     <BsFire className='xl:size-4 size-3' />
-                    Implementos Populares
+                    Equipos Populares
                 </h3>
 
                 <h3 className='text-azul-marino-500   flex xl:text-sm text-xs items-center gap-2 font-medium'>
                     <TbSum className='xl:size-4 size-3' />
-                    Total Implementos: {total}
+                    Total Equipos: {total}
                 </h3>
             </div>
 
@@ -98,18 +87,6 @@ export const ImplementsGraph = ({ data, total }) => {
                                 <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
                             ))}
                         </Pie>
-                        {showLegend && (
-                            <Legend
-                                layout="vertical"
-                                align="right"
-                                verticalAlign="middle"
-                                iconSize={10}
-                                wrapperStyle={{ fontSize: 14, fontFamily: 'Open Sans' }}
-                                formatter={(value, entry) => (
-                                    <span className='text-slate-800'>{entry.payload.label}</span>
-                                )}
-                            />
-                        )}
                     </PieChart>
                 </ResponsiveContainer>
             </div>

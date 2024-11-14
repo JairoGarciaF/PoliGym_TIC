@@ -37,20 +37,6 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
         handleMenuClose(); // Cierra el menú
     };
 
-
-    // Alternar entre Usuario y Admin
-    const handleToggleRol = () => {
-        setRows(prevRows =>
-            prevRows.map(row =>
-                row.id === selectedRow
-                    ? { ...row, rol: row.rol === 'Admin' ? 'Usuario' : 'Admin' }
-                    : row
-            )
-        );
-        handleMenuClose();
-    };
-
-
     // Función para ocultar/mostrar usuarios
     const handleToggleVisibility = () => {
         setRows((prevRows) =>
@@ -273,16 +259,7 @@ export const Lista = ({ onVerDetalles, usuarios }) => {
                     </ListItemIcon>
                     {selectedRow && rows.find(row => row.id === selectedRow)?.oculto ? 'Mostrar' : 'Ocultar'}
                 </MenuItem>
-                <MenuItem onClick={handleToggleRol}>
-                    <ListItemIcon>
-                        {rows.find(row => row.id === selectedRow)?.rol === 'Admin'
-                            ? <FaUser />
-                            : <FaShieldAlt />}
-                    </ListItemIcon>
-                    {rows.find(row => row.id === selectedRow)?.rol === 'Admin'
-                        ? 'Descender'
-                        : 'Ascender'}
-                </MenuItem>
+
             </Menu>
 
 

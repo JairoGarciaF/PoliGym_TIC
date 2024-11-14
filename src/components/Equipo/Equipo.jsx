@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { MachinesGraph } from './MachinesGraph';
-import { ImplementsGraph } from './ImplementsGraph';
-import { ImplementsTable } from './ImplementsTable';
+import { DetailsGraph } from './DetailsGraph';
+import { EquipmentGraph } from './EquipmentGraph';
+import { EquipmentTable } from './EquipmentTable';
 
-const implementos = [
+const equipos = [
     {
         "nombre": "Bicicleta Estática",
         "tipo": "Máquina",
@@ -139,20 +139,20 @@ const implementos = [
 ];
 
 
-const calculateTotals = (implementos) => {
-    return implementos.map(implemento => ({
-        ...implemento,
-        uso_semanal_total: implemento.uso_semanal.reduce((sum, usage) => sum + usage, 0),
-        uso_mensual_total: implemento.uso_mensual.reduce((sum, usage) => sum + usage, 0),
+const calculateTotals = (equipos) => {
+    return equipos.map(equipo => ({
+        ...equipo,
+        uso_semanal_total: equipo.uso_semanal.reduce((sum, usage) => sum + usage, 0),
+        uso_mensual_total: equipo.uso_mensual.reduce((sum, usage) => sum + usage, 0),
     }));
 };
 
-const generatePieChartData = (implementos, infoMode) => {
-    const sortedImplementos = implementos.sort((a, b) =>
+const generatePieChartData = (equipos, infoMode) => {
+    const sortedEquipo = equipos.sort((a, b) =>
         infoMode === 'Semanal' ? b.uso_semanal_total - a.uso_semanal_total : b.uso_mensual_total - a.uso_mensual_total
     );
-    const topMachines = sortedImplementos.slice(0, 5);
-    const otherTotal = sortedImplementos.slice(5).reduce((sum, machine) =>
+    const topMachines = sortedEquipo.slice(0, 5);
+    const otherTotal = sortedEquipo.slice(5).reduce((sum, machine) =>
         infoMode === 'Semanal' ? sum + machine.uso_semanal_total : sum + machine.uso_mensual_total, 0
     );
 
@@ -167,30 +167,30 @@ const generatePieChartData = (implementos, infoMode) => {
     return pieChartData;
 };
 
-const generateTableData = (implementos, infoMode) => {
-    const sortedImplementos = implementos.sort((a, b) =>
+const generateTableData = (equipos, infoMode) => {
+    const sortedEquipo = equipos.sort((a, b) =>
         infoMode === 'Semanal' ? b.uso_semanal_total - a.uso_semanal_total : b.uso_mensual_total - a.uso_mensual_total
     );
 
-    return sortedImplementos.map((implemento) => ({
-        nombre: implemento.nombre,
-        tipo: implemento.tipo,
-        uso_semanal_total: implemento.uso_semanal_total,
-        uso_mensual_total: implemento.uso_mensual_total,
+    return sortedEquipo.map((equipo) => ({
+        nombre: equipo.nombre,
+        tipo: equipo.tipo,
+        uso_semanal_total: equipo.uso_semanal_total,
+        uso_mensual_total: equipo.uso_mensual_total,
     }));
 };
 
-export const Implementos = () => {
+export const Equipo = () => {
 
     const [infoMode, setInfoMode] = useState('Semanal');
-    const implementosData = calculateTotals(implementos);
-    const pieChartData = generatePieChartData(implementosData, infoMode);
-    const tableData = generateTableData(implementosData, infoMode);
+    const equiposData = calculateTotals(equipos);
+    const pieChartData = generatePieChartData(equiposData, infoMode);
+    const tableData = generateTableData(equiposData, infoMode);
 
     return (
         <div className='bg-white rounded-xl pb-4  shadow open-sans h-full flex flex-col p-4'>
             <div className='flex justify-between overflow-hidden'>
-                <h1 className='montserrat-alternates text-azul-marino-500 sm:text-3xl text-2xl font-semibold'>Implementos</h1>
+                <h1 className='montserrat-alternates text-azul-marino-500 sm:text-3xl text-2xl font-semibold'>Equipo</h1>
                 <nav className="flex justify-start md:w-auto w-1/3 open-sans">
                     <button
                         onClick={() => setInfoMode('Semanal')}
@@ -222,13 +222,13 @@ export const Implementos = () => {
                         </span>
                     </nav>
                     <div className='grid overflow-auto flex-1 xl:grid-rows-1 bg-slate-100 gap-4 p-4 rounded-xl xl:grid-cols-2'>
-                        <ImplementsGraph data={pieChartData} total={implementos.length} />
-                        <ImplementsTable data={tableData} infoMode={infoMode} />
+                        <EquipmentGraph data={pieChartData} total={equipos.length} />
+                        <EquipmentTable data={tableData} infoMode={infoMode} />
                     </div>
                 </div>
 
                 <div className='row-span-1 flex-1 flex flex-col'>
-                    <MachinesGraph data={implementosData} infoMode={infoMode} />
+                    <DetailsGraph data={equiposData} infoMode={infoMode} />
                 </div>
             </div>
         </div>

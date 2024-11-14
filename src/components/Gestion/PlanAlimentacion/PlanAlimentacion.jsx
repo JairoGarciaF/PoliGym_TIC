@@ -20,39 +20,165 @@ const initialRows = [
         oculto: false,
         detalleDias: {
             lunes: {
-                desayuno: "Avena con frutas y miel",
-                almuerzo: "Ensalada de pollo con aguacate",
-                cena: "Pescado a la plancha con verduras al vapor"
+                desayuno: {
+                    nombre: "Huevos revueltos con jamón y espinacas",
+                    calorias: 300,
+                    proteinas: 25,
+                    carbohidratos: 10,
+                    grasas: 15
+                },
+                almuerzo: {
+                    nombre: "Pollo a la parrilla con arroz integral y brócoli",
+                    calorias: 400,
+                    proteinas: 30,
+                    carbohidratos: 20,
+                    grasas: 10
+                },
+                cena: {
+                    nombre: "Salmón al horno con quinoa y espárragos",
+                    calorias: 350,
+                    proteinas: 20,
+                    carbohidratos: 15,
+                    grasas: 15
+                }
             },
             martes: {
-                desayuno: "Tostadas integrales con aguacate y huevo",
-                almuerzo: "Sopa de verduras y pechuga de pollo",
-                cena: "Ensalada de atún con espinacas"
+                desayuno: {
+                    nombre: "Panqueques de avena con frutas y miel",
+                    calorias: 350,
+                    proteinas: 20,
+                    carbohidratos: 25,
+                    grasas: 10
+                },
+                almuerzo: {
+                    nombre: "Carne de res con batatas y espinacas",
+                    calorias: 450,
+                    proteinas: 35,
+                    carbohidratos: 30,
+                    grasas: 20
+                },
+                cena: {
+                    nombre: "Ensalada de atún con aguacate y pan integral",
+                    calorias: 300,
+                    proteinas: 25,
+                    carbohidratos: 15,
+                    grasas: 10
+                }
             },
             miércoles: {
-                desayuno: "Smoothie verde con espinacas, manzana y avena",
-                almuerzo: "Quinoa con vegetales y pollo",
-                cena: "Salmón con brócoli al vapor"
+                desayuno: {
+                    nombre: "Batido de proteínas con plátano y avena",
+                    calorias: 300,
+                    proteinas: 25,
+                    carbohidratos: 20,
+                    grasas: 10
+                },
+                almuerzo: {
+                    nombre: "Pechuga de pollo con arroz integral y verduras",
+                    calorias: 400,
+                    proteinas: 30,
+                    carbohidratos: 25,
+                    grasas: 15
+                },
+                cena: {
+                    nombre: "Filete de ternera con ensalada de garbanzos",
+                    calorias: 350,
+                    proteinas: 25,
+                    carbohidratos: 20,
+                    grasas: 15
+                }
             },
             jueves: {
-                desayuno: "Tostadas integrales con crema de almendras y plátano",
-                almuerzo: "Pechuga de pavo con ensalada mixta",
-                cena: "Pechuga de pollo a la parrilla con calabacines"
+                desayuno: {
+                    nombre: "Tostadas de pan integral con mantequilla de maní y plátano",
+                    calorias: 350,
+                    proteinas: 20,
+                    carbohidratos: 30,
+                    grasas: 15
+                },
+                almuerzo: {
+                    nombre: "Ensalada de quinoa con pollo y espárragos",
+                    calorias: 400,
+                    proteinas: 30,
+                    carbohidratos: 25,
+                    grasas: 20
+                },
+                cena: {
+                    nombre: "Pescado a la plancha con papas asadas",
+                    calorias: 350,
+                    proteinas: 25,
+                    carbohidratos: 20,
+                    grasas: 15
+                }
             },
             viernes: {
-                desayuno: "Yogur natural con frutas y nueces",
-                almuerzo: "Arroz integral con vegetales y tofu",
-                cena: "Tortilla de espinacas con champiñones"
+                desayuno: {
+                    nombre: "Avena con nueces, pasas y proteína en polvo",
+                    calorias: 300,
+                    proteinas: 20,
+                    carbohidratos: 25,
+                    grasas: 15
+                },
+                almuerzo: {
+                    nombre: "Pechuga de pavo con arroz y espinacas",
+                    calorias: 400,
+                    proteinas: 30,
+                    carbohidratos: 25,
+                    grasas: 15
+                },
+                cena: {
+                    nombre: "Salmón a la parrilla con batatas",
+                    calorias: 350,
+                    proteinas: 25,
+                    carbohidratos: 20,
+                    grasas: 15
+                }
             },
-            sábado: {
-                desayuno: "Batido de proteínas con leche de almendras y avena",
-                almuerzo: "Ensalada César con pechuga de pollo",
-                cena: "Filete de ternera con ensalada verde"
+            sabado: {
+                desayuno: {
+                    nombre: "Tortilla de huevo con jamón y queso",
+                    calorias: 350,
+                    proteinas: 25,
+                    carbohidratos: 30,
+                    grasas: 15
+                },
+                almuerzo: {
+                    nombre: "Lomo de cerdo con puré de papas y brócoli",
+                    calorias: 450,
+                    proteinas: 35,
+                    carbohidratos: 30,
+                    grasas: 20
+                },
+                cena: {
+                    nombre: "Pollo al horno con ensalada mixta",
+                    calorias: 350,
+                    proteinas: 25,
+                    carbohidratos: 20,
+                    grasas: 15
+                }
             },
             domingo: {
-                desayuno: "Pan integral con queso cottage y fresas",
-                almuerzo: "Pollo asado con papas y brócoli",
-                cena: "Sopa de lentejas y verduras"
+                desayuno: {
+                    nombre: "Smoothie de proteína con frutos rojos",
+                    calorias: 300,
+                    proteinas: 20,
+                    carbohidratos: 25,
+                    grasas: 15
+                },
+                almuerzo: {
+                    nombre: "Pollo a la parrilla con arroz y ensalada",
+                    calorias: 400,
+                    proteinas: 30,
+                    carbohidratos: 25,
+                    grasas: 20
+                },
+                cena: {
+                    nombre: "Lasaña de carne con espinacas",
+                    calorias: 350,
+                    proteinas: 25,
+                    carbohidratos: 20,
+                    grasas: 15
+                }
             }
         }
     },

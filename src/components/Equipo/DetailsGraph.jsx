@@ -57,7 +57,7 @@ const xLabelsMensual = [
     'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
 ]
 
-export const MachinesGraph = ({ data, infoMode }) => {
+export const DetailsGraph = ({ data, infoMode }) => {
     const [selectedMachine, setSelectedMachine] = useState(data[0]); // Estado para la máquina seleccionada
     const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
     const containerRef = useRef(null);

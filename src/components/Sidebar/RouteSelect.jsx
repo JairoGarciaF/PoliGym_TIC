@@ -28,7 +28,7 @@ export const RouteSelect = ({ expanded }) => {
         <div className='flex-1 flex flex-col gap-1'>
             <CustomButton Icon={TbHome} title="Dashboard" expanded={expanded} to="/" />
             <CustomButton Icon={TbUsers} title="Usuarios" expanded={expanded} to="/usuarios" />
-            <CustomButton Icon={TbWeight} title="Implementos" expanded={expanded} to="/implementos" />
+            <CustomButton Icon={TbWeight} title="Equipo" expanded={expanded} to="/equipo" />
             <CustomButton Icon={TbBarbell} title="Ejercicios" expanded={expanded} to="/ejercicios" />
             <CustomButton Icon={TbMessages} title="Comunidad" expanded={expanded} to="/comunidad" />
             <CustomButton Icon={TbTool} title="Gestión" expanded={expanded} to="/gestion" />

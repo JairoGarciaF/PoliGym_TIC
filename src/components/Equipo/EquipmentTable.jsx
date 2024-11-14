@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaDumbbell } from "react-icons/fa6";
-export const ImplementsTable = ({ data, infoMode }) => {
+export const EquipmentTable = ({ data, infoMode }) => {
 
 
     // Filtrar los datos según el tab seleccionado
@@ -27,7 +27,7 @@ export const ImplementsTable = ({ data, infoMode }) => {
         <div className='flex flex-col bg-white p-4 rounded-xl shadow h-full '>
             <h3 className='text-azul-marino-500 xl:text-base text-sm  mb-1 flex self-start items-center gap-2 font-medium'>
                 <FaDumbbell className='xl:size-4 size-3' />
-                Uso de Implementos
+                Uso de Equipos
             </h3>
 
             {/* Control del contenedor de la tabla */}
@@ -35,7 +35,7 @@ export const ImplementsTable = ({ data, infoMode }) => {
                 <table className="w-full text-sm text-left rtl:text-right text-azul-marino-500">
                     <thead className="text-xs text-white rounded uppercase bg-azul-marino-500">
                         <tr>
-                            <th scope="col" className="p-2 ">Implementos</th>
+                            <th scope="col" className="p-2 ">Equipo</th>
                             <th scope="col" className="p-2  text-center">Tipo</th>
                             <th scope="col" className="p-2  text-center">Uso</th>
                         </tr>
