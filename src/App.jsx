@@ -10,6 +10,7 @@ import { PageNotFound } from './components/PageNotFound/PageNotFound';
 import { Login } from './components/Login/Login';
 import { LayoutWithSidebar } from './components/LayoutWithSideBar';
 import { RecuperarContrasena } from './components/RecuperarContrasena/RecuperarContrasena';
+import { AuthGuard } from './components/Login/AuthGuard';
 
 function App() {
 
@@ -20,7 +21,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/recuperar-contrasena" element={<RecuperarContrasena />} />
         <Route path="*" element={<PageNotFound />} />
-        <Route path="/*" element={<LayoutWithSidebar />}>
+        <Route path="/*" element={
+          <AuthGuard>
+            <LayoutWithSidebar />
+          </AuthGuard>
+        }>
           <Route path="" element={<Dashboard />} />
           <Route path="usuarios" element={<Usuarios />} />
           <Route path="equipo" element={<Equipo />} />
