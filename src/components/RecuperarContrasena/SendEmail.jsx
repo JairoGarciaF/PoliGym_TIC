@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { BiLoaderCircle } from "react-icons/bi";
+import React, { useState } from 'react';
+import { forgotPassword } from '../../services/auth/auth';
+import { FormControl, InputLabel, OutlinedInput } from '@mui/material';
 import Swal from 'sweetalert2';
-export const SendEmail = () => {
+
+export const SendEmail = ({ onEmailSent }) => {
 
   const [loadingEmail, setLoadingEmail] = useState(false);
+  const [email, setEmail] = useState('');
 
 
 
@@ -12,15 +15,15 @@ export const SendEmail = () => {
     setLoadingEmail(true);
     try {
       // Enviar correo
+      await forgotPassword(email);
       // Redirigir a la página de inicio de sesión
       Swal.fire({
         title: 'Correo enviado',
-        text: 'Hemos enviado un enlace a tu correo para que puedas reestablecer tu contraseña',
+        text: 'Hemos enviado un token a tu correo para que puedas reestablecer tu contraseña',
         icon: 'success',
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#16243e',
       });
-      navigate('/login');
     } catch (error) {
       console.error('Error al enviar el correo:', error.message);
       Swal.fire({
@@ -32,11 +35,12 @@ export const SendEmail = () => {
       });
     } finally {
       setLoadingEmail(false);
+      onEmailSent();
     }
 
   }
   return (
-    <div className="xl:w-1/3 lg:w-1/2 md:w-2/3 w-[90%]  p-8 bg-white/70 rounded-lg shadow-lg">
+    <div className="xl:w-1/3 lg:w-1/2 md:w-2/3 w-[90%]  p-8 bg-white/80 rounded-lg shadow-lg">
 
       {/* Logo */}
       <div className="flex justify-center mb-4">
@@ -55,20 +59,30 @@ export const SendEmail = () => {
       {/* Formulario */}
       <form onSubmit={handleSendEmail}>
         {/* Campo de Correo Electrónico */}
-        <div className="mb-4">
-          <label className="block text-stone-700 text-sm font-bold mb-2" htmlFor="email">
+        <FormControl
+          fullWidth
+          variant="outlined"
+          size='small'
+        >
+          <InputLabel
+            sx={{
+              fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+            }}
+            htmlFor="outlined-adornment-email"
+          >
             Correo Electrónico
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-stone-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Ingresa tu correo"
+          </InputLabel>
+          <OutlinedInput
+            type='email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            id="outlined-adornment-email"
+            label="Correo Electrónico"
           />
-        </div>
+        </FormControl>
 
         {/* Botón de Enviar */}
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center pt-4">
           <button
             type="submit"
             className="bg-azul-marino-500 hover:bg-azul-marino-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

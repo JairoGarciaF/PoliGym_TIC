@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import { useNavigate } from 'react-router-dom';
 import { saveToken } from '../../services/token/store';
 import { signIn } from '../../services/auth/auth';
-import { BiLoaderCircle } from "react-icons/bi";
-import { validateSignIn } from '../../services/auth/validateAuthForm';
 import { useAuth } from '../../hooks/useAuth';
+import { validateSignIn } from '../../services/auth/validateAuthForm';
+import { BiLoaderCircle } from "react-icons/bi";
+import { TbEye, TbEyeClosed } from "react-icons/tb";
 import Swal from 'sweetalert2';
 
 
@@ -13,6 +16,9 @@ export const Login = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
     const [loadingLogin, setLoadingLogin] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const navigate = useNavigate();
 
@@ -90,7 +96,7 @@ export const Login = () => {
 
             {/* Contenedor para el formulario de login */}
             <div className="xl:w-1/2 lg:w-2/3 w-full ml-auto h-full flex items-center justify-center backdrop-blur-sm bg-white/20">
-                <div className="lg:w-3/4 md:w-2/3 w-[90%] p-8 bg-white/70 rounded-lg shadow-lg">
+                <div className="lg:w-3/4 md:w-2/3 w-[90%] p-8 bg-white/80 rounded-lg shadow-lg">
                     {/* Logo */}
                     <div className="flex justify-center mb-6">
                         <img src="./PoliGymLogo.png" alt="Logo" className="h-16" />
@@ -100,39 +106,80 @@ export const Login = () => {
                     <h2 className="text-3xl font-semibold text-azul-marino-500 mb-6 text-center">Iniciar sesión</h2>
 
                     {/* Formulario */}
-                    <form onSubmit={handleLogin}>
-                        {/* Campo de correo electrónico */}
-                        <div className="mb-4">
-                            <label className="block text-stone-700 text-sm font-bold mb-2" htmlFor="email">
-                                Correo Electrónico
-                            </label>
-                            <input
-                                type="email"
-                                id="email"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-stone-700 leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="correo@mail.com"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </div>
+                    <form onSubmit={handleLogin} autoComplete='off'>
+                        <Grid container spacing={1}
+                            sx={{
+                                '& .MuiFormLabel-root':
+                                {
+                                    fontFamily: 'Open Sans',
+                                },
+                            }}>
+                            {/* Campo de correo electrónico */}
+                            <FormControl
+                                fullWidth
+                                variant="outlined"
+                                size='small'
 
-                        {/* Campo de contraseña */}
-                        <div className="mb-6 relative">
-                            <label className="block text-stone-700 text-sm font-bold mb-2" htmlFor="password">
-                                Contraseña
-                            </label>
-                            <input
-                                type="password"
-                                id="password"
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-stone-700 leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="********"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </div>
+                            >
+                                <InputLabel
+                                    sx={{
+                                        fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                    }}
+                                    htmlFor="outlined-adornment-email"
+                                >
+                                    Correo Electrónico
+                                </InputLabel>
+                                <OutlinedInput
+                                    type='email'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    id="outlined-adornment-email"
+                                    label="Correo Electrónico"
+                                    autoComplete='off'
+                                />
+                            </FormControl>
 
+
+                            {/* Campo de contraseña */}
+                            <FormControl
+
+                                fullWidth
+                                variant="outlined"
+                                size='small'
+                            >
+                                <InputLabel
+                                    sx={{
+                                        fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
+                                    }}
+                                    htmlFor="outlined-adornment-password"
+                                >
+                                    Contraseña
+                                </InputLabel>
+                                <OutlinedInput
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    id="outlined-adornment-password"
+                                    type={showPassword ? 'text' : 'password'}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label={
+                                                    showPassword ? 'hide the password' : 'display the password'
+                                                }
+                                                onClick={handleClickShowPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <TbEyeClosed /> : <TbEye />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                    label="Contraseña"
+                                    autoComplete='off'
+                                />
+                            </FormControl>
+                        </Grid>
                         {/* Recuérdame y Olvidó la contraseña */}
-                        <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center justify-between my-4">
                             <a href="/recuperar-contrasena" className="text-sm text-azul-marino-500 hover:underline">
                                 ¿Olvidaste tu contraseña?
                             </a>

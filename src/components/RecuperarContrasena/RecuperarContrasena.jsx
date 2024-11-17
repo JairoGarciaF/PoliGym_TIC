@@ -3,10 +3,11 @@ import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { BiLoaderCircle } from "react-icons/bi";
 import { SendEmail } from './SendEmail';
+import { ResetPasswordForm } from './ResetPasswordForm';
 
 export const RecuperarContrasena = () => {
     const { loading, isAuthenticated } = useAuth(); // Usa el hook personalizado
-
+    const [showResetForm, setShowResetForm] = useState(false); // Controla el flujo de los pasos
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -14,6 +15,10 @@ export const RecuperarContrasena = () => {
             navigate('/');
         }
     }, [isAuthenticated, navigate]);
+
+    const handleEmailSent = () => {
+        setShowResetForm(true); // Cambia al formulario de reseteo de contraseña
+    };
 
     if (loading) {
         // Mostrar un loader mientras se verifica
@@ -24,6 +29,7 @@ export const RecuperarContrasena = () => {
             </div>
         );
     }
+
     return (
         <div className="h-screen w-screen flex">
             {/* Imagen de fondo */}
@@ -32,10 +38,15 @@ export const RecuperarContrasena = () => {
                 style={{ backgroundImage: `url('./gym.jpg')` }}
             />
 
-            {/* Contenedor para el formulario de recuperación de contraseña */}
+            {/* Contenedor para los formularios */}
             <div className="w-full ml-auto h-full flex items-center justify-center backdrop-blur-sm bg-white/20">
-                <SendEmail />
+                {showResetForm ? (
+                    <ResetPasswordForm />
+                ) : (
+                    <SendEmail onEmailSent={handleEmailSent} />
+                )}
             </div>
         </div>
-    )
-}
+    );
+};
+
