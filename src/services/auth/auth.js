@@ -92,7 +92,7 @@ export const refreshAccessToken = async () => {
 
 export const getUserInfo = async (id, token) => {
     try {
-        const response = await axios.get(`/user/find-by-id/${id}`, {
+        const response = await axios.get(`api/user/find-by-id/${id}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         return response.data;

@@ -8,6 +8,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { validateSignIn } from '../../services/auth/validateAuthForm';
 import { BiLoaderCircle } from "react-icons/bi";
 import { TbEye, TbEyeClosed } from "react-icons/tb";
+import { jwtDecode } from 'jwt-decode';
 import Swal from 'sweetalert2';
 
 
@@ -51,11 +52,27 @@ export const Login = () => {
             setLoadingLogin(true);
             try {
                 const { accessToken } = await signIn(email, password);
+                // Decodificar el JWT
+                const decodedToken = jwtDecode(accessToken);
 
-                //guardar token en cookies
-                saveToken('accessToken', accessToken);
-                // Redirigir al dashboard
-                window.location.href = '/';
+
+                // Verificar si tiene el rol ADMIN_ROLE
+                if (decodedToken.roles && decodedToken.roles.includes('ADMIN_ROLE')) {
+                    // Guardar token en cookies
+                    saveToken('accessToken', accessToken);
+
+                    // Redirigir al dashboard
+                    window.location.href = '/';
+                } else {
+                    // Mostrar mensaje de error
+                    Swal.fire({
+                        title: 'Acceso denegado',
+                        text: 'No tienes permisos para acceder a esta sección.',
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar',
+                        confirmButtonColor: '#16243e',
+                    });
+                }
             } catch (error) {
                 console.error('Error durante el inicio de sesión:', error.message);
 
