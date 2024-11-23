@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { esES } from '@mui/x-data-grid/locales';
 import { IconButton, TextField, Menu, MenuItem, Switch, FormControlLabel, ListItemIcon, Button } from '@mui/material';
@@ -6,6 +6,8 @@ import { TbDotsVertical } from 'react-icons/tb';
 import { FaPlus, FaSearch, FaEdit, FaEye, FaEyeSlash } from "react-icons/fa";
 import { CrearEjercicio } from './CrearEjercicio';
 import { EditarEjercicio } from './EditarEjercicio';
+import { BiLoaderCircle } from 'react-icons/bi';
+import { findAllExercises, deleteExercise } from '../../../services/exercise/exercise';
 
 
 const initialRows = [
@@ -42,8 +44,24 @@ export const GestionEjercicios = () => {
     const [selectedRow, setSelectedRow] = useState(null);
     const [selectedExercise, setSelectedExercise] = useState(null);
     const [currentView, setCurrentView] = useState('list');
-    const [rows, setRows] = useState(initialRows);
+    const [rows, setRows] = useState([]);
     const [showHidden, setShowHidden] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    const fetchExercises = async () => {
+        try {
+            setLoading(true);
+            let exercises = await findAllExercises();
+            setRows(exercises);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error al obtener los ejercicios:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchExercises();
+    }, []);
 
 
     const handleMenuClick = (event, row) => {
@@ -74,12 +92,16 @@ export const GestionEjercicios = () => {
         setCurrentView('list');
     };
 
-    const handleToggleVisibility = () => {
-        setRows((prevRows) =>
-            prevRows.map((row) =>
-                row.id === selectedRow ? { ...row, isDeleted: !row.isDeleted } : row
-            )
-        );
+    const handleToggleVisibility = async () => {
+        setLoading(true);
+        await deleteExercise(selectedRow);
+        await fetchExercises();
+        setLoading(false);
+        // setRows((prevRows) =>
+        //     prevRows.map((row) =>
+        //         row.id === selectedRow ? { ...row, isDeleted: !row.isDeleted } : row
+        //     )
+        // );
         handleMenuClose(); // Cierra el menú después de actualizar
     };
 
@@ -108,7 +130,7 @@ export const GestionEjercicios = () => {
 
 
     const filteredRows = rows.filter((row) =>
-        row.name.toLowerCase().includes(searchText.toLowerCase()) && row.isDeleted === showHidden
+        row.name.toLowerCase().includes(searchText.toLowerCase()) //&& row.isDeleted === showHidden
     );
 
     const columns = [
@@ -206,6 +228,16 @@ export const GestionEjercicios = () => {
             buttonClassName: 'theme-header',
         },
     ];
+
+    
+    if (loading) {
+        return (
+            <div className="bg-white open-sans flex-1 overflow-auto lg:px-24 md:px-12  h-full flex flex-col items-center justify-center">
+                <BiLoaderCircle className='xl:size-20 size-16 animate-spin text-azul-marino-500' />
+                <p className='text-azul-marino-500 text-xl'>Cargando...</p>
+            </div>
+        )
+    }
 
     return (
         <div className="pt-1 flex-1 overflow-auto flex flex-col space-y-4 open-sans">
@@ -321,11 +353,11 @@ export const GestionEjercicios = () => {
             )}
 
             {currentView === 'add' && (
-                <CrearEjercicio onBack={handleBackToList} />
+                <CrearEjercicio onBack={handleBackToList}  refreshData={fetchExercises}/>
             )}
 
             {currentView === 'edit' && selectedExercise && (
-                <EditarEjercicio exercise={selectedExercise} onBack={handleBackToList} />
+                <EditarEjercicio exercise={selectedExercise} onBack={handleBackToList}  refreshData={fetchExercises}/>
             )}
         </div>
     )

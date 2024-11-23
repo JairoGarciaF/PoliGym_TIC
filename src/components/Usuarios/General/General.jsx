@@ -5,7 +5,15 @@ import { UserStatsPieChart } from './UserStatsPieChart';
 
 export const General = ({ usuarios }) => {
 
-    const totalUsuarios = usuarios.filter(user => !user.oculto).length;
+    const totalUsuarios = usuarios.filter(user => user.isActive).length;
+
+    const unaSemanaAtras = new Date();
+    unaSemanaAtras.setDate(unaSemanaAtras.getDate() - 7);
+
+    const nuevosUsuarios = usuarios.filter(usuario => {
+        const createAtDate = new Date(usuario.createAt);
+        return createAtDate >= unaSemanaAtras;
+    });
 
 
     return (
@@ -28,7 +36,7 @@ export const General = ({ usuarios }) => {
                         <h3 className='text-stone-500 md:text-sm text-xs '>Nuevos Usuarios</h3>
                         <div className='open-sans text-azul-marino-500 flex gap-4 items-center'>
                             <FaUserPlus className='md:size-9 size-5' />
-                            <p className='font-semibold md:text-3xl text-2xl'>2</p>
+                            <p className='font-semibold md:text-3xl text-2xl'>{nuevosUsuarios.length}</p>
                         </div>
 
                     </div>

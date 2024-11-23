@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { General } from './General/General';
 import { Detalles } from './Detalles/Detalles';
 import { Lista } from './Lista/Lista';
+import { findAllUsers } from '../../services/users/users';
 
 const defaultProfilePic = 'https://api.dicebear.com/9.x/initials/svg?seed=User';
 
@@ -298,6 +299,19 @@ const usuarios = [
 export const Usuarios = () => {
     const [activeTab, setActiveTab] = useState('general');
     const [selectedUser, setSelectedUser] = useState(null); // Para guardar el usuario seleccionado
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const users = await findAllUsers();
+                setUsers(users);
+            } catch (error) {
+                console.error('Error al obtener los usuarios', error);
+            }
+        }
+        fetchData();
+    }, []);
 
     const handleVerDetalles = (user) => {
         setSelectedUser(user); // Guarda el usuario seleccionado

@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { verifyToken, refreshAccessToken } from '../auth/auth';
+import { verifyToken } from '../auth/auth';
 
 export const getToken = (key) => {
     try {

@@ -1,35 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { esES } from '@mui/x-data-grid/locales';
 import { IconButton, TextField, Menu, MenuItem, Switch, FormControlLabel, ListItemIcon, Button } from '@mui/material';
 import { TbDotsVertical } from 'react-icons/tb';
+import { BiLoaderCircle } from 'react-icons/bi';
 import { FaPlus, FaSearch, FaEdit, FaEye, FaEyeSlash } from "react-icons/fa";
 import { CrearEquipo } from './CrearEquipo';
 import { EditarEquipo } from './EditarEquipo';
+import { findAllEquipment, deleteEquipment } from '../../../services/equipment/equipment';
 
 
-const initialRows = [
-    {
-        "id": 1,
-        "name": "Leg Press Machine",
-        "mediaUrl": "https://example.com/media/leg-press.jpg",
-        "description": "A machine designed for leg workouts, focusing on quadriceps and glutes.",
-        "category": "MACHINE", //MACHINE, FREE_WEIGHT, BODYWEIGHT, CARDIO, ACCESSORY
-        "isDeleted": false,
-        "status": "AVAILABLE" //AVAILABLE, IN_MAINTENANCE, OUT_OF_ORDER
-    },
-    {
-        "id": 2,
-        "name": "Dumbbell Bench Press",
-        "mediaUrl": "https://example.com/media/dumbbell-bench-press.jpg",
-        "description": "A free weight exercise that targets the chest and triceps.",
-        "category": "FREE_WEIGHT",
-        "isDeleted": true,
-        "status": "AVAILABLE"
-    },
-
-
-]
 
 export const GestionEquipo = () => {
     const [searchText, setSearchText] = useState('');
@@ -37,8 +17,24 @@ export const GestionEquipo = () => {
     const [selectedRow, setSelectedRow] = useState(null);
     const [selectedEquipment, setSelectedEquipment] = useState(null);
     const [currentView, setCurrentView] = useState('list');
-    const [rows, setRows] = useState(initialRows);
+    const [rows, setRows] = useState([]);
     const [showHidden, setShowHidden] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    const fetchEquipment = async () => {
+        try {
+            setLoading(true);
+            let equipment = await findAllEquipment();
+            setRows(equipment);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error al obtener los equipos', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchEquipment();
+    }, []);
 
 
     const handleMenuClick = (event, row) => {
@@ -69,12 +65,17 @@ export const GestionEquipo = () => {
         setCurrentView('list');
     };
 
-    const handleToggleVisibility = () => {
-        setRows((prevRows) =>
-            prevRows.map((row) =>
-                row.id === selectedRow ? { ...row, isDeleted: !row.isDeleted } : row
-            )
-        );
+    const handleToggleVisibility = async () => {
+        setLoading(true);
+        await deleteEquipment(selectedRow);
+        await fetchEquipment();
+        setLoading(false);
+
+        // setRows((prevRows) =>
+        //     prevRows.map((row) =>
+        //         row.id === selectedRow ? { ...row, isDeleted: !row.isDeleted } : row
+        //     )
+        // );
         handleMenuClose(); // Cierra el menú después de actualizar
     };
 
@@ -97,15 +98,15 @@ export const GestionEquipo = () => {
     const getPillColor = (category) => {
         switch (category) {
             case 'MACHINE':
-                return 'bg-[#dcedfa] text-[#1E6091]';
+                return 'bg-[#d7ebf5] text-[#023047]';
             case 'FREE_WEIGHT':
-                return 'bg-[#cff4ff] text-[#168aad]';
+                return 'bg-[#ebf9ff] text-[#82c2e0]';
             case 'BODYWEIGHT':
-                return 'bg-[#c3ffee] text-[#4ba78d]';
+                return 'bg-[#fafae1] text-[#e8c500]';
             case 'CARDIO':
-                return 'bg-[#dbfcd5] text-[#70a565]';
+                return 'bg-[#faecdc] text-[#e87c02]';
             case 'ACCESSORY':
-                return 'bg-[#f1fcc9] text-[#9eaf60]';
+                return 'bg-[#d4f7ff] text-[#219ebc]';
         }
     }
 
@@ -123,12 +124,12 @@ export const GestionEquipo = () => {
 
 
     const filteredRows = rows.filter((row) =>
-        row.name.toLowerCase().includes(searchText.toLowerCase()) && row.isDeleted === showHidden
+        row.name.toLowerCase().includes(searchText.toLowerCase()) //&& row.isDeleted === showHidden
     );
 
     const columns = [
         {
-            field: 'nombre',
+            field: 'name',
             headerName: 'Nombre',
             renderCell: (params) => (
                 <div className='flex items-center gap-2 justify-start h-full'>
@@ -139,7 +140,7 @@ export const GestionEquipo = () => {
             minWidth: 200,
         },
         {
-            field: 'descripcion',
+            field: 'description',
             headerName: 'Descripción',
             renderCell: (params) => (
                 <div className='flex items-center gap-2 justify-start h-full'>
@@ -150,7 +151,7 @@ export const GestionEquipo = () => {
             minWidth: 400
         },
         {
-            field: 'categoria',
+            field: 'category',
             headerName: 'Categoría',
             renderCell: (params) => (
                 <div className='flex items-center justify-start h-full'>
@@ -166,7 +167,7 @@ export const GestionEquipo = () => {
             minWidth: 100
         },
         {
-            field: 'estado',
+            field: 'status',
             headerName: 'Estado',
             renderCell: (params) => (
                 <div className='flex items-center justify-start h-full'>
@@ -199,6 +200,15 @@ export const GestionEquipo = () => {
             buttonClassName: 'theme-header',
         },
     ];
+
+    if (loading) {
+        return (
+            <div className="bg-white open-sans flex-1 overflow-auto lg:px-24 md:px-12  h-full flex flex-col items-center justify-center">
+                <BiLoaderCircle className='xl:size-20 size-16 animate-spin text-azul-marino-500' />
+                <p className='text-azul-marino-500 text-xl'>Cargando...</p>
+            </div>
+        )
+    }
 
     return (
         <div className="pt-1 flex-1 overflow-auto flex flex-col space-y-4 open-sans">
@@ -314,11 +324,11 @@ export const GestionEquipo = () => {
             )}
 
             {currentView === 'add' && (
-                <CrearEquipo onBack={handleBackToList} />
+                <CrearEquipo onBack={handleBackToList} refreshData={fetchEquipment} />
             )}
 
             {currentView === 'edit' && selectedEquipment && (
-                <EditarEquipo equipment={selectedEquipment} onBack={handleBackToList} />
+                <EditarEquipo equipment={selectedEquipment} onBack={handleBackToList} refreshData={fetchEquipment} />
             )}
         </div>
     )

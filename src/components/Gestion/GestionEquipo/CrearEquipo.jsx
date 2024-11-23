@@ -5,15 +5,17 @@ import Swal from 'sweetalert2';
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FaPlus, FaChevronLeft } from "react-icons/fa";
 import { AiOutlineDelete } from 'react-icons/ai';
+import { uploadImage } from '../../../services/cloudinary/cloudinary';
+import { createEquipment } from '../../../services/equipment/equipment';
+import { BiLoaderCircle } from "react-icons/bi";
 
-
-export const CrearEquipo = ({ onBack }) => {
+export const CrearEquipo = ({ onBack, refreshData }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [imagenEquipo, setImagenEquipo] = useState(null);
-    const [mediaUrl, setMediaUrl] = useState('');
     const [category, setCategory] = useState('');
     const [status, setStatus] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleImagenChange = (e) => {
         const file = e.target.files[0];
@@ -48,6 +50,8 @@ export const CrearEquipo = ({ onBack }) => {
 
             // Si pasa las validaciones, actualizar el estado de la imagen
             setImagenEquipo(file);
+            e.target.value = null; // Limpiar el input para permitir subir la misma imagen
+
         }
 
     };
@@ -56,16 +60,68 @@ export const CrearEquipo = ({ onBack }) => {
         setImagenEquipo(null);
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log({
-            name,
-            description,
-            mediaUrl: 'url',
-            category,
-            status
 
-        })
+        // Validar que todos los campos estén completos
+        if (!name || !description || !category || !status || !imagenEquipo) {
+            Swal.fire({
+                title: 'Campos incompletos',
+                text: 'Por favor, completa todos los campos.',
+                icon: 'warning',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#16243e',
+            });
+            return;
+        }
+        setLoading(true);
+
+        try {
+            // Subir la imagen a Cloudinary
+            const url = await uploadImage(imagenEquipo, 'equipos');
+
+            if (url) {
+                // Crear el equipo solo si la imagen se subió correctamente
+                await createEquipment({
+                    name,
+                    mediaUrl: url, // Usa el URL obtenido de Cloudinary
+                    description,
+                    category,
+                    status
+                });
+            }
+
+            setLoading(false);
+            Swal.fire({
+                title: 'Equipo creado',
+                text: 'El equipo se creó correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#16243e',
+            }).then(() => {
+                refreshData();
+                onBack();
+            });
+        } catch (error) {
+            console.error('Error:', error);
+
+            setLoading(false);
+
+            // Verifica si el error ocurrió al subir la imagen o al crear el equipo
+            const isUploadError = error.message?.includes('subir la imagen');
+
+            Swal.fire({
+                title: isUploadError ? 'Error al subir la imagen' : 'Error al crear el equipo',
+                text: isUploadError
+                    ? 'Ocurrió un error al subir la imagen, por favor intenta de nuevo.'
+                    : 'Ocurrió un error al crear el equipo, por favor intenta de nuevo.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#16243e',
+            });
+        }
+
+
     }
 
     // Validar que el nombre solo contenga letras, espacios, ñ, tildes
@@ -75,6 +131,15 @@ export const CrearEquipo = ({ onBack }) => {
             setName(e.target.value);
         }
     };
+
+    if (loading) {
+        return (
+            <div className="bg-white open-sans flex-1 overflow-auto lg:px-24 md:px-12  h-full flex flex-col items-center justify-center">
+                <BiLoaderCircle className='xl:size-20 size-16 animate-spin text-azul-marino-500' />
+                <p className='text-azul-marino-500 text-xl'>Creando equipo...</p>
+            </div>
+        )
+    }
 
 
     return (

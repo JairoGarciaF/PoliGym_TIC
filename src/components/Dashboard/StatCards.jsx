@@ -3,8 +3,15 @@ import { FaUsers, FaUserPlus, FaFireAlt } from "react-icons/fa";
 import { BiSolidMessageAltDetail } from "react-icons/bi";
 
 export const StatCards = ({ usuarios }) => {
-    const totalUsuarios = usuarios.filter(user => !user.oculto).length;
+    const totalUsuarios = usuarios.filter(user => user.isActive).length;
 
+    const unaSemanaAtras = new Date();
+    unaSemanaAtras.setDate(unaSemanaAtras.getDate() - 7);
+
+    const nuevosUsuarios = usuarios.filter(usuario => {
+        const createAtDate = new Date(usuario.createAt);
+        return createAtDate >= unaSemanaAtras;
+    });
     return (
         <div className='xl:row-span-1 xl:col-span-1 lg:col-span-2 gap-4 grid xl:grid-cols-2 lg:grid-cols-4 grid-cols-2 xl:grid-rows-2 lg:grid-rows-1 grid-rows-2'>
             <Card
@@ -16,7 +23,7 @@ export const StatCards = ({ usuarios }) => {
             <Card
                 sx={'col-span-1'}
                 title={'Nuevos Usuarios'}
-                value={'2'}
+                value={nuevosUsuarios.length}
                 Icon={FaUserPlus}
             />
             <Card

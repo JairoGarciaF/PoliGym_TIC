@@ -5,8 +5,11 @@ import Swal from 'sweetalert2';
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FaSave, FaChevronLeft } from "react-icons/fa";
 import { AiOutlineDelete } from 'react-icons/ai';
+import { uploadImage, deleteImage } from '../../../services/cloudinary/cloudinary';
+import { updateEquipment } from '../../../services/equipment/equipment';
+import { BiLoaderCircle } from "react-icons/bi";
 
-export const EditarEquipo = ({ equipment, onBack }) => {
+export const EditarEquipo = ({ equipment, onBack, refreshData }) => {
 
     const [name, setName] = useState(equipment?.name || '');
     const [description, setDescription] = useState(equipment?.description || '');
@@ -14,10 +17,10 @@ export const EditarEquipo = ({ equipment, onBack }) => {
     const [mediaUrl, setMediaUrl] = useState(equipment?.mediaUrl || '');
     const [category, setCategory] = useState(equipment?.category || '');
     const [status, setStatus] = useState(equipment?.status || '');
+    const [loading, setLoading] = useState(false);
 
     const handleImagenChange = (e) => {
         const file = e.target.files[0];
-
         if (file) {
             // Verificar el tipo de archivo (solo JPG, JPEG o PNG)
             const validTypes = ['image/jpg', 'image/jpeg', 'image/png'];
@@ -48,24 +51,108 @@ export const EditarEquipo = ({ equipment, onBack }) => {
 
             // Si pasa las validaciones, actualizar el estado de la imagen
             setImagenEquipo(file);
+            e.target.value = null; // Limpiar el input para permitir subir la misma imagen
         }
 
     };
 
-    const handleEliminarImagen = () => {
-        setImagenEquipo(null);
+    const handleEliminarImagen = (e) => {
+        e.preventDefault();
+        if (mediaUrl) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: 'La imagen se eliminará permanentemente.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                confirmButtonColor: '#d33',
+                cancelButtonText: 'Cancelar',
+                cancelButtonColor: '#16243e',
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    try {
+                        const publicId = mediaUrl.split('/').pop().split('.')[0];
+                        await deleteImage(publicId);
+                        Swal.fire({
+                            title: 'Imagen eliminada',
+                            text: 'La imagen se eliminó correctamente.',
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar',
+                            confirmButtonColor: '#16243e',
+                        });
+                        setMediaUrl('');
+                    } catch (error) {
+                        console.error('Error al eliminar la imagen:', error);
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Ocurrió un error al intentar eliminar la imagen.',
+                            icon: 'error',
+                            confirmButtonText: 'Aceptar',
+                            confirmButtonColor: '#16243e',
+                        });
+                    }
+                }
+            });
+        }
+        if (imagenEquipo) {
+            setImagenEquipo(null);
+        }
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log({
-            name,
-            description,
-            mediaUrl: 'url',
-            category,
-            status
+        // Validar que todos los campos estén completos
+        if (!name || !description || !category || !status || (!imagenEquipo && !mediaUrl)) {
+            Swal.fire({
+                title: 'Campos incompletos',
+                text: 'Por favor, completa todos los campos.',
+                icon: 'warning',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#16243e',
+            });
+            return;
+        }
+        setLoading(true);
 
-        })
+        try {
+            let imageUrl = mediaUrl;
+            if (imagenEquipo) {
+                // Subir la imagen a Cloudinary
+                imageUrl = await uploadImage(imagenEquipo, 'equipos');
+            }
+
+            if (imageUrl) {
+                // Actualizar el equipo en la base de datos
+                await updateEquipment(equipment.id, {
+                    name,
+                    mediaUrl: imageUrl,
+                    description,
+                    category,
+                    status,
+                });
+            }
+            Swal.fire({
+                title: 'Equipo actualizado',
+                text: 'El equipo se actualizó correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#16243e',
+            }).then(() => {
+                setLoading(false);
+                refreshData();
+                onBack();
+            });
+        } catch (error) {
+            console.error('Error al actualizar el equipo:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Ocurrió un error al intentar actualizar el equipo.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#16243e',
+            });
+            setLoading(false);
+        }
     }
 
     // Validar que el nombre solo contenga letras, espacios, ñ, tildes
@@ -76,6 +163,15 @@ export const EditarEquipo = ({ equipment, onBack }) => {
         }
     };
 
+    if (loading) {
+        return (
+            <div className="bg-white open-sans flex-1 overflow-auto lg:px-24 md:px-12  h-full flex flex-col items-center justify-center">
+                <BiLoaderCircle className='xl:size-20 size-16 animate-spin text-azul-marino-500' />
+                <p className='text-azul-marino-500 text-lg'>Cargando...</p>
+            </div>
+        )
+    }
+
     return (
         <form onSubmit={handleSubmit} className="bg-white open-sans flex-1 overflow-auto lg:px-24 md:px-12  h-full flex flex-col">
             <h2 className="text-base font-semibold montserrat-alternates sm:text-lg  text-azul-marino-500 pb-4">Editar Equipo</h2>
@@ -85,9 +181,9 @@ export const EditarEquipo = ({ equipment, onBack }) => {
                 <div className='grid sm:grid-cols-2 justify-center sm:gap-0 gap-4 items-center sm:divide-x-2 sm:divide-y-0 divide-y-2'>
 
                     <div className="flex items-center justify-center space-x-4">
-                        {mediaUrl ? (
+                        {mediaUrl || imagenEquipo ? (
                             <img
-                                src={mediaUrl}
+                                src={mediaUrl ? mediaUrl : URL.createObjectURL(imagenEquipo)}
                                 alt="Perfil"
                                 className="h-28 w-28 rounded-lg object-cover border-stone-200 border"
                             />
@@ -99,7 +195,7 @@ export const EditarEquipo = ({ equipment, onBack }) => {
                                 <MdOutlineFileUpload className='xl:size-7 size-6' />
                                 <input type="file" className="hidden" accept=".png, .jpeg, .jpg" onChange={handleImagenChange} />
                             </label>
-                            {imagenEquipo && (
+                            {(mediaUrl || imagenEquipo) && (
                                 <button
                                     onClick={handleEliminarImagen}
                                     className=" hover:bg-rojo-100 text-red-500 rounded  p-1.5"

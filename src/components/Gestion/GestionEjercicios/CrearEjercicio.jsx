@@ -1,36 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import Swal from 'sweetalert2';
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FaPlus, FaChevronLeft } from "react-icons/fa";
 import { AiOutlineDelete } from 'react-icons/ai';
+import { uploadImage } from '../../../services/cloudinary/cloudinary';
+import { BiLoaderCircle } from "react-icons/bi";
+import { createExercise } from '../../../services/exercise/exercise';
+import { findAllEquipment } from '../../../services/equipment/equipment';
+import {findAllMuscleGroups} from '../../../services/muscleGroup/muscleGroup';
 
-export const CrearEjercicio = ({ onBack }) => {
+
+export const CrearEjercicio = ({ onBack, refreshData }) => {
 
     const [name, setName] = useState('');
     const [imagenEjercicio, setImagenEjercicio] = useState(null);
-    const [mediaUrl, setMediaUrl] = useState('');
     const [level, setLevel] = useState('');
     const [category, setCategory] = useState('');
+    const [equipment, setEquipment] = useState([]);
     const [equipmentIds, setEquipmentIds] = useState([]);
     const [description, setDescription] = useState('');
+    const [muscleGroups, setMuscleGroups] = useState([]);
     const [muscleGroupsIds, setMuscleGroupsIds] = useState([]);
     const [recommendation, setRecommendation] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const equipmentOptions = [0, 1, 2];
-    const muscleGroupsOptions = [0, 1, 2, 3];
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [equipmentData, muscleGroupsData] = await Promise.all([findAllEquipment(), findAllMuscleGroups()]);
+                setEquipment(equipmentData);
+                setMuscleGroups(muscleGroupsData);
+                
+            } catch (error) {
+                console.error('Error al obtener los equipos:', error);
+            }
+        };
+        fetchData();
+    }, []);
 
     const handleImagenChange = (e) => {
         const file = e.target.files[0];
 
         if (file) {
-            // Verificar el tipo de archivo (solo GIF o MP4)
-            const validTypes = ['image/gif', 'video/mp4'];
+            // Verificar el tipo de archivo (solo GIF )
+            const validTypes = ['image/gif'];
             if (!validTypes.includes(file.type)) {
                 Swal.fire({
                     title: 'Formato incorrecto',
-                    text: 'Solo se permiten imágenes en formato GIF y MP4.',
+                    text: 'Solo se permiten imágenes en formato GIF.',
                     icon: 'error',
                     confirmButtonText: 'Aceptar',
                     confirmButtonColor: '#16243e',
@@ -106,7 +125,7 @@ export const CrearEjercicio = ({ onBack }) => {
                         <div className='flex gap-2 items-center'>
                             <label className="cursor-pointer text-azul-marino-500 hover:bg-azul-marino-100  p-1 rounded ">
                                 <MdOutlineFileUpload className='xl:size-7 size-6' />
-                                <input type="file" className="hidden" accept=".gif, .mp4" onChange={handleImagenChange} />
+                                <input type="file" className="hidden" accept=".gif" onChange={handleImagenChange} />
                             </label>
                             {imagenEjercicio && (
                                 <button
@@ -123,7 +142,7 @@ export const CrearEjercicio = ({ onBack }) => {
                             Requisitos:
                         </p>
                         <p className="xl:text-sm text-xs text-center text-gray-500 mt-2">
-                            Formatos soportados: GIF, MP4.
+                            Formatos soportados: GIF.
                         </p>
                         <p className="xl:text-sm text-xs text-center text-gray-500">
                             Tamaño máximo: 2MB.
@@ -270,24 +289,31 @@ export const CrearEjercicio = ({ onBack }) => {
                             </InputLabel>
                             <Select
                                 label='Equipos'
+                                multiple={true}
                                 value={equipmentIds}
                                 onChange={(e) => setEquipmentIds(e.target.value)}
+                                renderValue={(selected) => 
+                                    equipment
+                                    .filter((equip) => selected.includes(equip.id))
+                                    .map((equip) => equip.name)
+                                    .join(', ')
+                                }
                                 sx={{
                                     '& .MuiSelect-select': {
                                         fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
                                     },
                                 }}
                             >
-                                {equipmentOptions.map((equipment) => (
+                                {equipment.map((equip) => (
                                     <MenuItem
                                         sx={{
                                             '& .MuiSelect-select': {
                                                 fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
                                             },
                                         }}
-                                        key={equipment} value={equipment}
+                                        key={equip.id} value={equip.id}
                                     >
-                                        {equipment}
+                                        {equip.name}
                                     </MenuItem>
                                 ))}
 
@@ -309,6 +335,12 @@ export const CrearEjercicio = ({ onBack }) => {
                                 label='Grupos Musculares'
                                 value={muscleGroupsIds}
                                 onChange={(e) => setMuscleGroupsIds(e.target.value)}
+                                renderValue={(selected) =>
+                                    muscleGroups
+                                    .filter((muscle) => selected.includes(muscle.id))
+                                    .map((muscle) => muscle.name)
+                                    .join(', ')
+                                }
                                 sx={{
                                     '& .MuiSelect-select': {
                                         fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
@@ -316,16 +348,16 @@ export const CrearEjercicio = ({ onBack }) => {
                                 }}
                             >
 
-                                {muscleGroupsOptions.map((muscle) => (
+                                {muscleGroups.map((muscle) => (
                                     <MenuItem
                                         sx={{
                                             '& .MuiSelect-select': {
                                                 fontSize: window.innerWidth < 640 ? '0.875rem' : '1rem',
                                             },
                                         }}
-                                        key={muscle} value={muscle}
+                                        key={muscle.id} value={muscle.id}
                                     >
-                                        {muscle}
+                                        {muscle.name}
                                     </MenuItem>
                                 ))}
 
