@@ -23,9 +23,13 @@ export const updateExercise = async (id, exercise) => {
   try {
     await isTokenValid("accessToken");
     const accessToken = getToken("accessToken");
-    const response = await axios.patch(`api/training/update/${id}`, exercise, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
+    const response = await axios.patch(
+      `api/exercise/update-exercise/${id}`,
+      exercise,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error al actualizar el ejercicio");
@@ -37,7 +41,7 @@ export const deleteExercise = async (id) => {
   try {
     await isTokenValid("accessToken");
     const accessToken = getToken("accessToken");
-    const response = await axios.delete(`api/training/delete/${id}`, {
+    const response = await axios.delete(`api/exercise/delete-exercise/${id}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
     return response.data;
@@ -49,14 +53,32 @@ export const deleteExercise = async (id) => {
 
 export const findAllExercises = async () => {
   try {
+    // Validar el token
     await isTokenValid("accessToken");
     const accessToken = getToken("accessToken");
-    const response = await axios.get("api/exercise/find-all-exercises", {
+
+    // Primera solicitud para obtener el total de registros
+    const initialResponse = await axios.get("api/exercise/find-all-exercises", {
+      params: { limit: 1 },
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-    return response.data.data;
+
+    const total = initialResponse.data.meta.totalExercises;
+
+    if (!total || total <= 0) {
+      console.log("No hay ejercicios disponibles.");
+      return [];
+    }
+
+    // Segunda solicitud para obtener todos los datos
+    const fullResponse = await axios.get("api/exercise/find-all-exercises", {
+      params: { limit: total },
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+
+    return fullResponse.data.data;
   } catch (error) {
-    console.error("Error al obtener los ejercicios");
+    console.error("Error al obtener los ejercicios", error);
     throw error;
   }
 };
