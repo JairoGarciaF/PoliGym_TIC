@@ -30,7 +30,6 @@ export const findAllMuscleGroups = async () => {
     const total = initialResponse.data.meta.totalMuscleGroups;
 
     if (!total || total <= 0) {
-      console.log("No hay grupos musculares disponibles.");
       return [];
     }
 

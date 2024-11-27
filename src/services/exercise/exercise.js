@@ -66,7 +66,6 @@ export const findAllExercises = async () => {
     const total = initialResponse.data.meta.totalExercises;
 
     if (!total || total <= 0) {
-      console.log("No hay ejercicios disponibles.");
       return [];
     }
 

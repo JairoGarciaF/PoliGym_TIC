@@ -62,7 +62,6 @@ export const findAllEquipment = async () => {
     const total = initialResponse.data.meta.totalEquipments;
 
     if (!total || total <= 0) {
-      console.log("No hay equipos disponibles.");
       return [];
     }
 

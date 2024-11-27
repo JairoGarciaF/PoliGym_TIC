@@ -21,35 +21,6 @@ import {
   deleteExercise,
 } from "../../../services/exercise/exercise";
 
-const initialRows = [
-  {
-    id: 1,
-    mediaUrl: "https://example.com/exercise-video.mp4",
-    name: "Ejercicio de espalda basico",
-    level: "BASIC",
-    category: "STRENGTH",
-    equipmentIds: [1],
-    description:
-      "Stand with feet shoulder-width apart, holding a barbell across the upper back. Bend knees and hips to lower into a squat, then press through heels to return to standing.",
-    muscleGroupsIds: [3, 4],
-    recommendation: "Perform 3 sets of 10-15 reps, 2-3 times per week.",
-    isDeleted: false,
-  },
-  {
-    id: 2,
-    mediaUrl: "https://example.com/exercise-video.mp4",
-    name: "Ejercicio de espalda intermedio",
-    level: "INTERMEDIATE",
-    category: "STRENGTH",
-    equipmentIds: [1],
-    description:
-      "Stand with feet shoulder-width apart, holding a barbell across the upper back. Bend knees and hips to lower into a squat, then press through heels to return to standing.",
-    muscleGroupsIds: [3, 4],
-    recommendation: "Perform 3 sets of 10-15 reps, 2-3 times per week.",
-    isDeleted: true,
-  },
-];
-
 export const GestionEjercicios = () => {
   const [searchText, setSearchText] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
@@ -237,11 +208,11 @@ export const GestionEjercicios = () => {
           <span
             className={`px-3 py-1 capitalize lg:text-sm text-xs rounded-full font-medium flex items-center gap-1  
                             ${
-                              params.row.category === "Baja"
-                                ? "bg-green-100 text-green-700"
-                                : params.row.category === "Media"
-                                ? "bg-yellow-100 text-yellow-700"
-                                : "bg-red-100 text-red-700"
+                              params.row.category === "CARDIO"
+                                ? "bg-orange-100 text-orange-700"
+                                : params.row.category === "STRENGTH"
+                                ? "bg-blue-100 text-blue-900"
+                                : "bg-lime-100 text-lime-700"
                             }`}>
             {categoryTranslate(params.row.category)}
           </span>
