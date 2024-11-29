@@ -161,11 +161,10 @@ export const CrearEjercicio = ({ onBack, refreshData }) => {
     }
   };
 
-  // Validar que el nombre solo contenga letras, espacios, ñ, tildes
-  const handleNombreChange = (e) => {
-    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
-    if (regex.test(parseInt(e.target.value))) {
-      setName(e.target.value);
+  const handleTextChange = (e) => {
+    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\-.,#%':]*$/;
+    if (!regex.test(e.key)) {
+      e.preventDefault();
     }
   };
 
@@ -280,7 +279,8 @@ export const CrearEjercicio = ({ onBack, refreshData }) => {
             <TextField
               label="Nombre"
               value={name}
-              onChange={handleNombreChange}
+              onChange={(e) => setName(e.target.value)}
+              onKeyPress={handleTextChange}
               fullWidth
               size="small"
               sx={{
@@ -472,9 +472,10 @@ export const CrearEjercicio = ({ onBack, refreshData }) => {
             <TextField
               label="Descripción"
               size="small"
-              inputProps={{ maxLength: 200 }}
+              inputProps={{ maxLength: 300 }}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              onKeyPress={handleTextChange}
               multiline
               rows={2}
               fullWidth
@@ -492,8 +493,9 @@ export const CrearEjercicio = ({ onBack, refreshData }) => {
             <TextField
               label="Recomendación"
               size="small"
-              inputProps={{ maxLength: 200 }}
+              inputProps={{ maxLength: 500 }}
               value={recommendation}
+              onKeyPress={handleTextChange}
               onChange={(e) => setRecommendation(e.target.value)}
               multiline
               rows={2}

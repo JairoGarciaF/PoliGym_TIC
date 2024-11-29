@@ -47,7 +47,6 @@ export const findAllRoutine = async () => {
     await isTokenValid("accessToken");
     const accessToken = getToken("accessToken");
 
-    // Primera solicitud con limit=1 para obtener el total de equipos
     const initialResponse = await axios.get("api/workout/find-all", {
       params: { limit: 1 },
       headers: { Authorization: `Bearer ${accessToken}` },

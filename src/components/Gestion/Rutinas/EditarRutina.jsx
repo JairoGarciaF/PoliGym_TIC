@@ -8,8 +8,6 @@ import {
   IconButton,
   Select,
   MenuItem,
-  Checkbox,
-  ListItemText,
   TextField,
   FormControl,
   InputLabel,
@@ -185,11 +183,10 @@ export const EditarRutina = ({ routine, onBack, refreshData }) => {
     }
   };
 
-  // Validar que el nombre solo contenga letras, espacios, ñ, tildes
-  const handleNombreChange = (e) => {
-    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
-    if (regex.test(parseInt(e.target.value))) {
-      handleChange(e);
+  const handleTextChange = (e) => {
+    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\-.,#%':]*$/;
+    if (!regex.test(e.key)) {
+      e.preventDefault();
     }
   };
 
@@ -232,7 +229,8 @@ export const EditarRutina = ({ routine, onBack, refreshData }) => {
               label="Nombre"
               name="name"
               value={workout.name}
-              onChange={handleNombreChange}
+              onChange={handleChange}
+              onKeyPress={handleTextChange}
               fullWidth
               size="small"
               sx={{
@@ -250,7 +248,8 @@ export const EditarRutina = ({ routine, onBack, refreshData }) => {
               label="Tipo de entrenamiento"
               name="trainingType"
               value={workout.trainingType}
-              onChange={handleNombreChange}
+              onChange={handleChange}
+              onKeyPress={handleTextChange}
               inputProps={{ maxLength: 50 }}
               fullWidth
               size="small"
@@ -408,8 +407,9 @@ export const EditarRutina = ({ routine, onBack, refreshData }) => {
               label="Descripción"
               size="small"
               name="description"
-              inputProps={{ maxLength: 200 }}
+              inputProps={{ maxLength: 300 }}
               value={workout.description}
+              onKeyPress={handleTextChange}
               onChange={handleChange}
               multiline
               rows={2}

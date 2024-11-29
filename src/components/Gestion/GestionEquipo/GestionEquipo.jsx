@@ -6,14 +6,12 @@ import {
   TextField,
   Menu,
   MenuItem,
-  Switch,
-  FormControlLabel,
   ListItemIcon,
   Button,
 } from "@mui/material";
 import { TbDotsVertical } from "react-icons/tb";
 import { BiLoaderCircle } from "react-icons/bi";
-import { FaPlus, FaSearch, FaEdit, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaPlus, FaSearch, FaEdit, FaTrash } from "react-icons/fa";
 import { CrearEquipo } from "./CrearEquipo";
 import { EditarEquipo } from "./EditarEquipo";
 import {
@@ -28,7 +26,6 @@ export const GestionEquipo = () => {
   const [selectedEquipment, setSelectedEquipment] = useState(null);
   const [currentView, setCurrentView] = useState("list");
   const [rows, setRows] = useState([]);
-  const [showHidden, setShowHidden] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const fetchEquipment = async () => {
@@ -75,17 +72,11 @@ export const GestionEquipo = () => {
     setCurrentView("list");
   };
 
-  const handleToggleVisibility = async () => {
+  const handleDelete = async () => {
     setLoading(true);
     await deleteEquipment(selectedRow);
     await fetchEquipment();
     setLoading(false);
-
-    // setRows((prevRows) =>
-    //     prevRows.map((row) =>
-    //         row.id === selectedRow ? { ...row, isDeleted: !row.isDeleted } : row
-    //     )
-    // );
     handleMenuClose(); // Cierra el menú después de actualizar
   };
 
@@ -130,8 +121,8 @@ export const GestionEquipo = () => {
     }
   };
 
-  const filteredRows = rows.filter(
-    (row) => row.name.toLowerCase().includes(searchText.toLowerCase()) //&& row.isDeleted === showHidden
+  const filteredRows = rows.filter((row) =>
+    row.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
   const columns = [
@@ -236,23 +227,6 @@ export const GestionEquipo = () => {
                 startAdornment: <FaSearch className="pr-1 size-5" />,
               }}
             />
-            <FormControlLabel
-              control={
-                <Switch
-                  selected={showHidden}
-                  onChange={() => setShowHidden(!showHidden)}
-                  size="small"
-                  defaultChecked
-                />
-              }
-              label={showHidden ? "Ocultos" : "Visibles"}
-              sx={{
-                "& .MuiFormControlLabel-label": {
-                  fontFamily: "Open Sans",
-                  fontSize: "0.875rem",
-                },
-              }}
-            />
           </div>
 
           <div className="w-full flex-1 overflow-auto">
@@ -296,19 +270,11 @@ export const GestionEquipo = () => {
               </ListItemIcon>
               Editar
             </MenuItem>
-            <MenuItem onClick={handleToggleVisibility}>
+            <MenuItem onClick={handleDelete}>
               <ListItemIcon>
-                {selectedRow &&
-                rows.find((row) => row.id === selectedRow)?.isDeleted ? (
-                  <FaEye />
-                ) : (
-                  <FaEyeSlash />
-                )}
+                <FaTrash />
               </ListItemIcon>
-              {selectedRow &&
-              rows.find((row) => row.id === selectedRow)?.isDeleted
-                ? "Mostrar"
-                : "Ocultar"}
+              Eliminar
             </MenuItem>
           </Menu>
 

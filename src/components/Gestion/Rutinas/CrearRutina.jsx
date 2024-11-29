@@ -117,7 +117,6 @@ export const CrearRutina = ({ onBack, refreshData }) => {
   // Validar y manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (
       !workout.name ||
       !workout.trainingType ||
@@ -165,11 +164,10 @@ export const CrearRutina = ({ onBack, refreshData }) => {
     }
   };
 
-  // Validar que el nombre solo contenga letras, espacios, ñ, tildes
-  const handleNombreChange = (e) => {
-    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
-    if (regex.test(parseInt(e.target.value))) {
-      handleChange(e);
+  const handleTextChange = (e) => {
+    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\-.,#%':]*$/;
+    if (!regex.test(e.key)) {
+      e.preventDefault();
     }
   };
 
@@ -212,7 +210,8 @@ export const CrearRutina = ({ onBack, refreshData }) => {
               label="Nombre"
               name="name"
               value={workout.name}
-              onChange={handleNombreChange}
+              onChange={handleChange}
+              onKeyPress={handleTextChange}
               fullWidth
               size="small"
               sx={{
@@ -230,7 +229,8 @@ export const CrearRutina = ({ onBack, refreshData }) => {
               label="Tipo de entrenamiento"
               name="trainingType"
               value={workout.trainingType}
-              onChange={handleNombreChange}
+              onChange={handleChange}
+              onKeyPress={handleTextChange}
               inputProps={{ maxLength: 50 }}
               fullWidth
               size="small"
@@ -388,9 +388,10 @@ export const CrearRutina = ({ onBack, refreshData }) => {
               label="Descripción"
               size="small"
               name="description"
-              inputProps={{ maxLength: 200 }}
+              inputProps={{ maxLength: 300 }}
               value={workout.description}
               onChange={handleChange}
+              onKeyPress={handleTextChange}
               multiline
               rows={2}
               fullWidth

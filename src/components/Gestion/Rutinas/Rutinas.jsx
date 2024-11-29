@@ -6,13 +6,11 @@ import {
   TextField,
   Menu,
   MenuItem,
-  Switch,
-  FormControlLabel,
   ListItemIcon,
   Button,
 } from "@mui/material";
 import { TbDotsVertical } from "react-icons/tb";
-import { FaPlus, FaSearch, FaEdit, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaPlus, FaSearch, FaEdit, FaTrash } from "react-icons/fa";
 import { CrearRutina } from "./CrearRutina";
 import { EditarRutina } from "./EditarRutina";
 import { BiLoaderCircle } from "react-icons/bi";
@@ -28,7 +26,6 @@ export const Rutinas = () => {
   const [selectedRoutine, setSelectedRoutine] = useState(null);
   const [currentView, setCurrentView] = useState("list");
   const [rows, setRows] = useState([]);
-  const [showHidden, setShowHidden] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const fetchRoutine = async () => {
@@ -46,43 +43,6 @@ export const Rutinas = () => {
   useEffect(() => {
     fetchRoutine();
   }, []);
-
-  const translateMuscle = (muscle) => {
-    switch (muscle) {
-      case "biceps":
-        return "Bíceps";
-      case "triceps":
-        return "Tríceps";
-      case "chest":
-        return "Pecho";
-      case "lats":
-        return "Dorsales";
-      case "abdominals":
-        return "Abdomen";
-      case "quads":
-        return "Cuádriceps";
-      case "hamstrings":
-        return "Isquiotibiales";
-      case "calves":
-        return "Pantorrillas";
-      case "glutes":
-        return "Glúteos";
-      case "obliques":
-        return "Oblicuos";
-      case "forearms":
-        return "Antebrazos";
-      case "traps":
-        return "Trapecios";
-      case "lowerback":
-        return "Espalda baja";
-      case "shoulders":
-        return "Hombros";
-      case "traps-middle":
-        return "Trapecio medio";
-      default:
-        return "";
-    }
-  };
 
   const handleMenuClick = (event, row) => {
     setAnchorEl(event.currentTarget);
@@ -112,16 +72,11 @@ export const Rutinas = () => {
     setCurrentView("list");
   };
 
-  const handleToggleVisibility = async () => {
+  const handleDelete = async () => {
     setLoading(true);
     await deleteRoutine(selectedRow);
     await fetchRoutine();
     setLoading(false);
-    // setRows((prevRows) =>
-    //   prevRows.map((row) =>
-    //     row.id === selectedRow ? { ...row, oculto: !row.oculto } : row
-    //   )
-    // );
     handleMenuClose(); // Cierra el menú después de actualizar
   };
 
@@ -147,8 +102,8 @@ export const Rutinas = () => {
     }
   };
 
-  const filteredRows = rows.filter(
-    (row) => row.name.toLowerCase().includes(searchText.toLowerCase()) //&& row.oculto === showHidden
+  const filteredRows = rows.filter((row) =>
+    row.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
   const columns = [
@@ -260,23 +215,6 @@ export const Rutinas = () => {
                 startAdornment: <FaSearch className="pr-1 size-5" />,
               }}
             />
-            <FormControlLabel
-              control={
-                <Switch
-                  selected={showHidden}
-                  onChange={() => setShowHidden(!showHidden)}
-                  size="small"
-                  defaultChecked
-                />
-              }
-              label={showHidden ? "Ocultos" : "Visibles"}
-              sx={{
-                "& .MuiFormControlLabel-label": {
-                  fontFamily: "Open Sans",
-                  fontSize: "0.875rem",
-                },
-              }}
-            />
           </div>
 
           <div className="w-full flex-1 overflow-auto">
@@ -320,18 +258,11 @@ export const Rutinas = () => {
               </ListItemIcon>
               Editar
             </MenuItem>
-            <MenuItem onClick={handleToggleVisibility}>
+            <MenuItem onClick={handleDelete}>
               <ListItemIcon>
-                {selectedRow &&
-                rows.find((row) => row.id === selectedRow)?.oculto ? (
-                  <FaEye />
-                ) : (
-                  <FaEyeSlash />
-                )}
+                <FaTrash />
               </ListItemIcon>
-              {selectedRow && rows.find((row) => row.id === selectedRow)?.oculto
-                ? "Mostrar"
-                : "Ocultar"}
+              Eliminar
             </MenuItem>
           </Menu>
 
