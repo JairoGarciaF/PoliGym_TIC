@@ -273,13 +273,17 @@ export const PlanAlimentacion = () => {
       )}
 
       {currentView === "add" && (
-        <CrearPlanAlimentacion onBack={handleBackToList} />
+        <CrearPlanAlimentacion
+          onBack={handleBackToList}
+          refreshData={fetchNutritionPlans}
+        />
       )}
 
       {currentView === "edit" && selectedMealPlan && (
         <EditarPlanAlimentacion
           mealPlan={selectedMealPlan}
           onBack={handleBackToList}
+          refreshData={fetchNutritionPlans}
         />
       )}
     </div>

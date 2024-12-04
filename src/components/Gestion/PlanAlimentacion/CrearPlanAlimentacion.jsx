@@ -80,7 +80,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
   const [nutritionPlan, setNutritionPlan] = useState({
     name: "",
     description: "",
-    imageURL: "",
+    imageURL: "si",
     duration: 0,
     category: "",
     weeklyMeals: [],
@@ -90,7 +90,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
     daysOfWeek.map(() => ({
       dayOfWeek: "",
       meals: mealTypes.map(() => ({
-        imageURL: "",
+        imageUrl: "si",
         type: "",
         name: "",
         description: "",
@@ -155,6 +155,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
       weeklyMeals: updatedWeeklyMeals,
     });
 
+    setExpanded(false);
     setActiveStep(0); // Reiniciar el stepper
   };
 
@@ -226,7 +227,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
       if (url) {
         // Actualiza el URL de la imagen en el estado
         const updatedMeals = [...currentMeals];
-        updatedMeals[dayIndex].meals[mealIndex].imageURL = url;
+        updatedMeals[dayIndex].meals[mealIndex].imageUrl = url;
         setCurrentMeals(updatedMeals);
       }
     } catch (error) {
@@ -251,7 +252,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const mediaUrl = currentMeals[dayIndex].meals[mealIndex].imageURL;
+          const mediaUrl = currentMeals[dayIndex].meals[mealIndex].imageUrl;
           const publicId = mediaUrl.split("/").pop().split(".")[0];
 
           await deleteImage(publicId);
@@ -263,7 +264,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
             confirmButtonColor: "#16243e",
           });
           const updatedMeals = [...currentMeals];
-          updatedMeals[dayIndex].meals[mealIndex].imageURL = "";
+          updatedMeals[dayIndex].meals[mealIndex].imageUrl = "";
           setCurrentMeals(updatedMeals);
         } catch (error) {
           console.error("Error al eliminar la imagen:", error);
@@ -281,6 +282,13 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const weeklyMeals = nutritionPlan.weeklyMeals.filter((day) => day);
+    setNutritionPlan((prevState) => ({
+      ...prevState,
+      weeklyMeals,
+    }));
+    console.log(nutritionPlan);
 
     if (
       !nutritionPlan.name ||
@@ -602,11 +610,11 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
                             size={6}>
                             <div className="flex items-center justify-center space-x-4">
                               {currentMeals[dayIndex].meals[mealIndex]
-                                .imageURL ? (
+                                .imageUrl ? (
                                 <img
                                   src={
                                     currentMeals[dayIndex].meals[mealIndex]
-                                      .imageURL
+                                      .imageUrl
                                   }
                                   className="h-28 w-28 rounded-lg object-cover border-stone-200 border"
                                   alt="Meal preview"
@@ -632,7 +640,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
                                 />
                               </label>
                               {currentMeals[dayIndex].meals[mealIndex]
-                                .imageURL && (
+                                .imageUrl && (
                                 <button
                                   onClick={(e) => {
                                     handleMealImageDelete(
@@ -774,7 +782,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
                                         mealIndex,
                                         foodIndex,
                                         "calories",
-                                        e.target.value
+                                        parseInt(e.target.value)
                                       )
                                     }
                                     fullWidth
@@ -795,7 +803,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
                                         mealIndex,
                                         foodIndex,
                                         "proteins",
-                                        e.target.value
+                                        parseInt(e.target.value)
                                       )
                                     }
                                     fullWidth
@@ -816,7 +824,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
                                         mealIndex,
                                         foodIndex,
                                         "carbs",
-                                        e.target.value
+                                        parseInt(e.target.value)
                                       )
                                     }
                                     fullWidth
@@ -837,7 +845,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
                                         mealIndex,
                                         foodIndex,
                                         "fats",
-                                        e.target.value
+                                        parseInt(e.target.value)
                                       )
                                     }
                                     fullWidth
@@ -908,17 +916,12 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
                           !currentMeals[dayIndex]?.meals[activeStep]?.name || // Nombre requerido
                           !currentMeals[dayIndex]?.meals[activeStep]
                             ?.description ||
-                          // !currentMeals[dayIndex]?.meals[activeStep]
-                          //   ?.imageURL ||
+                          !currentMeals[dayIndex]?.meals[activeStep]
+                            ?.imageUrl ||
                           currentMeals[dayIndex]?.meals[activeStep]?.foods
                             .length === 0 ||
                           currentMeals[dayIndex]?.meals[activeStep]?.foods.some(
-                            (food) =>
-                              !food.name ||
-                              !food.calories ||
-                              !food.proteins ||
-                              !food.carbs ||
-                              !food.fats
+                            (food) => !food.name
                           ) // Campos de alimentos requeridos
                         }
                         sx={{
@@ -947,16 +950,11 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
                           !currentMeals[dayIndex]?.meals[activeStep]
                             ?.description ||
                           !currentMeals[dayIndex]?.meals[activeStep]
-                            ?.imageURL ||
+                            ?.imageUrl ||
                           currentMeals[dayIndex]?.meals[activeStep]?.foods
                             .length === 0 ||
                           currentMeals[dayIndex]?.meals[activeStep]?.foods.some(
-                            (food) =>
-                              !food.name ||
-                              !food.calories ||
-                              !food.proteins ||
-                              !food.carbs ||
-                              !food.fats
+                            (food) => !food.name
                           )
                         }
                         sx={{

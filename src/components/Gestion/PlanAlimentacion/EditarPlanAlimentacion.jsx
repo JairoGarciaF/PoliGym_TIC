@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Accordion,
   AccordionSummary,
@@ -29,296 +29,26 @@ import {
 } from "../../../services/cloudinary/cloudinary";
 import { updateNutritionPlan } from "../../../services/plans/nutritionPlan";
 
-const test = {
-  id: "673ceebf3ff74b3c50370ad9",
-  name: "Plan de Pérdida de Peso",
-  description:
-    "Un plan diseñado para reducir peso con comidas balanceadas y bajas en calorías.",
-  imageURL: "https://example.com/image.jpg",
-  duration: 4,
-  category: "WEIGHT_LOSS",
-  isDeleted: false,
-  createdAt: "2024-11-19T20:02:07.005Z",
-  updatedAt: "2024-11-19T20:02:07.005Z",
-  weeklyMeals: [
-    {
-      id: "673ceec03ff74b3c50370ae2",
-      nutritionPlanId: "673ceebf3ff74b3c50370ad9",
-      dayOfWeek: "TUESDAY",
-      meals: [
-        {
-          id: "673ceec03ff74b3c50370ae3",
-          weeklyMealId: "673ceec03ff74b3c50370ae2",
-          type: "BREAKFAST",
-          name: "Avena con frutas",
-          description: "Avena cocida con fresas y arándanos.",
-          foods: [
-            {
-              id: "673ceec03ff74b3c50370ae4",
-              mealId: "673ceec03ff74b3c50370ae3",
-              name: "Avena",
-              description: "Avena integral cocida en agua.",
-              calories: 150,
-              proteins: 5,
-              carbs: 27,
-              fats: 3,
-              imageUrl: "https://example.com/avena.jpg",
-            },
-            {
-              id: "673ceec03ff74b3c50370ae5",
-              mealId: "673ceec03ff74b3c50370ae3",
-              name: "Fresas",
-              description: "Fresas frescas cortadas.",
-              calories: 30,
-              proteins: 0,
-              carbs: 7,
-              fats: 0,
-              imageUrl: "https://example.com/fresas.jpg",
-            },
-            {
-              id: "673ceec03ff74b3c50370ae6",
-              mealId: "673ceec03ff74b3c50370ae3",
-              name: "Arándanos",
-              description: "Porción de arándanos frescos.",
-              calories: 40,
-              proteins: 0,
-              carbs: 9,
-              fats: 0,
-              imageUrl: "https://example.com/arandanos.jpg",
-            },
-          ],
-        },
-        {
-          id: "673ceebf3ff74b3c50370adf",
-          weeklyMealId: "673ceebf3ff74b3c50370ada",
-          type: "LUNCH",
-          name: "Pollo a la plancha con ensalada",
-          description: "Pechuga de pollo con ensalada mixta.",
-          foods: [
-            {
-              id: "673ceebf3ff74b3c50370adc",
-              mealId: "673ceebf3ff74b3c50370adb",
-              name: "Tostada integral",
-              description: "Pan integral de granos enteros.",
-              calories: 80,
-              proteins: 3,
-              carbs: 15,
-              fats: 1,
-              imageUrl: "https://example.com/tostada.jpg",
-            },
-            {
-              id: "673ceebf3ff74b3c50370add",
-              mealId: "673ceebf3ff74b3c50370adb",
-              name: "Aguacate",
-              description: "Porción de aguacate fresco.",
-              calories: 50,
-              proteins: 1,
-              carbs: 3,
-              fats: 4,
-              imageUrl: "https://example.com/aguacate.jpg",
-            },
-            {
-              id: "673ceebf3ff74b3c50370ade",
-              mealId: "673ceebf3ff74b3c50370adb",
-              name: "Huevo hervido",
-              description: "Huevo cocido a fuego lento.",
-              calories: 70,
-              proteins: 6,
-              carbs: 1,
-              fats: 5,
-              imageUrl: "https://example.com/huevo.jpg",
-            },
-          ],
-        },
-        {
-          id: "673ceebf3ff74b3c50370adb",
-          weeklyMealId: "673ceebf3ff74b3c50370ada",
-          type: "BREAKFAST",
-          name: "Tostadas con aguacate",
-          description: "Tostadas integrales con aguacate y un huevo hervido.",
-          foods: [
-            {
-              id: "673ceebf3ff74b3c50370adc",
-              mealId: "673ceebf3ff74b3c50370adb",
-              name: "Tostada integral",
-              description: "Pan integral de granos enteros.",
-              calories: 80,
-              proteins: 3,
-              carbs: 15,
-              fats: 1,
-              imageUrl: "https://example.com/tostada.jpg",
-            },
-            {
-              id: "673ceebf3ff74b3c50370add",
-              mealId: "673ceebf3ff74b3c50370adb",
-              name: "Aguacate",
-              description: "Porción de aguacate fresco.",
-              calories: 50,
-              proteins: 1,
-              carbs: 3,
-              fats: 4,
-              imageUrl: "https://example.com/aguacate.jpg",
-            },
-            {
-              id: "673ceebf3ff74b3c50370ade",
-              mealId: "673ceebf3ff74b3c50370adb",
-              name: "Huevo hervido",
-              description: "Huevo cocido a fuego lento.",
-              calories: 70,
-              proteins: 6,
-              carbs: 1,
-              fats: 5,
-              imageUrl: "https://example.com/huevo.jpg",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      id: "673ceebf3ff74b3c50370ada",
-      nutritionPlanId: "673ceebf3ff74b3c50370ad9",
-      dayOfWeek: "MONDAY",
-      meals: [
-        {
-          id: "673ceebf3ff74b3c50370adf",
-          weeklyMealId: "673ceebf3ff74b3c50370ada",
-          type: "LUNCH",
-          name: "Pollo a la plancha con ensalada",
-          description: "Pechuga de pollo con ensalada mixta.",
-          foods: [
-            {
-              id: "673ceebf3ff74b3c50370adc",
-              mealId: "673ceebf3ff74b3c50370adb",
-              name: "Tostada integral",
-              description: "Pan integral de granos enteros.",
-              calories: 80,
-              proteins: 3,
-              carbs: 15,
-              fats: 1,
-              imageUrl: "https://example.com/tostada.jpg",
-            },
-            {
-              id: "673ceebf3ff74b3c50370add",
-              mealId: "673ceebf3ff74b3c50370adb",
-              name: "Aguacate",
-              description: "Porción de aguacate fresco.",
-              calories: 50,
-              proteins: 1,
-              carbs: 3,
-              fats: 4,
-              imageUrl: "https://example.com/aguacate.jpg",
-            },
-            {
-              id: "673ceebf3ff74b3c50370ade",
-              mealId: "673ceebf3ff74b3c50370adb",
-              name: "Huevo hervido",
-              description: "Huevo cocido a fuego lento.",
-              calories: 70,
-              proteins: 6,
-              carbs: 1,
-              fats: 5,
-              imageUrl: "https://example.com/huevo.jpg",
-            },
-          ],
-        },
-        {
-          id: "673ceebf3ff74b3c50370adb",
-          weeklyMealId: "673ceebf3ff74b3c50370ada",
-          type: "BREAKFAST",
-          name: "Tostadas con aguacate",
-          description: "Tostadas integrales con aguacate y un huevo hervido.",
-          foods: [
-            {
-              id: "673ceebf3ff74b3c50370adc",
-              mealId: "673ceebf3ff74b3c50370adb",
-              name: "Tostada integral",
-              description: "Pan integral de granos enteros.",
-              calories: 80,
-              proteins: 3,
-              carbs: 15,
-              fats: 1,
-              imageUrl: "https://example.com/tostada.jpg",
-            },
-            {
-              id: "673ceebf3ff74b3c50370add",
-              mealId: "673ceebf3ff74b3c50370adb",
-              name: "Aguacate",
-              description: "Porción de aguacate fresco.",
-              calories: 50,
-              proteins: 1,
-              carbs: 3,
-              fats: 4,
-              imageUrl: "https://example.com/aguacate.jpg",
-            },
-            {
-              id: "673ceebf3ff74b3c50370ade",
-              mealId: "673ceebf3ff74b3c50370adb",
-              name: "Huevo hervido",
-              description: "Huevo cocido a fuego lento.",
-              calories: 70,
-              proteins: 6,
-              carbs: 1,
-              fats: 5,
-              imageUrl: "https://example.com/huevo.jpg",
-            },
-          ],
-        },
-        {
-          id: "673ceebf3ff74b3c50370adb",
-          weeklyMealId: "673ceebf3ff74b3c50370ada",
-          type: "BREAKFAST",
-          name: "Tostadas con aguacate",
-          description: "Tostadas integrales con aguacate y un huevo hervido.",
-          foods: [
-            {
-              id: "673ceebf3ff74b3c50370adc",
-              mealId: "673ceebf3ff74b3c50370adb",
-              name: "Tostada integral",
-              description: "Pan integral de granos enteros.",
-              calories: 80,
-              proteins: 3,
-              carbs: 15,
-              fats: 1,
-              imageUrl: "https://example.com/tostada.jpg",
-            },
-            {
-              id: "673ceebf3ff74b3c50370add",
-              mealId: "673ceebf3ff74b3c50370adb",
-              name: "Aguacate",
-              description: "Porción de aguacate fresco.",
-              calories: 50,
-              proteins: 1,
-              carbs: 3,
-              fats: 4,
-              imageUrl: "https://example.com/aguacate.jpg",
-            },
-            {
-              id: "673ceebf3ff74b3c50370ade",
-              mealId: "673ceebf3ff74b3c50370adb",
-              name: "Huevo hervido",
-              description: "Huevo cocido a fuego lento.",
-              calories: 70,
-              proteins: 6,
-              carbs: 1,
-              fats: 5,
-              imageUrl: "https://example.com/huevo.jpg",
-            },
-          ],
-        },
-      ],
-    },
-  ],
-};
+function cleanMealPlanData(mealPlan) {
+  return {
+    weeklyMeals: mealPlan.weeklyMeals.map((weeklyMeal) => ({
+      ...weeklyMeal,
+      id: undefined, // Elimina `id`
+      nutritionPlanId: undefined, // Elimina `nutritionPlanId`
+      meals: weeklyMeal.meals.map((meal) => ({
+        ...meal,
+        id: undefined, // Elimina `id`
+        weeklyMealId: undefined, // Elimina `weeklyMealId`
+        foods: meal.foods.map((food) => ({
+          ...food,
+          id: undefined, // Elimina `id`
+          mealId: undefined, // Elimina `mealId`
+        })),
+      })),
+    })),
+  };
+}
 
-const daysOfWeek = [
-  "MONDAY",
-  "TUESDAY",
-  "WEDNESDAY",
-  "THURSDAY",
-  "FRIDAY",
-  "SATURDAY",
-  "SUNDAY",
-];
 const mealTypes = ["BREAKFAST", "LUNCH", "DINNER"];
 const categoryTypes = ["WEIGHT_LOSS", "MUSCLE_GAIN", "DEFINITION"];
 
@@ -364,10 +94,15 @@ export const EditarPlanAlimentacion = ({ mealPlan, onBack, refreshData }) => {
     imageURL: mealPlan?.imageURL || "",
     duration: mealPlan?.duration || 0,
     category: mealPlan?.category || "",
-    weeklyMeals: [],
+    weeklyMeals: mealPlan?.weeklyMeals || [],
   });
 
-  const [currentMeals, setCurrentMeals] = useState(test?.weeklyMeals || []);
+  useEffect(() => {
+    setNutritionPlan({
+      ...nutritionPlan,
+      weeklyMeals: cleanMealPlanData(mealPlan).weeklyMeals,
+    });
+  }, []);
 
   const handleAccordionChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -381,27 +116,35 @@ export const EditarPlanAlimentacion = ({ mealPlan, onBack, refreshData }) => {
   };
 
   const handleMealChange = (dayIndex, mealIndex, field, value, type) => {
-    const updatedMeals = [...currentMeals];
+    const updatedMeals = [...nutritionPlan.weeklyMeals];
     updatedMeals[dayIndex].meals[mealIndex][field] = value;
     updatedMeals[dayIndex].meals[mealIndex].type = type;
-    setCurrentMeals(updatedMeals);
+    setNutritionPlan({
+      ...nutritionPlan,
+      weeklyMeals: updatedMeals,
+    });
   };
 
   const handleAddFood = (dayIndex, mealIndex) => {
     const newFood = { name: "", calories: 0, proteins: 0, carbs: 0, fats: 0 };
-    const updatedMeals = [...currentMeals];
+    const updatedMeals = [...nutritionPlan.weeklyMeals];
     updatedMeals[dayIndex].meals[mealIndex].foods.push(newFood);
-    setCurrentMeals(updatedMeals);
+    setNutritionPlan({
+      ...nutritionPlan,
+      weeklyMeals: updatedMeals,
+    });
   };
 
   const handleFoodChange = (dayIndex, mealIndex, foodIndex, field, value) => {
-    const updatedMeals = [...currentMeals];
+    const updatedMeals = [...nutritionPlan.weeklyMeals];
     updatedMeals[dayIndex].meals[mealIndex].foods[foodIndex][field] = value;
-    setCurrentMeals(updatedMeals);
+    setNutritionPlan({
+      ...nutritionPlan,
+      weeklyMeals: updatedMeals,
+    });
   };
 
   const handleNext = () => {
-    console.log(currentMeals);
     setActiveStep((prevActiveStep) =>
       Math.min(prevActiveStep + 1, mealTypes.length - 1)
     );
@@ -416,8 +159,7 @@ export const EditarPlanAlimentacion = ({ mealPlan, onBack, refreshData }) => {
     const updatedWeeklyMeals = [...nutritionPlan.weeklyMeals];
     updatedWeeklyMeals[dayIndex] = {
       ...updatedWeeklyMeals[dayIndex],
-      dayOfWeek: daysOfWeek[dayIndex], // Guardamos el día de la semana
-      meals: currentMeals[dayIndex].meals, // Guardamos las comidas del día
+      meals: nutritionPlan.weeklyMeals[dayIndex].meals, // Guardamos las comidas del día
     };
 
     // Actualizamos el state de nutritionPlan con el nuevo array de weeklyMeals
@@ -426,6 +168,7 @@ export const EditarPlanAlimentacion = ({ mealPlan, onBack, refreshData }) => {
       weeklyMeals: updatedWeeklyMeals,
     });
 
+    setExpanded(false);
     setActiveStep(0); // Reiniciar el stepper
   };
 
@@ -496,9 +239,12 @@ export const EditarPlanAlimentacion = ({ mealPlan, onBack, refreshData }) => {
       const url = await uploadImage(file, preset);
       if (url) {
         // Actualiza el URL de la imagen en el estado
-        const updatedMeals = [...currentMeals];
-        updatedMeals[dayIndex].meals[mealIndex].imageURL = url;
-        setCurrentMeals(updatedMeals);
+        const updatedMeals = [...nutritionPlan.weeklyMeals];
+        updatedMeals[dayIndex].meals[mealIndex].imageUrl = url;
+        setNutritionPlan({
+          ...nutritionPlan,
+          weeklyMeals: updatedMeals,
+        });
       }
     } catch (error) {
       console.error("Error al subir la imagen:", error);
@@ -522,7 +268,8 @@ export const EditarPlanAlimentacion = ({ mealPlan, onBack, refreshData }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const mediaUrl = currentMeals[dayIndex].meals[mealIndex].imageURL;
+          const mediaUrl =
+            nutritionPlan.weeklyMeals[dayIndex].meals[mealIndex].imageUrl;
           const publicId = mediaUrl.split("/").pop().split(".")[0];
 
           await deleteImage(publicId);
@@ -533,9 +280,12 @@ export const EditarPlanAlimentacion = ({ mealPlan, onBack, refreshData }) => {
             confirmButtonText: "Aceptar",
             confirmButtonColor: "#16243e",
           });
-          const updatedMeals = [...currentMeals];
-          updatedMeals[dayIndex].meals[mealIndex].imageURL = "";
-          setCurrentMeals(updatedMeals);
+          const updatedMeals = [...nutritionPlan.weeklyMeals];
+          updatedMeals[dayIndex].meals[mealIndex].imageUrl = "";
+          setNutritionPlan({
+            ...nutritionPlan,
+            weeklyMeals: updatedMeals,
+          });
         } catch (error) {
           console.error("Error al eliminar la imagen:", error);
           Swal.fire({
@@ -552,6 +302,8 @@ export const EditarPlanAlimentacion = ({ mealPlan, onBack, refreshData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log(nutritionPlan);
 
     if (
       !nutritionPlan.name ||
@@ -573,11 +325,11 @@ export const EditarPlanAlimentacion = ({ mealPlan, onBack, refreshData }) => {
     setLoading(true);
 
     try {
-      await createNutritionPlan(nutritionPlan);
+      await updateNutritionPlan(mealPlan.id, nutritionPlan);
       setLoading(false);
       Swal.fire({
-        title: "Plan de alimentación creado",
-        text: "El plan de alimentación se creó correctamente.",
+        title: "Plan de alimentación actualizado",
+        text: "El plan de alimentación se actualizó correctamente.",
         icon: "success",
         confirmButtonText: "Aceptar",
         confirmButtonColor: "#16243e",
@@ -587,10 +339,10 @@ export const EditarPlanAlimentacion = ({ mealPlan, onBack, refreshData }) => {
       });
     } catch (error) {
       setLoading(false);
-      console.error("Error al crear el plan de alimentación:", error);
+      console.error("Error al actualizar el plan de alimentación:", error);
       Swal.fire({
         title: "Error",
-        text: "Ocurrió un error al crear el plan de alimentación.",
+        text: "Ocurrió un error al editar el plan de alimentación.",
         icon: "error",
         confirmButtonText: "Aceptar",
         confirmButtonColor: "#16243e",
@@ -820,71 +572,66 @@ export const EditarPlanAlimentacion = ({ mealPlan, onBack, refreshData }) => {
         </Grid>
 
         <div className="pt-4 px-0.5">
-          {currentMeals.map(
-            (day, dayIndex) => (
-              console.log(dayIndex),
-              (
-                <Accordion
-                  disableGutters
-                  expanded={expanded === day.dayOfWeek}
-                  onChange={handleAccordionChange(day.dayOfWeek)}
-                  key={day.id}>
-                  <AccordionSummary expandIcon={<FaAngleDown />}>
-                    <Typography
-                      sx={{
-                        fontFamily: "Montserrat Alternates",
-                        fontWeight: 500,
-                        fontSize: window.innerWidth < 640 ? "0.875rem" : "1rem",
-                      }}
-                      className="text-azul-marino-500 font-medium">
-                      {dayTranslate(day.dayOfWeek).toUpperCase()}
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Stepper activeStep={activeStep} alternativeLabel>
-                      {mealTypes.map((label) => (
-                        <Step key={label}>
-                          <StepLabel>{mealTranslate(label)}</StepLabel>
-                        </Step>
-                      ))}
-                    </Stepper>
-                    <Box>
-                      {mealTypes.map((meal, mealIndex) =>
-                        activeStep === mealIndex
-                          ? (console.log(mealIndex),
-                            (
-                              <Box key={meal}>
-                                <Typography
-                                  sx={{
-                                    fontFamily: "Montserrat Alternates",
-                                    fontWeight: 500,
-                                    fontSize:
-                                      window.innerWidth < 640
-                                        ? "0.875rem"
-                                        : "1rem",
-                                  }}>
-                                  {mealTranslate(meal)}
-                                </Typography>
-                                <Grid
-                                  container
-                                  spacing={1}
-                                  sx={{
-                                    "& .MuiFormLabel-root": {
-                                      fontFamily: "Open Sans",
-                                    },
-                                  }}>
-                                  <Grid
-                                    display="flex"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    size={6}>
-                                    {/* <div className="flex items-center justify-center space-x-4">
-                              {currentMeals[dayIndex].meals[mealIndex]
-                                .imageURL ? (
+          {nutritionPlan.weeklyMeals.map((day, dayIndex) => (
+            <Accordion
+              disableGutters
+              expanded={expanded === day.dayOfWeek}
+              onChange={handleAccordionChange(day.dayOfWeek)}
+              key={dayIndex}>
+              <AccordionSummary expandIcon={<FaAngleDown />}>
+                <Typography
+                  sx={{
+                    fontFamily: "Montserrat Alternates",
+                    fontWeight: 500,
+                    fontSize: window.innerWidth < 640 ? "0.875rem" : "1rem",
+                  }}
+                  className="text-azul-marino-500 font-medium">
+                  {dayTranslate(day.dayOfWeek).toUpperCase()}
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Stepper activeStep={activeStep} alternativeLabel>
+                  {mealTypes.map((label) => (
+                    <Step key={label}>
+                      <StepLabel>{mealTranslate(label)}</StepLabel>
+                    </Step>
+                  ))}
+                </Stepper>
+                <Box>
+                  {mealTypes.map((meal, mealIndex) =>
+                    activeStep === mealIndex ? (
+                      <Box key={meal}>
+                        <Typography
+                          sx={{
+                            fontFamily: "Montserrat Alternates",
+                            fontWeight: 500,
+                            fontSize:
+                              window.innerWidth < 640 ? "0.875rem" : "1rem",
+                          }}>
+                          {mealTranslate(meal)}
+                        </Typography>
+                        <Grid
+                          container
+                          spacing={1}
+                          sx={{
+                            "& .MuiFormLabel-root": {
+                              fontFamily: "Open Sans",
+                            },
+                          }}>
+                          <Grid
+                            display="flex"
+                            justifyContent="center"
+                            alignItems="center"
+                            size={6}>
+                            <div className="flex items-center justify-center space-x-4">
+                              {nutritionPlan.weeklyMeals[dayIndex].meals[
+                                mealIndex
+                              ].imageUrl ? (
                                 <img
                                   src={
-                                    currentMeals[dayIndex].meals[mealIndex]
-                                      .imageURL
+                                    nutritionPlan.weeklyMeals[dayIndex].meals[
+                                      mealIndex
+                                    ].imageUrl
                                   }
                                   className="h-28 w-28 rounded-lg object-cover border-stone-200 border"
                                   alt="Meal preview"
@@ -909,8 +656,9 @@ export const EditarPlanAlimentacion = ({ mealPlan, onBack, refreshData }) => {
                                   }}
                                 />
                               </label>
-                              {currentMeals[dayIndex].meals[mealIndex]
-                                .imageURL && (
+                              {nutritionPlan.weeklyMeals[dayIndex].meals[
+                                mealIndex
+                              ].imageUrl && (
                                 <button
                                   onClick={(e) => {
                                     handleMealImageDelete(
@@ -923,252 +671,73 @@ export const EditarPlanAlimentacion = ({ mealPlan, onBack, refreshData }) => {
                                   <AiOutlineDelete className="xl:size-7 size-6" />
                                 </button>
                               )}
-                            </div> */}
-                                  </Grid>
-                                  <Grid
-                                    size={6}
-                                    container
-                                    spacing={1}
-                                    sx={{
-                                      "& .MuiFormLabel-root": {
-                                        fontFamily: "Open Sans",
-                                      },
-                                    }}>
-                                    <Grid size={12}>
-                                      <TextField
-                                        label="Nombre"
-                                        value={
-                                          currentMeals[dayIndex].meals[
-                                            mealIndex
-                                          ]?.name || ""
-                                        }
-                                        size="small"
-                                        onKeyPress={handleTextChange}
-                                        onChange={(e) =>
-                                          handleMealChange(
-                                            dayIndex,
-                                            mealIndex,
-                                            "name",
-                                            e.target.value,
-                                            meal
-                                          )
-                                        }
-                                        fullWidth
-                                        margin="dense"
-                                      />
-                                    </Grid>
-                                    <Grid size={12}>
-                                      <TextField
-                                        label="Descripción"
-                                        size="small"
-                                        inputProps={{ maxLength: 300 }}
-                                        value={
-                                          currentMeals[dayIndex].meals[
-                                            mealIndex
-                                          ]?.description || ""
-                                        }
-                                        onKeyPress={handleTextChange}
-                                        multiline
-                                        rows={2}
-                                        onChange={(e) =>
-                                          handleMealChange(
-                                            dayIndex,
-                                            mealIndex,
-                                            "description",
-                                            e.target.value,
-                                            meal
-                                          )
-                                        }
-                                        fullWidth
-                                        margin="dense"
-                                      />
-                                    </Grid>
-                                  </Grid>
-                                </Grid>
-
-                                <Button
-                                  variant="outlined"
-                                  onClick={() =>
-                                    handleAddFood(dayIndex, mealIndex)
-                                  }
-                                  startIcon={
-                                    <FaPlus className="xl:size-4 size-3" />
-                                  }
-                                  sx={{
-                                    fontFamily: "Montserrat Alternates",
-                                    borderColor: "#16243e",
-                                    color: "#16243e",
-                                    borderWidth: 1,
-                                    "&:hover": {
-                                      backgroundColor: "#e2e6ee",
-                                    },
-                                    textTransform: "none",
-                                    fontSize:
-                                      window.innerWidth < 640
-                                        ? 10
-                                        : window.innerWidth < 1024
-                                        ? 12
-                                        : 14,
-                                  }}>
-                                  Comida
-                                </Button>
-                                <Grid
-                                  container
-                                  columns={10}
-                                  spacing={1}
-                                  sx={{
-                                    mt: 2,
-                                    border: "1px solid #ccc",
-                                    p: 2,
-                                    borderRadius: 1,
-                                    "& .MuiFormLabel-root": {
-                                      fontFamily: "Open Sans",
-                                    },
-                                  }}>
-                                  {currentMeals[dayIndex].meals[
+                            </div>
+                          </Grid>
+                          <Grid
+                            size={6}
+                            container
+                            spacing={1}
+                            sx={{
+                              "& .MuiFormLabel-root": {
+                                fontFamily: "Open Sans",
+                              },
+                            }}>
+                            <Grid size={12}>
+                              <TextField
+                                label="Nombre"
+                                value={
+                                  nutritionPlan.weeklyMeals[dayIndex].meals[
                                     mealIndex
-                                  ].foods.map((food, foodIndex) => (
-                                    <>
-                                      <Grid size={{ lg: 5, xs: 10 }}>
-                                        <TextField
-                                          label="Nombre"
-                                          value={food.name}
-                                          onChange={(e) =>
-                                            handleFoodChange(
-                                              dayIndex,
-                                              mealIndex,
-                                              foodIndex,
-                                              "name",
-                                              e.target.value
-                                            )
-                                          }
-                                          fullWidth
-                                          margin="dense"
-                                          size="small"
-                                        />
-                                      </Grid>
-                                      <Grid size={{ lg: 1, sm: 2 }}>
-                                        <TextField
-                                          label="Calorías"
-                                          type="number"
-                                          inputProps={{ min: 0, max: 1500 }}
-                                          onKeyPress={handleNumeroInput}
-                                          value={food.calories}
-                                          onChange={(e) =>
-                                            handleFoodChange(
-                                              dayIndex,
-                                              mealIndex,
-                                              foodIndex,
-                                              "calories",
-                                              e.target.value
-                                            )
-                                          }
-                                          fullWidth
-                                          margin="dense"
-                                          size="small"
-                                        />
-                                      </Grid>
-                                      <Grid size={{ lg: 1, sm: 2 }}>
-                                        <TextField
-                                          label="Proteínas (g)"
-                                          type="number"
-                                          inputProps={{ min: 0, max: 100 }}
-                                          onKeyPress={handleNumeroInput}
-                                          value={food.proteins}
-                                          onChange={(e) =>
-                                            handleFoodChange(
-                                              dayIndex,
-                                              mealIndex,
-                                              foodIndex,
-                                              "proteins",
-                                              e.target.value
-                                            )
-                                          }
-                                          fullWidth
-                                          margin="dense"
-                                          size="small"
-                                        />
-                                      </Grid>
-                                      <Grid size={{ lg: 1, sm: 2 }}>
-                                        <TextField
-                                          label="Carbohidratos (g)"
-                                          type="number"
-                                          inputProps={{ min: 0, max: 300 }}
-                                          onKeyPress={handleNumeroInput}
-                                          value={food.carbs}
-                                          onChange={(e) =>
-                                            handleFoodChange(
-                                              dayIndex,
-                                              mealIndex,
-                                              foodIndex,
-                                              "carbs",
-                                              e.target.value
-                                            )
-                                          }
-                                          fullWidth
-                                          margin="dense"
-                                          size="small"
-                                        />
-                                      </Grid>
-                                      <Grid size={{ lg: 1, sm: 2 }}>
-                                        <TextField
-                                          label="Grasa (g)"
-                                          type="number"
-                                          inputProps={{ min: 0, max: 100 }}
-                                          onKeyPress={handleNumeroInput}
-                                          value={food.fats}
-                                          onChange={(e) =>
-                                            handleFoodChange(
-                                              dayIndex,
-                                              mealIndex,
-                                              foodIndex,
-                                              "fats",
-                                              e.target.value
-                                            )
-                                          }
-                                          fullWidth
-                                          margin="dense"
-                                          size="small"
-                                        />
-                                      </Grid>
-                                      <Grid
-                                        size={{ lg: 1, sm: 2 }}
-                                        display="flex"
-                                        justifyContent={"center"}
-                                        alignItems={"center"}>
-                                        <IconButton
-                                          onClick={() =>
-                                            setCurrentMeals((prevState) => {
-                                              const updatedMeals = [
-                                                ...prevState,
-                                              ];
-                                              updatedMeals[dayIndex].meals[
-                                                mealIndex
-                                              ].foods.splice(foodIndex, 1);
-                                              return updatedMeals;
-                                            })
-                                          }
-                                          color="error">
-                                          <AiOutlineDelete className="xl:size-6 size-5" />
-                                        </IconButton>
-                                      </Grid>
-                                    </>
-                                  ))}
-                                </Grid>
-                              </Box>
-                            ))
-                          : null
-                      )}
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          mt: 2,
-                        }}>
+                                  ]?.name || ""
+                                }
+                                size="small"
+                                onKeyPress={handleTextChange}
+                                onChange={(e) =>
+                                  handleMealChange(
+                                    dayIndex,
+                                    mealIndex,
+                                    "name",
+                                    e.target.value,
+                                    meal
+                                  )
+                                }
+                                fullWidth
+                                margin="dense"
+                              />
+                            </Grid>
+                            <Grid size={12}>
+                              <TextField
+                                label="Descripción"
+                                size="small"
+                                inputProps={{ maxLength: 300 }}
+                                value={
+                                  nutritionPlan.weeklyMeals[dayIndex].meals[
+                                    mealIndex
+                                  ]?.description || ""
+                                }
+                                onKeyPress={handleTextChange}
+                                multiline
+                                rows={2}
+                                onChange={(e) =>
+                                  handleMealChange(
+                                    dayIndex,
+                                    mealIndex,
+                                    "description",
+                                    e.target.value,
+                                    meal
+                                  )
+                                }
+                                fullWidth
+                                margin="dense"
+                              />
+                            </Grid>
+                          </Grid>
+                        </Grid>
+
                         <Button
                           variant="outlined"
-                          disabled={activeStep === 0}
-                          onClick={handleBack}
+                          onClick={() => handleAddFood(dayIndex, mealIndex)}
+                          startIcon={<FaPlus className="xl:size-4 size-3" />}
                           sx={{
                             fontFamily: "Montserrat Alternates",
                             borderColor: "#16243e",
@@ -1185,100 +754,264 @@ export const EditarPlanAlimentacion = ({ mealPlan, onBack, refreshData }) => {
                                 ? 12
                                 : 14,
                           }}>
-                          Atrás
+                          Comida
                         </Button>
-                        {activeStep === mealTypes.length - 1 ? (
-                          <Button
-                            variant="contained"
-                            color="success"
-                            onClick={() => handleCompleteDay(dayIndex)}
-                            disabled={
-                              !currentMeals[dayIndex]?.meals[activeStep]
-                                ?.name || // Nombre requerido
-                              !currentMeals[dayIndex]?.meals[activeStep]
-                                ?.description ||
-                              // !currentMeals[dayIndex]?.meals[activeStep]
-                              //   ?.imageURL ||
-                              currentMeals[dayIndex]?.meals[activeStep]?.foods
-                                .length === 0 ||
-                              currentMeals[dayIndex]?.meals[
-                                activeStep
-                              ]?.foods.some(
-                                (food) =>
-                                  !food.name ||
-                                  !food.calories ||
-                                  !food.proteins ||
-                                  !food.carbs ||
-                                  !food.fats
-                              ) // Campos de alimentos requeridos
-                            }
-                            sx={{
-                              fontFamily: "Montserrat Alternates",
-                              color: "#fff",
-                              "&:hover": {
-                                color: "#16243e",
-                                backgroundColor: "#e2e6ee",
-                              },
-                              textTransform: "none",
-                              fontSize:
-                                window.innerWidth < 640
-                                  ? 10
-                                  : window.innerWidth < 1024
-                                  ? 12
-                                  : 14,
-                            }}>
-                            Finalizar Día
-                          </Button>
-                        ) : (
-                          <Button
-                            variant="contained"
-                            onClick={handleNext}
-                            disabled={
-                              !currentMeals[dayIndex]?.meals[activeStep]
-                                ?.name || // Nombre requerido
-                              !currentMeals[dayIndex]?.meals[activeStep]
-                                ?.description ||
-                              // !currentMeals[dayIndex]?.meals[activeStep]
-                              //   ?.imageURL ||
-                              currentMeals[dayIndex]?.meals[activeStep]?.foods
-                                .length === 0 ||
-                              currentMeals[dayIndex]?.meals[
-                                activeStep
-                              ]?.foods.some(
-                                (food) =>
-                                  !food.name ||
-                                  !food.calories ||
-                                  !food.proteins ||
-                                  !food.carbs ||
-                                  !food.fats
-                              )
-                            }
-                            sx={{
-                              backgroundColor: "#16243e",
-                              fontFamily: "Montserrat Alternates",
-                              color: "#fff",
-                              "&:hover": {
-                                color: "#16243e",
-                                backgroundColor: "#e2e6ee",
-                              },
-                              textTransform: "none",
-                              fontSize:
-                                window.innerWidth < 640
-                                  ? 10
-                                  : window.innerWidth < 1024
-                                  ? 12
-                                  : 14,
-                            }}>
-                            Siguiente
-                          </Button>
-                        )}
+                        <div className="mt-2 p-2 border rounded-md border-slate-300">
+                          {nutritionPlan.weeklyMeals[dayIndex].meals[
+                            mealIndex
+                          ].foods.map((food, foodIndex) => (
+                            <Grid
+                              container
+                              columns={10}
+                              spacing={1}
+                              key={foodIndex}
+                              sx={{
+                                "& .MuiFormLabel-root": {
+                                  fontFamily: "Open Sans",
+                                },
+                              }}>
+                              <Grid size={{ lg: 5, xs: 10 }}>
+                                <TextField
+                                  label="Nombre"
+                                  value={food.name}
+                                  onChange={(e) =>
+                                    handleFoodChange(
+                                      dayIndex,
+                                      mealIndex,
+                                      foodIndex,
+                                      "name",
+                                      e.target.value
+                                    )
+                                  }
+                                  fullWidth
+                                  margin="dense"
+                                  size="small"
+                                />
+                              </Grid>
+                              <Grid size={{ lg: 1, sm: 2 }}>
+                                <TextField
+                                  label="Calorías"
+                                  type="number"
+                                  inputProps={{ min: 0, max: 1500 }}
+                                  onKeyPress={handleNumeroInput}
+                                  value={food.calories}
+                                  onChange={(e) =>
+                                    handleFoodChange(
+                                      dayIndex,
+                                      mealIndex,
+                                      foodIndex,
+                                      "calories",
+                                      parseInt(e.target.value)
+                                    )
+                                  }
+                                  fullWidth
+                                  margin="dense"
+                                  size="small"
+                                />
+                              </Grid>
+                              <Grid size={{ lg: 1, sm: 2 }}>
+                                <TextField
+                                  label="Proteínas (g)"
+                                  type="number"
+                                  inputProps={{ min: 0, max: 100 }}
+                                  onKeyPress={handleNumeroInput}
+                                  value={food.proteins}
+                                  onChange={(e) =>
+                                    handleFoodChange(
+                                      dayIndex,
+                                      mealIndex,
+                                      foodIndex,
+                                      "proteins",
+                                      parseInt(e.target.value)
+                                    )
+                                  }
+                                  fullWidth
+                                  margin="dense"
+                                  size="small"
+                                />
+                              </Grid>
+                              <Grid size={{ lg: 1, sm: 2 }}>
+                                <TextField
+                                  label="Carbohidratos (g)"
+                                  type="number"
+                                  inputProps={{ min: 0, max: 300 }}
+                                  onKeyPress={handleNumeroInput}
+                                  value={food.carbs}
+                                  onChange={(e) =>
+                                    handleFoodChange(
+                                      dayIndex,
+                                      mealIndex,
+                                      foodIndex,
+                                      "carbs",
+                                      parseInt(e.target.value)
+                                    )
+                                  }
+                                  fullWidth
+                                  margin="dense"
+                                  size="small"
+                                />
+                              </Grid>
+                              <Grid size={{ lg: 1, sm: 2 }}>
+                                <TextField
+                                  label="Grasa (g)"
+                                  type="number"
+                                  inputProps={{ min: 0, max: 100 }}
+                                  onKeyPress={handleNumeroInput}
+                                  value={food.fats}
+                                  onChange={(e) =>
+                                    handleFoodChange(
+                                      dayIndex,
+                                      mealIndex,
+                                      foodIndex,
+                                      "fats",
+                                      parseInt(e.target.value)
+                                    )
+                                  }
+                                  fullWidth
+                                  margin="dense"
+                                  size="small"
+                                />
+                              </Grid>
+                              <Grid
+                                size={{ lg: 1, sm: 2 }}
+                                display="flex"
+                                justifyContent={"center"}
+                                alignItems={"center"}>
+                                <IconButton
+                                  onClick={() =>
+                                    setNutritionPlan((prevState) => {
+                                      const updatedMeals = [
+                                        ...prevState.weeklyMeals,
+                                      ];
+                                      updatedMeals[dayIndex].meals[
+                                        mealIndex
+                                      ].foods.splice(foodIndex, 1);
+                                      return {
+                                        ...prevState,
+                                        weeklyMeals: updatedMeals,
+                                      };
+                                    })
+                                  }
+                                  color="error">
+                                  <AiOutlineDelete className="xl:size-6 size-5" />
+                                </IconButton>
+                              </Grid>
+                            </Grid>
+                          ))}
+                        </div>
                       </Box>
-                    </Box>
-                  </AccordionDetails>
-                </Accordion>
-              )
-            )
-          )}
+                    ) : null
+                  )}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      mt: 2,
+                    }}>
+                    <Button
+                      variant="outlined"
+                      disabled={activeStep === 0}
+                      onClick={handleBack}
+                      sx={{
+                        fontFamily: "Montserrat Alternates",
+                        borderColor: "#16243e",
+                        color: "#16243e",
+                        borderWidth: 1,
+                        "&:hover": {
+                          backgroundColor: "#e2e6ee",
+                        },
+                        textTransform: "none",
+                        fontSize:
+                          window.innerWidth < 640
+                            ? 10
+                            : window.innerWidth < 1024
+                            ? 12
+                            : 14,
+                      }}>
+                      Atrás
+                    </Button>
+                    {activeStep === mealTypes.length - 1 ? (
+                      <Button
+                        variant="contained"
+                        color="success"
+                        onClick={() => handleCompleteDay(dayIndex)}
+                        disabled={
+                          !nutritionPlan.weeklyMeals[dayIndex]?.meals[
+                            activeStep
+                          ]?.name || // Nombre requerido
+                          !nutritionPlan.weeklyMeals[dayIndex]?.meals[
+                            activeStep
+                          ]?.description ||
+                          !nutritionPlan.weeklyMeals[dayIndex]?.meals[
+                            activeStep
+                          ]?.imageUrl ||
+                          nutritionPlan.weeklyMeals[dayIndex]?.meals[activeStep]
+                            ?.foods.length === 0 ||
+                          nutritionPlan.weeklyMeals[dayIndex]?.meals[
+                            activeStep
+                          ]?.foods.some((food) => !food.name) // Campos de alimentos requeridos
+                        }
+                        sx={{
+                          fontFamily: "Montserrat Alternates",
+                          color: "#fff",
+                          "&:hover": {
+                            color: "#16243e",
+                            backgroundColor: "#e2e6ee",
+                          },
+                          textTransform: "none",
+                          fontSize:
+                            window.innerWidth < 640
+                              ? 10
+                              : window.innerWidth < 1024
+                              ? 12
+                              : 14,
+                        }}>
+                        Finalizar Día
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="contained"
+                        onClick={handleNext}
+                        disabled={
+                          !nutritionPlan.weeklyMeals[dayIndex]?.meals[
+                            activeStep
+                          ]?.name || // Nombre requerido
+                          !nutritionPlan.weeklyMeals[dayIndex]?.meals[
+                            activeStep
+                          ]?.description ||
+                          !nutritionPlan.weeklyMeals[dayIndex]?.meals[
+                            activeStep
+                          ]?.imageUrl ||
+                          nutritionPlan.weeklyMeals[dayIndex]?.meals[activeStep]
+                            ?.foods.length === 0 ||
+                          nutritionPlan.weeklyMeals[dayIndex]?.meals[
+                            activeStep
+                          ]?.foods.some((food) => !food.name)
+                        }
+                        sx={{
+                          backgroundColor: "#16243e",
+                          fontFamily: "Montserrat Alternates",
+                          color: "#fff",
+                          "&:hover": {
+                            color: "#16243e",
+                            backgroundColor: "#e2e6ee",
+                          },
+                          textTransform: "none",
+                          fontSize:
+                            window.innerWidth < 640
+                              ? 10
+                              : window.innerWidth < 1024
+                              ? 12
+                              : 14,
+                        }}>
+                        Siguiente
+                      </Button>
+                    )}
+                  </Box>
+                </Box>
+              </AccordionDetails>
+            </Accordion>
+          ))}
         </div>
       </div>
 
