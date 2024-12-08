@@ -84,7 +84,7 @@ export const findTrainingPlanById = async (id) => {
     const response = await axios.get(`api/training-plan/find-by-id/${id}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-    return response.data.data;
+    return response.data;
   } catch (error) {
     console.error("Error al obtener el plan de entrenamiento");
     throw error;

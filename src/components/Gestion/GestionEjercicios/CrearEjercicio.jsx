@@ -12,7 +12,10 @@ import Swal from "sweetalert2";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FaPlus, FaChevronLeft } from "react-icons/fa";
 import { AiOutlineDelete } from "react-icons/ai";
-import { uploadImage } from "../../../services/cloudinary/cloudinary";
+import {
+  uploadImage,
+  deleteImage,
+} from "../../../services/cloudinary/cloudinary";
 import { BiLoaderCircle } from "react-icons/bi";
 import { createExercise } from "../../../services/exercise/exercise";
 import { findAllEquipment } from "../../../services/equipment/equipment";
@@ -30,8 +33,8 @@ const MenuProps = {
 
 export const CrearEjercicio = ({ onBack, refreshData }) => {
   const [name, setName] = useState("");
-  const [imagenEjercicio, setImagenEjercicio] = useState(null);
   const [level, setLevel] = useState("");
+  const [mediaUrl, setMediaUrl] = useState("");
   const [category, setCategory] = useState("");
   const [equipment, setEquipment] = useState([]);
   const [equipmentIds, setEquipmentIds] = useState([]);
@@ -40,6 +43,7 @@ export const CrearEjercicio = ({ onBack, refreshData }) => {
   const [muscleGroupsIds, setMuscleGroupsIds] = useState([]);
   const [recommendation, setRecommendation] = useState("");
   const [loading, setLoading] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,7 +61,7 @@ export const CrearEjercicio = ({ onBack, refreshData }) => {
     fetchData();
   }, []);
 
-  const handleImagenChange = (e) => {
+  const handleImagenChange = async (e) => {
     const file = e.target.files[0];
 
     if (file) {
@@ -86,15 +90,59 @@ export const CrearEjercicio = ({ onBack, refreshData }) => {
         });
         return;
       }
-
-      // Si pasa las validaciones, actualizar el estado de la imagen
-      setImagenEjercicio(file);
-      e.target.value = null;
     }
+    try {
+      setImageLoading(true);
+      const url = await uploadImage(file, "ejercicios");
+      if (url) {
+        setMediaUrl(url);
+      }
+    } catch (error) {
+      console.error("Error al subir la imagen:", error);
+    }
+    setImageLoading(false);
+    e.target.value = null;
   };
 
-  const handleEliminarImagen = () => {
-    setImagenEjercicio(null);
+  const handleEliminarImagen = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "La imagen se eliminará permanentemente.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      confirmButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
+      cancelButtonColor: "#16243e",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          setImageLoading(true);
+          const publicId = mediaUrl.split("/").pop().split(".")[0];
+          await deleteImage(publicId);
+          setImageLoading(false);
+          Swal.fire({
+            title: "Imagen eliminada",
+            text: "La imagen se eliminó correctamente.",
+            icon: "success",
+            confirmButtonText: "Aceptar",
+            confirmButtonColor: "#16243e",
+          });
+          setMediaUrl("");
+        } catch (error) {
+          console.error("Error al eliminar la imagen:", error);
+          setImageLoading(false);
+          Swal.fire({
+            title: "Error al eliminar la imagen",
+            text: "Ocurrió un error al eliminar la imagen, por favor intenta de nuevo.",
+            icon: "error",
+            confirmButtonText: "Aceptar",
+            confirmButtonColor: "#16243e",
+          });
+        }
+      }
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -108,7 +156,7 @@ export const CrearEjercicio = ({ onBack, refreshData }) => {
       !muscleGroupsIds.length ||
       !description ||
       !recommendation ||
-      !imagenEjercicio
+      !mediaUrl
     ) {
       Swal.fire({
         title: "Campos incompletos",
@@ -122,20 +170,17 @@ export const CrearEjercicio = ({ onBack, refreshData }) => {
     setLoading(true);
 
     try {
-      const url = await uploadImage(imagenEjercicio, "ejercicios");
+      await createExercise({
+        mediaUrl,
+        name,
+        level,
+        category,
+        equipmentIds,
+        description,
+        muscleGroupsIds,
+        recommendation,
+      });
 
-      if (url) {
-        await createExercise({
-          mediaUrl: url,
-          name,
-          level,
-          category,
-          equipmentIds,
-          description,
-          muscleGroupsIds,
-          recommendation,
-        });
-      }
       setLoading(false);
       Swal.fire({
         title: "Ejercicio creado",
@@ -225,9 +270,13 @@ export const CrearEjercicio = ({ onBack, refreshData }) => {
         {/* Subir Imagen */}
         <div className="grid sm:grid-cols-2 justify-center sm:gap-0 gap-4 items-center sm:divide-x-2 sm:divide-y-0 divide-y-2">
           <div className="flex items-center justify-center space-x-4">
-            {imagenEjercicio ? (
+            {imageLoading ? (
+              <div className="h-28 w-28 bg-gray-200 rounded-lg flex items-center justify-center">
+                <BiLoaderCircle className="xl:size-10 size-8 animate-spin text-azul-marino-500" />
+              </div>
+            ) : mediaUrl != "" ? (
               <img
-                src={URL.createObjectURL(imagenEjercicio)}
+                src={mediaUrl}
                 alt="Perfil"
                 className="h-28 w-28 rounded-lg object-cover border-stone-200 border"
               />
@@ -244,7 +293,7 @@ export const CrearEjercicio = ({ onBack, refreshData }) => {
                   onChange={handleImagenChange}
                 />
               </label>
-              {imagenEjercicio && (
+              {mediaUrl != "" && (
                 <button
                   onClick={handleEliminarImagen}
                   className=" hover:bg-rojo-100 text-red-500 rounded  p-1.5">

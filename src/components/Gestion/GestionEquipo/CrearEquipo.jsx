@@ -12,63 +12,117 @@ import Swal from "sweetalert2";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FaPlus, FaChevronLeft } from "react-icons/fa";
 import { AiOutlineDelete } from "react-icons/ai";
-import { uploadImage } from "../../../services/cloudinary/cloudinary";
+import {
+  uploadImage,
+  deleteImage,
+} from "../../../services/cloudinary/cloudinary";
 import { createEquipment } from "../../../services/equipment/equipment";
 import { BiLoaderCircle } from "react-icons/bi";
+
+const validateImage = (file) => {
+  if (!file) return false;
+  // Verificar el tipo de archivo (solo JPG, JPEG o PNG)
+  const validTypes = ["image/jpg", "image/jpeg", "image/png"];
+  if (!validTypes.includes(file.type)) {
+    Swal.fire({
+      title: "Formato incorrecto",
+      text: "Solo se permiten imágenes en formato JPG, JPEG o PNG.",
+      icon: "error",
+      confirmButtonText: "Aceptar",
+      confirmButtonColor: "#16243e",
+    });
+    return false;
+  }
+
+  // Verificar el tamaño del archivo (máximo 2MB)
+  const maxSize = 2 * 1024 * 1024; // 2MB en bytes
+  if (file.size > maxSize) {
+    Swal.fire({
+      title: "Archivo demasiado grande",
+      text: "El tamaño máximo permitido es de 2MB.",
+      icon: "warning",
+      confirmButtonText: "Aceptar",
+      confirmButtonColor: "#16243e",
+    });
+    return false;
+  }
+
+  return true;
+};
 
 export const CrearEquipo = ({ onBack, refreshData }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [imagenEquipo, setImagenEquipo] = useState(null);
+  const [mediaUrl, setMediaUrl] = useState("");
   const [category, setCategory] = useState("");
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
 
-  const handleImagenChange = (e) => {
+  const handleImagenChange = async (e) => {
     const file = e.target.files[0];
 
-    if (file) {
-      // Verificar el tipo de archivo (solo JPG, JPEG o PNG)
-      const validTypes = ["image/jpg", "image/jpeg", "image/png"];
-      if (!validTypes.includes(file.type)) {
-        Swal.fire({
-          title: "Formato incorrecto",
-          text: "Solo se permiten imágenes en formato JPG, JPEG o PNG.",
-          icon: "error",
-          confirmButtonText: "Aceptar",
-          confirmButtonColor: "#16243e",
-        });
-        return;
-      }
+    if (!validateImage(file)) return;
 
-      // Verificar el tamaño del archivo (máximo 2MB)
-      const maxSize = 2 * 1024 * 1024; // 2MB en bytes
-      if (file.size > maxSize) {
-        Swal.fire({
-          title: "Archivo demasiado grande",
-          text: "El tamaño máximo permitido es de 2MB.",
-          icon: "warning",
-          confirmButtonText: "Aceptar",
-          confirmButtonColor: "#16243e",
-        });
-        return;
+    try {
+      setImageLoading(true);
+      const url = await uploadImage(file, "equipos");
+      if (url) {
+        setMediaUrl(url);
       }
-
-      // Si pasa las validaciones, actualizar el estado de la imagen
-      setImagenEquipo(file);
-      e.target.value = null; // Limpiar el input para permitir subir la misma imagen
+    } catch (error) {
+      console.error("Error al subir la imagen:", error);
     }
+    setImageLoading(false);
+    e.target.value = null; // Limpiar el input para permitir subir la misma imagen
   };
 
-  const handleEliminarImagen = () => {
-    setImagenEquipo(null);
+  const handleEliminarImagen = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "La imagen se eliminará permanentemente.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      confirmButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
+      cancelButtonColor: "#16243e",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          setImageLoading(true);
+          const publicId = mediaUrl.split("/").pop().split(".")[0];
+          await deleteImage(publicId);
+          setImageLoading(false);
+          Swal.fire({
+            title: "Imagen eliminada",
+            text: "La imagen se eliminó correctamente.",
+            icon: "success",
+            confirmButtonText: "Aceptar",
+            confirmButtonColor: "#16243e",
+          });
+          setMediaUrl("");
+        } catch (error) {
+          console.error("Error al eliminar la imagen:", error);
+          setImageLoading(false);
+          Swal.fire({
+            title: "Error al eliminar la imagen",
+            text: "Ocurrió un error al eliminar la imagen, por favor intenta de nuevo.",
+            icon: "error",
+            confirmButtonText: "Aceptar",
+            confirmButtonColor: "#16243e",
+          });
+        }
+      }
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validar que todos los campos estén completos
-    if (!name || !description || !category || !status || !imagenEquipo) {
+    if (!name || !description || !category || !status || !mediaUrl) {
       Swal.fire({
         title: "Campos incompletos",
         text: "Por favor, completa todos los campos.",
@@ -81,19 +135,13 @@ export const CrearEquipo = ({ onBack, refreshData }) => {
     setLoading(true);
 
     try {
-      // Subir la imagen a Cloudinary
-      const url = await uploadImage(imagenEquipo, "equipos");
-
-      if (url) {
-        // Crear el equipo solo si la imagen se subió correctamente
-        await createEquipment({
-          name,
-          mediaUrl: url, // Usa el URL obtenido de Cloudinary
-          description,
-          category,
-          status,
-        });
-      }
+      await createEquipment({
+        name,
+        mediaUrl,
+        description,
+        category,
+        status,
+      });
 
       setLoading(false);
       Swal.fire({
@@ -155,9 +203,13 @@ export const CrearEquipo = ({ onBack, refreshData }) => {
         {/* Subir Imagen */}
         <div className="grid sm:grid-cols-2 justify-center sm:gap-0 gap-4 items-center sm:divide-x-2 sm:divide-y-0 divide-y-2">
           <div className="flex items-center justify-center space-x-4">
-            {imagenEquipo ? (
+            {imageLoading ? (
+              <div className="h-28 w-28 bg-gray-200 rounded-lg flex items-center justify-center">
+                <BiLoaderCircle className="xl:size-10 size-8 animate-spin text-azul-marino-500" />
+              </div>
+            ) : mediaUrl != "" ? (
               <img
-                src={URL.createObjectURL(imagenEquipo)}
+                src={mediaUrl}
                 alt="Perfil"
                 className="h-28 w-28 rounded-lg object-cover border-stone-200 border"
               />
@@ -174,7 +226,7 @@ export const CrearEquipo = ({ onBack, refreshData }) => {
                   onChange={handleImagenChange}
                 />
               </label>
-              {imagenEquipo && (
+              {mediaUrl != "" && (
                 <button
                   onClick={handleEliminarImagen}
                   className=" hover:bg-rojo-100 text-red-500 rounded  p-1.5">

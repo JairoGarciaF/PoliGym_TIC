@@ -22,100 +22,75 @@ import { BiLoaderCircle } from "react-icons/bi";
 export const EditarEquipo = ({ equipment, onBack, refreshData }) => {
   const [name, setName] = useState(equipment?.name || "");
   const [description, setDescription] = useState(equipment?.description || "");
-  const [imagenEquipo, setImagenEquipo] = useState(null);
   const [mediaUrl, setMediaUrl] = useState(equipment?.mediaUrl || "");
   const [category, setCategory] = useState(equipment?.category || "");
   const [status, setStatus] = useState(equipment?.status || "");
   const [loading, setLoading] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
 
-  const handleImagenChange = (e) => {
+  const handleImagenChange = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      // Verificar el tipo de archivo (solo JPG, JPEG o PNG)
-      const validTypes = ["image/jpg", "image/jpeg", "image/png"];
-      if (!validTypes.includes(file.type)) {
-        Swal.fire({
-          title: "Formato incorrecto",
-          text: "Solo se permiten imágenes en formato JPG, JPEG o PNG.",
-          icon: "error",
-          confirmButtonText: "Aceptar",
-          confirmButtonColor: "#16243e",
-        });
-        return;
-      }
 
-      // Verificar el tamaño del archivo (máximo 2MB)
-      const maxSize = 2 * 1024 * 1024; // 2MB en bytes
-      if (file.size > maxSize) {
-        Swal.fire({
-          title: "Archivo demasiado grande",
-          text: "El tamaño máximo permitido es de 2MB.",
-          icon: "warning",
-          confirmButtonText: "Aceptar",
-          confirmButtonColor: "#16243e",
-        });
-        return;
-      }
+    if (!validateImage(file)) return;
 
-      // Si pasa las validaciones, actualizar el estado de la imagen
-      setImagenEquipo(file);
-      e.target.value = null; // Limpiar el input para permitir subir la misma imagen
+    try {
+      setImageLoading(true);
+      const url = await uploadImage(file, "equipos");
+      if (url) {
+        setMediaUrl(url);
+      }
+    } catch (error) {
+      console.error("Error al subir la imagen:", error);
     }
+    setImageLoading(false);
+    e.target.value = null;
   };
 
   const handleEliminarImagen = (e) => {
     e.preventDefault();
-    if (mediaUrl) {
-      Swal.fire({
-        title: "¿Estás seguro?",
-        text: "La imagen se eliminará permanentemente.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Sí, eliminar",
-        confirmButtonColor: "#d33",
-        cancelButtonText: "Cancelar",
-        cancelButtonColor: "#16243e",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          try {
-            const publicId = mediaUrl.split("/").pop().split(".")[0];
-            await deleteImage(publicId);
-            Swal.fire({
-              title: "Imagen eliminada",
-              text: "La imagen se eliminó correctamente.",
-              icon: "success",
-              confirmButtonText: "Aceptar",
-              confirmButtonColor: "#16243e",
-            });
-            setMediaUrl("");
-          } catch (error) {
-            console.error("Error al eliminar la imagen:", error);
-            Swal.fire({
-              title: "Error",
-              text: "Ocurrió un error al intentar eliminar la imagen.",
-              icon: "error",
-              confirmButtonText: "Aceptar",
-              confirmButtonColor: "#16243e",
-            });
-          }
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "La imagen se eliminará permanentemente.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      confirmButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
+      cancelButtonColor: "#16243e",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          setImageLoading(true);
+          const publicId = mediaUrl.split("/").pop().split(".")[0];
+          await deleteImage(publicId);
+          setImageLoading(false);
+          Swal.fire({
+            title: "Imagen eliminada",
+            text: "La imagen se eliminó correctamente.",
+            icon: "success",
+            confirmButtonText: "Aceptar",
+            confirmButtonColor: "#16243e",
+          });
+          setMediaUrl("");
+        } catch (error) {
+          console.error("Error al eliminar la imagen:", error);
+          setImageLoading(false);
+          Swal.fire({
+            title: "Error al eliminar la imagen",
+            text: "Ocurrió un error al eliminar la imagen, por favor intenta de nuevo.",
+            icon: "error",
+            confirmButtonText: "Aceptar",
+            confirmButtonColor: "#16243e",
+          });
         }
-      });
-    }
-    if (imagenEquipo) {
-      setImagenEquipo(null);
-    }
+      }
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Validar que todos los campos estén completos
-    if (
-      !name ||
-      !description ||
-      !category ||
-      !status ||
-      (!imagenEquipo && !mediaUrl)
-    ) {
+    if (!name || !description || !category || !status || !mediaUrl) {
       Swal.fire({
         title: "Campos incompletos",
         text: "Por favor, completa todos los campos.",
@@ -128,22 +103,15 @@ export const EditarEquipo = ({ equipment, onBack, refreshData }) => {
     setLoading(true);
 
     try {
-      let imageUrl = mediaUrl;
-      if (imagenEquipo) {
-        // Subir la imagen a Cloudinary
-        imageUrl = await uploadImage(imagenEquipo, "equipos");
-      }
+      // Actualizar el equipo en la base de datos
+      await updateEquipment(equipment.id, {
+        name,
+        mediaUrl,
+        description,
+        category,
+        status,
+      });
 
-      if (imageUrl) {
-        // Actualizar el equipo en la base de datos
-        await updateEquipment(equipment.id, {
-          name,
-          mediaUrl: imageUrl,
-          description,
-          category,
-          status,
-        });
-      }
       Swal.fire({
         title: "Equipo actualizado",
         text: "El equipo se actualizó correctamente.",
@@ -195,9 +163,13 @@ export const EditarEquipo = ({ equipment, onBack, refreshData }) => {
         {/* Subir Imagen */}
         <div className="grid sm:grid-cols-2 justify-center sm:gap-0 gap-4 items-center sm:divide-x-2 sm:divide-y-0 divide-y-2">
           <div className="flex items-center justify-center space-x-4">
-            {mediaUrl || imagenEquipo ? (
+            {imageLoading ? (
+              <div className="h-28 w-28 bg-gray-200 rounded-lg flex items-center justify-center">
+                <BiLoaderCircle className="xl:size-10 size-8 animate-spin text-azul-marino-500" />
+              </div>
+            ) : mediaUrl != "" ? (
               <img
-                src={mediaUrl ? mediaUrl : URL.createObjectURL(imagenEquipo)}
+                src={mediaUrl}
                 alt="Perfil"
                 className="h-28 w-28 rounded-lg object-cover border-stone-200 border"
               />
@@ -214,7 +186,7 @@ export const EditarEquipo = ({ equipment, onBack, refreshData }) => {
                   onChange={handleImagenChange}
                 />
               </label>
-              {(mediaUrl || imagenEquipo) && (
+              {mediaUrl != "" && (
                 <button
                   onClick={handleEliminarImagen}
                   className=" hover:bg-rojo-100 text-red-500 rounded  p-1.5">

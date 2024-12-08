@@ -28,6 +28,7 @@ import {
   deleteImage,
 } from "../../../services/cloudinary/cloudinary";
 import { createNutritionPlan } from "../../../services/plans/nutritionPlan";
+import { set } from "@cloudinary/url-gen/actions/variable";
 
 const daysOfWeek = [
   "MONDAY",
@@ -76,11 +77,12 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
 
   const [nutritionPlan, setNutritionPlan] = useState({
     name: "",
     description: "",
-    imageURL: "si",
+    imageURL: "",
     duration: 0,
     category: "",
     weeklyMeals: [],
@@ -90,7 +92,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
     daysOfWeek.map(() => ({
       dayOfWeek: "",
       meals: mealTypes.map(() => ({
-        imageUrl: "si",
+        imageUrl: "",
         type: "",
         name: "",
         description: "",
@@ -165,6 +167,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
     if (!validateImage(file)) return;
 
     try {
+      setImageLoading(true);
       const url = await uploadImage(file, "planesAlimentacion");
       if (url) {
         handleNutritionPlanChange("imageURL", url);
@@ -172,6 +175,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
     } catch (error) {
       console.error("Error al subir la imagen:", error);
     }
+    setImageLoading(false);
 
     e.target.value = null;
   };
@@ -191,10 +195,12 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
+          setImageLoading(true);
           const mediaUrl = nutritionPlan.imageURL;
           const publicId = mediaUrl.split("/").pop().split(".")[0];
 
           await deleteImage(publicId);
+          setImageLoading(false);
           Swal.fire({
             title: "Imagen eliminada",
             text: "La imagen se eliminó correctamente.",
@@ -223,6 +229,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
     if (!validateImage(file)) return;
 
     try {
+      setImageLoading(true);
       const url = await uploadImage(file, preset);
       if (url) {
         // Actualiza el URL de la imagen en el estado
@@ -233,6 +240,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
     } catch (error) {
       console.error("Error al subir la imagen:", error);
     }
+    setImageLoading(false);
 
     e.target.value = null;
   };
@@ -252,10 +260,12 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
+          setImageLoading(true);
           const mediaUrl = currentMeals[dayIndex].meals[mealIndex].imageUrl;
           const publicId = mediaUrl.split("/").pop().split(".")[0];
 
           await deleteImage(publicId);
+          setImageLoading(false);
           Swal.fire({
             title: "Imagen eliminada",
             text: "La imagen se eliminó correctamente.",
@@ -411,7 +421,11 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
         {/* Subir Imagen */}
         <div className="grid sm:grid-cols-2 justify-center sm:gap-0 gap-4 items-center sm:divide-x-2 sm:divide-y-0 divide-y-2">
           <div className="flex items-center justify-center space-x-4">
-            {nutritionPlan.imageURL != "" ? (
+            {imageLoading ? (
+              <div className="h-28 w-28 bg-gray-200 rounded-lg flex items-center justify-center">
+                <BiLoaderCircle className="xl:size-10 size-8 animate-spin text-azul-marino-500" />
+              </div>
+            ) : nutritionPlan.imageURL != "" ? (
               <img
                 src={nutritionPlan.imageURL}
                 alt="Perfil"
@@ -420,6 +434,7 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
             ) : (
               <div className="h-28 w-28 bg-gray-200 rounded-lg " />
             )}
+
             <div className="flex gap-2 items-center">
               <label className="cursor-pointer text-azul-marino-500 hover:bg-azul-marino-100  p-1 rounded ">
                 <MdCloudUpload className="xl:size-7 size-6" />
@@ -609,8 +624,12 @@ export const CrearPlanAlimentacion = ({ onBack, refreshData }) => {
                             alignItems="center"
                             size={6}>
                             <div className="flex items-center justify-center space-x-4">
-                              {currentMeals[dayIndex].meals[mealIndex]
-                                .imageUrl ? (
+                              {imageLoading ? (
+                                <div className="h-28 w-28 bg-gray-200 rounded-lg flex items-center justify-center">
+                                  <BiLoaderCircle className="xl:size-10 size-8 animate-spin text-azul-marino-500" />
+                                </div>
+                              ) : currentMeals[dayIndex].meals[mealIndex]
+                                  .imageUrl ? (
                                 <img
                                   src={
                                     currentMeals[dayIndex].meals[mealIndex]

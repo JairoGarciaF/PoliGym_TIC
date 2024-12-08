@@ -25,3 +25,17 @@ export const findAllUsers = async () => {
     throw error;
   }
 };
+
+export const deleteUser = async (userId) => {
+  try {
+    await isTokenValid("accessToken");
+    const accessToken = getToken("accessToken");
+
+    await axios.delete(`api/user/delete-user/${userId}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  } catch (error) {
+    console.error("Error al eliminar el usuario");
+    throw error;
+  }
+};
