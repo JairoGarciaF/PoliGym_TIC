@@ -1,189 +1,309 @@
-import { LineChart } from '@mui/x-charts/LineChart';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import {
+  PieChart,
+  Pie,
+  Sector,
+  Cell,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
+import { BiLoaderCircle } from "react-icons/bi";
 import { FaCircleInfo } from "react-icons/fa6";
 import { FaChartLine } from "react-icons/fa";
 import { TbSum } from "react-icons/tb";
 
+const colors = ["#0369a1", "#ec4899", "#94a3b8"];
 
-
-// Función que devuelve el color según la categoría
-const getCategoryPillColor = (category) => {
-    switch (category) {
-        case "Fuerza":
-            return "bg-blue-100 text-blue-900";
-        case "Cardio":
-            return "bg-orange-100 text-orange-700";
-        case "Estiramiento":
-            return "bg-lime-100 text-lime-700";
-        default:
-            return "bg-gray-100 text-gray-700";
-    }
+const test = [
+  {
+    id: 0,
+    value: 80,
+    label: "Masculino",
+  },
+  {
+    id: 1,
+    value: 70,
+    label: "Femenino",
+  },
+  {
+    id: 2,
+    value: 10,
+    label: "Otro",
+  },
+];
+const renderActiveShape = (props) => {
+  const {
+    cx,
+    cy,
+    innerRadius,
+    outerRadius,
+    startAngle,
+    endAngle,
+    fill,
+    payload,
+    percent,
+    value,
+  } = props;
+  return (
+    <g>
+      <text
+        x={cx}
+        y={cy * 0.2}
+        textAnchor="middle"
+        fill="#1e293b"
+        className="sm:text-base text-sm">
+        {payload.label}
+      </text>
+      <Sector
+        cx={cx}
+        cy={cy}
+        cornerRadius={7}
+        innerRadius={innerRadius}
+        outerRadius={outerRadius}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        fill={fill}
+      />
+      <Sector
+        cx={cx}
+        cy={cy}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        innerRadius={outerRadius + 6}
+        outerRadius={outerRadius + 10}
+        fill={fill}
+      />
+      <text
+        x={cx}
+        y={cy}
+        textAnchor="middle"
+        fill="#333"
+        className="sm:text-lg text-base">
+        {value}
+      </text>
+      <text
+        x={cx}
+        y={cy + 20}
+        textAnchor="middle"
+        fill="#999"
+        className="sm:text-sm text-xs">
+        {`${(percent * 100).toFixed(1)}%`}
+      </text>
+    </g>
+  );
 };
 
-// Función que devuelve el color según la dificultad
-const getDifficultyPillColor = (difficulty) => {
-    switch (difficulty) {
-        case "Baja":
-            return "bg-green-100 text-green-700";
-        case "Media":
-            return "bg-yellow-100 text-yellow-700";
-        case "Alta":
-            return "bg-red-100 text-red-700";
-        default:
-            return "bg-gray-100 text-gray-700";
-    }
+const categoryTranslate = (category) => {
+  switch (category) {
+    case "MACHINE":
+      return "Máquina";
+    case "FREE_WEIGHT":
+      return "Peso libre";
+    case "BODYWEIGHT":
+      return "Peso corporal";
+    case "CARDIO":
+      return "Cardio";
+    case "ACCESSORY":
+      return "Accesorio";
+  }
 };
 
-// Función que devuelve el color según el tipo
-const getTypePillColor = (tipo) => {
-    switch (tipo) {
-        case "Máquina":
-            return "bg-stone-100 text-stone-800";
-        case "Implemento":
-            return "bg-teal-100 text-teal-800";
-        default:
-            return "bg-gray-100 text-gray-700";
-    }
+const categoryColor = (category) => {
+  switch (category) {
+    case "MACHINE":
+      return "bg-[#d7ebf5] text-[#023047]";
+    case "FREE_WEIGHT":
+      return "bg-[#ebf9ff] text-[#82c2e0]";
+    case "BODYWEIGHT":
+      return "bg-[#fafae1] text-[#e8c500]";
+    case "CARDIO":
+      return "bg-[#faecdc] text-[#e87c02]";
+    case "ACCESSORY":
+      return "bg-[#d4f7ff] text-[#219ebc]";
+  }
 };
 
+const statusColor = (status) => {
+  switch (status) {
+    case "AVAILABLE":
+      return "bg-green-100 text-green-700";
+    case "IN_MAINTENANCE":
+      return "bg-yellow-100 text-yellow-700";
+    case "OUT_OF_ORDER":
+      return "bg-red-100 text-red-700";
+  }
+};
 
+const statusTranslate = (status) => {
+  switch (status) {
+    case "AVAILABLE":
+      return "Disponible";
+    case "IN_MAINTENANCE":
+      return "En mantenimiento";
+    case "OUT_OF_ORDER":
+      return "Fuera de servicio";
+  }
+};
 
+const translateGender = (gender) => {
+  switch (gender) {
+    case "MALE":
+      return "Masculino";
+    case "FEMALE":
+      return "Femenino";
+    case "OTHER":
+      return "Otro";
+    default:
+      return "n/a";
+  }
+};
 
-const xLabelsSemanal = [
-    'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'
-]
+const transformGenderStats = (genderStats) => {
+  if (!genderStats || !Array.isArray(genderStats)) return [];
 
-const xLabelsMensual = [
-    'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
-]
+  return genderStats.map((stat, index) => ({
+    id: index,
+    value: stat.useCount,
+    label: translateGender(stat.gender), // Utiliza tu función de traducción
+  }));
+};
 
-export const DetailsGraph = ({ data, infoMode }) => {
-    const [selectedMachine, setSelectedMachine] = useState(data[0]); // Estado para la máquina seleccionada
-    const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-    const containerRef = useRef(null);
+export const DetailsGraph = ({ data, loading }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedMachine, setSelectedMachine] = useState(null); // Estado para la máquina seleccionada
+  const [pieChartData, setPieChartData] = useState([]); // Estado para los datos del PieChart
 
-    useEffect(() => {
-        const resizeObserver = new ResizeObserver(entries => {
-            for (let entry of entries) {
-                setContainerSize({
-                    width: entry.contentRect.width,
-                    height: entry.contentRect.height,
-                });
-            }
-        });
+  const onPieEnter = (_, index) => {
+    setActiveIndex(index);
+  };
 
-        if (containerRef.current) {
-            resizeObserver.observe(containerRef.current);
-        }
+  useEffect(() => {
+    // Inicializa el equipo seleccionado si hay datos disponibles
+    if (data && data.length > 0) {
+      const initialMachine = data[0];
+      setSelectedMachine(initialMachine);
+      setPieChartData(transformGenderStats(initialMachine.genderStats)); // Transformar datos
+    } else {
+      setSelectedMachine(null);
+      setPieChartData([]);
+    }
+  }, [data, loading]);
 
-        return () => {
-            if (containerRef.current) {
-                resizeObserver.unobserve(containerRef.current);
-            }
-        };
-    }, []);
+  // Función para manejar el cambio de máquina
+  const handleMachineChange = (event) => {
+    const machineName = event.target.value;
+    const machine = data.find((item) => item.name === machineName);
+    setSelectedMachine(machine);
+    setPieChartData(transformGenderStats(machine?.genderStats)); // Transformar datos
+  };
 
-
-
-    // Función para manejar el cambio de máquina
-    const handleMachineChange = (event) => {
-        const machineName = event.target.value;
-        const machine = data.find(item => item.nombre === machineName);
-        setSelectedMachine(machine);
-    };
-
-    // Datos para el gráfico según el tab activo
-    const chartData = infoMode === 'Semanal' ? selectedMachine.uso_semanal : selectedMachine.uso_mensual;
-
-    return (
-        <>
-            <nav className="flex justify-between border-b  mb-2">
-                <span
-                    className='px-4 py-1 font-semibold text-sm transition-colors text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50'
-                >
-                    Detalles
-                </span>
-                <nav className="flex justify-start  text-sm ">
-                    <select
-                        className='px-4 py-1 w-full bg-white text-azul-marino-500 '
-                        onChange={handleMachineChange}
-                    >
-                        {data.map(machine => (
-                            <option className='font-medium' key={machine.nombre} value={machine.nombre}>
-                                {machine.nombre}
-                            </option>
-                        ))}
-                    </select>
-
-                </nav>
-            </nav>
-            <div className='flex-1 overflow-auto grid lg:grid-cols-4 grid-cols-1 gap-4 grid-rows-1 bg-slate-100 p-4 rounded-xl'>
-                <div ref={containerRef} className=' p-4  bg-white col-span-1 rounded-xl shadow flex flex-col'>
-
-                    <h3 className='text-azul-marino-500 xl:text-base text-sm  mb-1 flex self-start items-center gap-2 font-medium'>
-                        <FaCircleInfo className='xl:size-4 size-3' />
-                        Información
-                    </h3>
-                    <div className='mt-4 xl:text-sm text-xs flex-1 overflow-auto'>
-                        <p className='pb-4 xl:text-base text-sm '>
-                            <span className='font-semibold'>Descripción: </span>
-                            <span >{selectedMachine.detalles.descripcion}</span>
-                        </p>
-                        <div className='flex flex-col gap-3'>
-                            <p>
-                                <span className='font-semibold'>Tipo: </span>
-                                <span className={`px-2 py-1 rounded-full xl:text-sm text-xs ${getTypePillColor(selectedMachine.tipo)}`}>{selectedMachine.tipo}</span>
-                            </p>
-                            <p>
-                                <span className='font-semibold'>Categoría: </span>
-                                <span className={`px-2 py-1 rounded-full xl:text-sm text-xs ${getCategoryPillColor(selectedMachine.detalles.categoria)}`}>{selectedMachine.detalles.categoria}</span>
-                            </p>
-                            <p>
-                                <span className='font-semibold'>Dificultad: </span>
-                                <span className={`px-2 py-1 rounded-full xl:text-sm text-xs ${getDifficultyPillColor(selectedMachine.detalles.dificultad)}`}>{selectedMachine.detalles.dificultad || 'No especificada'}</span>
-                            </p>
-                        </div>
-                    </div>
-
-
-
-                </div>
-                <div ref={containerRef} className='p-4  bg-white lg:col-span-3 rounded-xl shadow'>
-                    <div className='flex justify-between items-center'>
-
-                        <h3 className='text-azul-marino-500 xl:text-base text-sm  mb-1 flex self-start items-center gap-2 font-medium'>
-                            <FaChartLine className='xl:size-4 size-3' />
-                            Frecuencia de Uso
-                        </h3>
-                        <h3 className='text-azul-marino-500 xl:text-sm text-xs flex items-center gap-2 font-medium'>
-                            <TbSum className='xl:size-4 size-3' />
-                            Uso Total: {infoMode === 'Semanal' ? selectedMachine.uso_semanal_total : selectedMachine.uso_mensual_total}
-                        </h3>
-                    </div>
-
-
-                    {/* Gráfico de uso */}
-                    <LineChart
-                        series={[
-                            {
-                                data: chartData,
-                            },
-                        ]}
-                        colors={infoMode === 'Semanal' ? ['#3b82f6'] : ['#06b6d4']}
-                        xAxis={[{
-                            scaleType: 'point',
-                            data: infoMode === 'Semanal' ? xLabelsSemanal : xLabelsMensual,
-
-                        }]}
-                        yAxis={[{
-                            min: 0
-                        }]}
-                        grid={{ vertical: true, horizontal: true }}
-                        width={containerSize.width * 1} // Se adapta al tamaño del contenedor
-                        height={containerSize.height * 0.9}
-                    />
-                </div>
+  return (
+    <>
+      <nav className="flex justify-between border-b  mb-2">
+        <span className="px-4 py-1 font-semibold text-sm transition-colors text-azul-marino-500 border-b-4 border-azul-marino-500 bg-gradient-to-t from-sky-50">
+          Detalles
+        </span>
+        <nav className="flex justify-start  text-sm ">
+          <select
+            className="px-4 py-1 w-full bg-white text-azul-marino-500 "
+            onChange={handleMachineChange}
+            value={selectedMachine?.name || ""}>
+            {data.map((machine) => (
+              <option
+                className="font-medium"
+                key={machine.name}
+                value={machine.name}>
+                {machine.name}
+              </option>
+            ))}
+          </select>
+        </nav>
+      </nav>
+      <div className="flex-1 overflow-auto grid xl:grid-cols-2 grid-cols-1 gap-4 grid-rows-1 bg-slate-100 p-4 rounded-xl">
+        {loading ? (
+          <div
+            className={` p-4  bg-white col-span-1 rounded-xl shadow flex flex-col justify-center items-center`}>
+            <BiLoaderCircle className="size-8 animate-spin text-azul-marino-200" />
+          </div>
+        ) : (
+          <div className=" p-4  bg-white col-span-1 rounded-xl shadow flex flex-col">
+            <h3 className="text-azul-marino-500 xl:text-base text-sm  mb-1 flex self-start items-center gap-2 font-medium">
+              <FaCircleInfo className="xl:size-4 size-3" />
+              Información
+            </h3>
+            <div className="mt-4 xl:text-sm text-xs flex-1 overflow-auto">
+              <div className="flex flex-col gap-3 pb-2">
+                {selectedMachine ? (
+                  <>
+                    <p className="pb-2 xl:text-base text-sm">
+                      <span className="font-semibold">Descripción: </span>
+                      <span>{selectedMachine.description}</span>
+                    </p>
+                    <p>
+                      <span className="font-semibold">Categoría: </span>
+                      <span
+                        className={`px-2 py-1 rounded-full xl:text-sm text-xs ${categoryColor(
+                          selectedMachine.category
+                        )}`}>
+                        {categoryTranslate(selectedMachine.category)}
+                      </span>
+                    </p>
+                    <p>
+                      <span className="font-semibold">Estatus: </span>
+                      <span
+                        className={`px-2 py-1 rounded-full xl:text-sm text-xs ${statusColor(
+                          selectedMachine.status
+                        )}`}>
+                        {statusTranslate(selectedMachine.status)}
+                      </span>
+                    </p>
+                  </>
+                ) : (
+                  <p>No hay información disponible.</p>
+                )}
+              </div>
             </div>
-        </>
-    );
+          </div>
+        )}
+        {loading ? (
+          <div
+            className={`p-4  bg-white col-span-1 rounded-xl shadow flex justify-center items-center xl:h-auto h-[50svh]`}>
+            <BiLoaderCircle className="size-8 animate-spin text-azul-marino-200" />
+          </div>
+        ) : (
+          <div className="p-4  bg-white col-span-1 rounded-xl shadow flex flex-col xl:h-auto h-[50svh]">
+            <h3 className="text-azul-marino-500 xl:text-base text-sm flex self-start items-center gap-2 font-medium">
+              <TbSum className="xl:size-4 size-3" />
+              Usuarios por Género
+            </h3>
+            <div className="flex-1 w-full flex items-center justify-center">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    activeIndex={activeIndex}
+                    activeShape={renderActiveShape}
+                    data={test}
+                    cx="50%"
+                    cy="55%"
+                    innerRadius="40%"
+                    outerRadius="70%"
+                    paddingAngle={2}
+                    cornerRadius={7}
+                    dataKey="value"
+                    onMouseEnter={onPieEnter}>
+                    {test.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={colors[index % colors.length]}
+                      />
+                    ))}
+                  </Pie>
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
 };
