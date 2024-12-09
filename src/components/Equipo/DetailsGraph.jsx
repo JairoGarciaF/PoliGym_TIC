@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  PieChart,
-  Pie,
-  Sector,
-  Cell,
-  ResponsiveContainer,
-  Legend,
-} from "recharts";
+import Rating from "@mui/material/Rating";
+import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 import { BiLoaderCircle } from "react-icons/bi";
 import { FaCircleInfo } from "react-icons/fa6";
-import { FaChartLine } from "react-icons/fa";
-import { TbSum } from "react-icons/tb";
-
+import { FaStar } from "react-icons/fa";
+import { IoMaleFemale } from "react-icons/io5";
 const colors = ["#0369a1", "#ec4899", "#94a3b8"];
 
 const test = [
@@ -231,11 +224,26 @@ export const DetailsGraph = ({ data, loading }) => {
               <FaCircleInfo className="xl:size-4 size-3" />
               Información
             </h3>
-            <div className="mt-4 xl:text-sm text-xs flex-1 overflow-auto">
+            <div className="mt-2 xl:text-sm text-xs flex-1 overflow-auto">
               <div className="flex flex-col gap-3 pb-2">
                 {selectedMachine ? (
                   <>
-                    <p className="pb-2 xl:text-base text-sm">
+                    <p className="flex items-center gap-2">
+                      <Rating
+                        name="hover-feedback"
+                        value={selectedMachine.popularityScore}
+                        precision={0.1}
+                        readOnly
+                        size="small"
+                        emptyIcon={
+                          <FaStar style={{ opacity: 0.1 }} fontSize="inherit" />
+                        }
+                      />
+                      <span className="font-semibold text-sm">
+                        {selectedMachine.popularityScore}
+                      </span>
+                    </p>
+                    <p className="xl:text-base text-sm ">
                       <span className="font-semibold">Descripción: </span>
                       <span>{selectedMachine.description}</span>
                     </p>
@@ -273,7 +281,7 @@ export const DetailsGraph = ({ data, loading }) => {
         ) : (
           <div className="p-4  bg-white col-span-1 rounded-xl shadow flex flex-col xl:h-auto h-[50svh]">
             <h3 className="text-azul-marino-500 xl:text-base text-sm flex self-start items-center gap-2 font-medium">
-              <TbSum className="xl:size-4 size-3" />
+              <IoMaleFemale className="xl:size-4 size-3" />
               Usuarios por Género
             </h3>
             <div className="flex-1 w-full flex items-center justify-center">

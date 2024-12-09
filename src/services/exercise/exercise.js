@@ -89,7 +89,7 @@ export const findExerciseById = async (id) => {
     const response = await axios.get(`api/exercise/find-by-id/${id}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-    return response.data.data;
+    return response.data;
   } catch (error) {
     console.error("Error al obtener el ejercicio");
     throw error;
