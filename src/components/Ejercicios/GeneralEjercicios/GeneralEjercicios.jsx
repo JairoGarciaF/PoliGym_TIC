@@ -31,9 +31,9 @@ export const GeneralEjercicios = ({ ejercicios, loading }) => {
         total={ejercicios.length}
         loading={loading}
       />
-      {/* <GeneralUsageTable data={ejercicios} loading={loading} />
+      <GeneralUsageTable data={ejercicios} loading={loading} />
       <GeneralCategoryGraph data={ejercicios} loading={loading} />
-      <GeneralGenderGraph data={ejercicios} loading={loading} /> */}
+      <GeneralGenderGraph data={ejercicios} loading={loading} />
     </div>
   );
 };

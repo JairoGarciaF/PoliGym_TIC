@@ -761,21 +761,13 @@ const ejercicios = [
   },
 ];
 
-const generateTableData = (ejercicios) => {
-  // Ordenar los ejercicios por totalUses en orden descendente
-  const sortedExercises = [...ejercicios].sort(
-    (a, b) => b.totalUses - a.totalUses
-  );
-  return sortedExercises;
-};
-
 export const Ejercicios = () => {
   const [infoMode, setInfoMode] = useState("Semanal");
   const [activeTab, setActiveTab] = useState("general");
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [ejercicios, setEjercicios] = useState([]);
   const [loading, setLoading] = useState(false);
-  const tableData = generateTableData(ejercicios);
+  // const tableData = generateTableData(ejercicios);
 
   //   const ejerciciosData = calculateTotals(ejercicios);
 
@@ -791,10 +783,11 @@ export const Ejercicios = () => {
               ...item,
               name: exerciseDetails.name,
               mediaUrl: exerciseDetails.mediaUrl,
-              description: exerciseDetails.description,
-              recommendation: exerciseDetails.recommendation,
               category: exerciseDetails.category,
               level: exerciseDetails.level,
+              description: exerciseDetails.description,
+              recommendation: exerciseDetails.recommendation,
+              muscles: exerciseDetails.muscleGroups,
             };
           })
         );
@@ -897,7 +890,7 @@ export const Ejercicios = () => {
         <GeneralEjercicios ejercicios={ejercicios} loading={loading} />
       )}
       {activeTab === "detalles" && (
-        <DetallesEjercicios ejercicio={selectedExercise} infoMode={infoMode} />
+        <DetallesEjercicios ejercicio={selectedExercise} loading={loading} />
       )}
     </div>
   );

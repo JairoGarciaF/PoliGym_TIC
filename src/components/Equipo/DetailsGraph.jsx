@@ -7,23 +7,6 @@ import { FaStar } from "react-icons/fa";
 import { IoMaleFemale } from "react-icons/io5";
 const colors = ["#0369a1", "#ec4899", "#94a3b8"];
 
-const test = [
-  {
-    id: 0,
-    value: 80,
-    label: "Masculino",
-  },
-  {
-    id: 1,
-    value: 70,
-    label: "Femenino",
-  },
-  {
-    id: 2,
-    value: 10,
-    label: "Otro",
-  },
-];
 const renderActiveShape = (props) => {
   const {
     cx,
@@ -41,7 +24,7 @@ const renderActiveShape = (props) => {
     <g>
       <text
         x={cx}
-        y={cy * 0.2}
+        y={cy * 0.15}
         textAnchor="middle"
         fill="#1e293b"
         className="sm:text-base text-sm">
@@ -229,6 +212,9 @@ export const DetailsGraph = ({ data, loading }) => {
                 {selectedMachine ? (
                   <>
                     <p className="flex items-center gap-2">
+                      <span className="font-semibold text-sm">
+                        {selectedMachine.popularityScore}
+                      </span>
                       <Rating
                         name="hover-feedback"
                         value={selectedMachine.popularityScore}
@@ -239,9 +225,6 @@ export const DetailsGraph = ({ data, loading }) => {
                           <FaStar style={{ opacity: 0.1 }} fontSize="inherit" />
                         }
                       />
-                      <span className="font-semibold text-sm">
-                        {selectedMachine.popularityScore}
-                      </span>
                     </p>
                     <p className="xl:text-base text-sm ">
                       <span className="font-semibold">Descripción: </span>
@@ -290,16 +273,16 @@ export const DetailsGraph = ({ data, loading }) => {
                   <Pie
                     activeIndex={activeIndex}
                     activeShape={renderActiveShape}
-                    data={test}
+                    data={pieChartData}
                     cx="50%"
                     cy="55%"
-                    innerRadius="40%"
-                    outerRadius="70%"
+                    innerRadius="45%"
+                    outerRadius="80%"
                     paddingAngle={2}
                     cornerRadius={7}
                     dataKey="value"
                     onMouseEnter={onPieEnter}>
-                    {test.map((entry, index) => (
+                    {pieChartData.map((entry, index) => (
                       <Cell
                         key={`cell-${index}`}
                         fill={colors[index % colors.length]}

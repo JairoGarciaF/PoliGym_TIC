@@ -86,7 +86,7 @@ export const GeneralPopularGraph = ({ data, total, loading }) => {
   if (loading) {
     return (
       <div
-        className={`flex flex-col bg-white xl:h-auto h-[50svh] p-4 xl:col-span-1 rounded-xl shadow justify-center items-center`}>
+        className={`flex flex-col bg-white xl:h-auto h-[50svh] p-4 xl:col-span-5 rounded-xl shadow justify-center items-center`}>
         <BiLoaderCircle className="size-8 animate-spin text-azul-marino-200" />
       </div>
     );
