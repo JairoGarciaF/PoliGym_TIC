@@ -269,7 +269,7 @@ export const Equipo = () => {
     <div className="bg-white rounded-xl pb-4  shadow open-sans h-full flex flex-col p-4">
       <div className="flex justify-between overflow-hidden">
         <h1 className="montserrat-alternates text-azul-marino-500 sm:text-3xl text-2xl font-semibold">
-          Equipo
+          Equipos
         </h1>
         <nav className="flex justify-start md:w-auto w-1/3 open-sans">
           <button

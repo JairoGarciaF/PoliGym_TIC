@@ -19,7 +19,7 @@ import {
   deleteRoutine,
 } from "../../../services/routine/routine";
 
-export const Rutinas = () => {
+export const GestionRutinas = () => {
   const [searchText, setSearchText] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
