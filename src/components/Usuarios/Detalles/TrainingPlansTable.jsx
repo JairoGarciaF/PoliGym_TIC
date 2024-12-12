@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaDumbbell } from "react-icons/fa";
+import { FaRegCalendarCheck } from "react-icons/fa";
 import { BiLoaderCircle } from "react-icons/bi";
 import { findTrainingPlanById } from "../../../services/plans/trainingPlan";
 
@@ -81,7 +81,7 @@ export const TrainingPlansTable = ({ plansIds }) => {
     <div className="col-span-1 row-span-1 p-4 bg-white xl:h-full h-[50svh]  rounded-xl shadow flex flex-col">
       <h3 className="text-azul-marino-500 xl:text-base text-sm  font-medium flex items-center gap-1">
         {" "}
-        <FaDumbbell className="xl:size-4 size-3" />
+        <FaRegCalendarCheck className="xl:size-4 size-3" />
         Planes de Entrenamiento
       </h3>
       {/* <nav className="flex justify-start mb-1 open-sans border-b  ">

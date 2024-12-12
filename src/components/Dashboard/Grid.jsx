@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { StatCards } from './StatCards'
-import { ExercisesGraph } from './ExercisesGraph'
-import { RoutinesGraph } from './RoutinesGraph'
-import { PlansGraph } from './PlansGraph'
-import { TopUsers } from './TopUsers'
-import MuscleRadarChart from './MuscleRadarChart'
-import { findAllUsers } from '../../services/users/users';
+import React, { useEffect, useState } from "react";
+import { StatCards } from "./StatCards";
+import { ExercisesGraph } from "./ExercisesGraph";
+import { RoutinesGraph } from "./RoutinesGraph";
+import { PlansGraph } from "./PlansGraph";
+import { TopUsers } from "./TopUsers";
+import MuscleRadarChart from "./MuscleRadarChart";
+import { findAllUsers } from "../../services/users/users";
 
-
-const defaultProfilePic = 'https://api.dicebear.com/9.x/initials/svg?seed=';
-
+const defaultProfilePic = "https://api.dicebear.com/9.x/initials/svg?seed=";
 
 // const usuarios = [
 //     {
@@ -301,29 +299,27 @@ const defaultProfilePic = 'https://api.dicebear.com/9.x/initials/svg?seed=';
 // ];
 
 export const Grid = ({ infoMode }) => {
-    const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const users = await findAllUsers();
-                setUsers(users);
-            } catch (error) {
-                console.error('Error al obtener los usuarios', error);
-            }
-        }
-        fetchData();
-    }, []);
-    return (
-        <div className='flex-1 overflow-auto grid xl:grid-rows-2  p-4 bg-slate-100 rounded-xl mt-2 open-sans gap-4 xl:grid-cols-3 lg:grid-cols-2'>
-            <StatCards usuarios={users} />
-            <TopUsers usuarios={users} />
-            <MuscleRadarChart />
-            <ExercisesGraph infoMode={infoMode} />
-            <RoutinesGraph infoMode={infoMode} />
-            <PlansGraph infoMode={infoMode} />
-        </div>
-    )
-}
-
-
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const users = await findAllUsers();
+        setUsers(users);
+      } catch (error) {
+        console.error("Error al obtener los usuarios", error);
+      }
+    };
+    fetchData();
+  }, []);
+  return (
+    <div className="flex-1 overflow-auto grid xl:grid-rows-2  p-4 bg-slate-100 rounded-xl mt-2 open-sans gap-4 xl:grid-cols-6 lg:grid-cols-2">
+      <StatCards usuarios={users} />
+      {/* <TopUsers usuarios={users} /> */}
+      <MuscleRadarChart />
+      <ExercisesGraph infoMode={infoMode} />
+      <RoutinesGraph infoMode={infoMode} />
+      <PlansGraph infoMode={infoMode} />
+    </div>
+  );
+};

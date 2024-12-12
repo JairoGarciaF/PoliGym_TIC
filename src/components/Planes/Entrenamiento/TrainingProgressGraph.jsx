@@ -12,20 +12,22 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const generatePopularChartData = (rutinas) => {
-  const sortedRutinas = rutinas.sort((a, b) => b.totalUses - a.totalUses);
-  const topRutinas = sortedRutinas.slice(0, 10);
+const generatePopularChartData = (planes) => {
+  const sortedTrainingPlans = planes.sort(
+    (a, b) => b.totalEnrollments - a.totalEnrollments
+  );
+  const topTrainingPlans = sortedTrainingPlans.slice(0, 10);
 
-  const popularChartData = topRutinas.map((routine) => ({
-    nombre: routine.name,
-    Completado: routine.completionStats[0].count,
-    Incompleto: routine.completionStats[1].count,
+  const popularChartData = topTrainingPlans.map((trainingPlan) => ({
+    nombre: trainingPlan.name,
+    Iniciado: trainingPlan.completionStats[0].count,
+    "En Progreso": trainingPlan.completionStats[1].count,
+    Completado: trainingPlan.completionStats[2].count,
   }));
 
   return popularChartData;
 };
-
-export const WorkoutCompletationGraph = ({ data, loading }) => {
+export const TrainingProgressGraph = ({ data, loading }) => {
   const chartData = generatePopularChartData(data);
 
   if (loading) {
@@ -62,8 +64,9 @@ export const WorkoutCompletationGraph = ({ data, loading }) => {
                 fontFamily: "Open Sans",
               }}
             />
+            <Bar dataKey="Iniciado" stackId="a" fill="#2563eb" />
+            <Bar dataKey="En Progreso" stackId="a" fill="#facc15" />
             <Bar dataKey="Completado" stackId="a" fill="#16a34a" />
-            <Bar dataKey="Incompleto" stackId="a" fill="#dc2626" />
           </BarChart>
         </ResponsiveContainer>
       </div>

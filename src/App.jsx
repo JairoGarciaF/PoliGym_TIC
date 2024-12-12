@@ -12,6 +12,7 @@ import { LayoutWithSidebar } from "./components/LayoutWithSideBar";
 import { RecuperarContrasena } from "./components/RecuperarContrasena/RecuperarContrasena";
 import { AuthGuard } from "./components/Login/AuthGuard";
 import { Rutinas } from "./components/Rutinas/Rutinas";
+import { Planes } from "./components/Planes/Planes";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="equipo" element={<Equipo />} />
           <Route path="ejercicios" element={<Ejercicios />} />
           <Route path="rutinas" element={<Rutinas />} />
+          <Route path="planes" element={<Planes />} />
           <Route path="comunidad" element={<Comunidad />} />
           <Route path="gestion" element={<Gestion />} />
         </Route>

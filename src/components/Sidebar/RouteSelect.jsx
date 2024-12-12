@@ -8,6 +8,7 @@ import {
   TbWeight,
   TbUsers,
 } from "react-icons/tb";
+import { FaRegCalendarCheck } from "react-icons/fa";
 import { LuDumbbell } from "react-icons/lu";
 
 const CustomButton = ({ Icon, title, expanded, to }) => {
@@ -67,6 +68,12 @@ export const RouteSelect = ({ expanded }) => {
         title="Rutinas"
         expanded={expanded}
         to="/rutinas"
+      />
+      <CustomButton
+        Icon={FaRegCalendarCheck}
+        title="Planes"
+        expanded={expanded}
+        to="/planes"
       />
       <CustomButton
         Icon={TbMessages}

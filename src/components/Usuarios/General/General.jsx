@@ -105,7 +105,7 @@ const Card = ({ sx, title, value, Icon, loading }) => {
   if (loading) {
     return (
       <div
-        className={` col-span-1 row-span-1 bg-white justify-center flex items-center  open-sans p-4 rounded-xl shadow`}>
+        className={`${sx} sm:col-span-1 col-span-2 row-span-1 bg-white  open-sans p-4 rounded-xl shadow flex justify-center items-center`}>
         <BiLoaderCircle className="size-8 animate-spin text-azul-marino-200" />
       </div>
     );

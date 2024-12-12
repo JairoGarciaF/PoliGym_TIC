@@ -1,279 +1,244 @@
-import React, { useState } from 'react';
-import { PieChart, Pie, Sector, ResponsiveContainer, Legend, Cell } from 'recharts';
-import { FaCalendarAlt } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { PieChart, Pie, Sector, ResponsiveContainer, Cell } from "recharts";
+import { BiLoaderCircle } from "react-icons/bi";
+import { findRoutineById } from "../../services/routine/routine";
+import { LuDumbbell } from "react-icons/lu";
 import { TbSum } from "react-icons/tb";
 
-const routinesStats = [
-    {
-        id: 1,
-        nombre: 'Rutina de Fuerza',
-        imagenRutina: 'https://example.com/rutina1',
-        dificultad: 'Alta',
-        oculto: false,
-        musculos: ['chest', 'lowerBack', 'quads'],
-        uso_semanal: [10, 12, 8, 10, 5, 8, 12], // Uso de la rutina por día de la semana (lunes a domingo). EL total de la semana es 65
-        uso_mensual: [140, 145, 150, 135, 130, 150, 140, 155, 160, 185, 0, 0], // Uso de la rutina por cada mes (ene a dic). 
-        ejercicios: [
-            {
-                id: 6,
-                nombre: 'Press de Banca',
-                series: 4,
-                repeticiones: 8,
-                tiempoDescanso: 90
-            },
-            {
-                id: 7,
-                nombre: 'Peso Muerto',
-                series: 4,
-                repeticiones: 6,
-                tiempoDescanso: 120
-            },
-            {
-                id: 8,
-                nombre: 'Sentadillas',
-                series: 4,
-                repeticiones: 10,
-                tiempoDescanso: 90
-            }
-        ]
-    },
-    {
-        id: 2,
-        nombre: 'Rutina de Hipertrofia',
-        imagenRutina: 'https://example.com/rutina1',
-        dificultad: 'Media',
-        oculto: true,
-        musculos: ['biceps', 'chest', 'shoulders'],
-        uso_semanal: [5, 8, 10, 12, 15, 10, 8], // Uso de la rutina por día de la semana (lunes a domingo). 
-        uso_mensual: [120, 130, 140, 135, 150, 160, 155, 170, 180, 190, 0, 0], // Uso de la rutina por cada mes (ene a dic).
-        ejercicios: [
-            {
-                id: 9,
-                nombre: 'Curl de Bíceps',
-                series: 4,
-                repeticiones: 12,
-                tiempoDescanso: 60
-            },
-            {
-                id: 10,
-                nombre: 'Press Militar',
-                series: 4,
-                repeticiones: 10,
-                tiempoDescanso: 90
-            },
-            {
-                id: 11,
-                nombre: 'Fondos en Paralelas',
-                series: 3,
-                repeticiones: 15,
-                tiempoDescanso: 60
-            }
-        ]
-    },
-    {
-        id: 3,
-        nombre: 'Rutina de Resistencia',
-        imagenRutina: 'https://example.com/rutina1',
-        dificultad: 'Baja',
-        oculto: false,
-        musculos: ['quads', 'abdominals'],
-        uso_semanal: [8, 10, 12, 15, 10, 8, 5], // Uso de la rutina por día de la semana (lunes a domingo). 
-        uso_mensual: [100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 0, 0], // Uso de la rutina por cada mes (ene a dic).
-        ejercicios: [
-            {
-                id: 12,
-                nombre: 'Zancadas',
-                series: 3,
-                repeticiones: 12,
-                tiempoDescanso: 60
-            },
-            {
-                id: 13,
-                nombre: 'Elevaciones de Piernas',
-                series: 4,
-                repeticiones: 15,
-                tiempoDescanso: 45
-            }
-        ]
-    },
-    {
-        id: 4,
-        nombre: 'Rutina de Potencia',
-        imagenRutina: 'https://example.com/rutina1',
-        dificultad: 'Alta',
-        oculto: true,
-        musculos: ['traps', 'shoulders', 'quads'],
-        uso_semanal: [12, 15, 10, 8, 5, 8, 10], // Uso de la rutina por día de la semana (lunes a domingo). 
-        uso_mensual: [150, 160, 155, 170, 180, 190, 200, 210, 220, 230, 0, 0], // Uso de la rutina por cada mes (ene a dic).
-        ejercicios: [
-            {
-                id: 14,
-                nombre: 'Arranque con Barra',
-                series: 5,
-                repeticiones: 5,
-                tiempoDescanso: 120
-            },
-            {
-                id: 15,
-                nombre: 'Press de Hombro con Mancuernas',
-                series: 4,
-                repeticiones: 8,
-                tiempoDescanso: 90
-            },
-            {
-                id: 16,
-                nombre: 'Dominadas',
-                series: 4,
-                repeticiones: 8,
-                tiempoDescanso: 90
-            }
-        ]
-    },
-    {
-        id: 5,
-        nombre: 'Rutina de Volumen',
-        imagenRutina: 'https://example.com/rutina1',
-        dificultad: 'Media',
-        oculto: false,
-        musculos: ['biceps', 'quads'],
-        uso_semanal: [10, 8, 5, 8, 10, 12, 15], // Uso de la rutina por día de la semana (lunes a domingo). 
-        uso_mensual: [130, 140, 150, 160, 155, 170, 180, 190, 200, 210, 0, 0], // Uso de la rutina por cada mes (ene a dic).
-        ejercicios: [
-            {
-                id: 17,
-                nombre: 'Sentadilla Hack',
-                series: 4,
-                repeticiones: 10,
-                tiempoDescanso: 90
-            },
-            {
-                id: 18,
-                nombre: 'Press Francés',
-                series: 3,
-                repeticiones: 12,
-                tiempoDescanso: 60
-            },
-            {
-                id: 19,
-                nombre: 'Extensiones de Cuádriceps',
-                series: 4,
-                repeticiones: 12,
-                tiempoDescanso: 60
-            }
-        ]
-    }
+const data = [
+  {
+    workoutId: 1,
+    popularityScore: 4.7,
+    period: "2024-Q4",
+    date: "2024-12-03T00:00:00Z",
+    genderStats: [
+      {
+        gender: "MALE",
+        totalCompletions: 250,
+      },
+      {
+        gender: "FEMALE",
+        totalCompletions: 200,
+      },
+      {
+        gender: "OTHER",
+        totalCompletions: 50,
+      },
+    ],
+    completionStats: [
+      {
+        completionStatus: "COMPLETED",
+        count: 500,
+      },
+      {
+        completionStatus: "INCOMPLETE",
+        count: 100,
+      },
+    ],
+  },
+  {
+    workoutId: 2,
+    popularityScore: 4.2,
+    period: "2024-Q4",
+    date: "2024-12-03T00:00:00Z",
+    genderStats: [
+      {
+        gender: "MALE",
+        totalCompletions: 350,
+      },
+      {
+        gender: "FEMALE",
+        totalCompletions: 150,
+      },
+      {
+        gender: "OTHER",
+        totalCompletions: 80,
+      },
+    ],
+    completionStats: [
+      {
+        completionStatus: "COMPLETED",
+        count: 550,
+      },
+      {
+        completionStatus: "INCOMPLETE",
+        count: 150,
+      },
+    ],
+  },
 ];
 
-const calculateTotals = (routinesStats) => {
-    return routinesStats.map(rutina => ({
-        ...rutina,
-        uso_semanal_total: rutina.uso_semanal.reduce((sum, usage) => sum + usage, 0),
-        uso_mensual_total: rutina.uso_mensual.reduce((sum, usage) => sum + usage, 0),
-    }));
+const colors = [
+  "#03045e",
+  "#0077b6",
+  "#00b4d8",
+  "#90e0ef",
+  "#caf0f8",
+  "#cbd5e1",
+];
+
+const generatePieChartData = (rutinas) => {
+  // Ordenar los rutinas por totalUses en orden descendente
+  const sortedRutinas = [...rutinas].sort(
+    (a, b) => b.completionStats[0].count - a.completionStats[0].count
+  );
+
+  // Tomar solo los 5 rutinas con más usos
+  const topRutinas = sortedRutinas.slice(0, 5);
+
+  // Mapear al formato necesario para el PieChart
+  return topRutinas.map((rutina) => ({
+    id: rutina.workoutId,
+    value: rutina.completionStats[0].count + rutina.completionStats[1].count,
+    label: rutina.name || "Unknown",
+  }));
 };
-
-const generatePopularChartData = (routinesStats, infoMode) => {
-    const sortedRoutines = routinesStats
-        .filter(routine => !routine.oculto)
-        .sort((a, b) =>
-            infoMode === 'Semanal' ? b.uso_semanal_total - a.uso_semanal_total : b.uso_mensual_total - a.uso_mensual_total
-        );
-    const top = sortedRoutines.slice(0, 5);
-    const otherTotal = sortedRoutines.slice(5).reduce((sum, routine) =>
-        infoMode === 'Semanal' ? sum + routine.uso_semanal_total : sum + routine.uso_mensual_total, 0
-    );
-
-    const popularChartData = top.map((routine, index) => ({
-        id: index,
-        value: infoMode === 'Semanal' ? routine.uso_semanal_total : routine.uso_mensual_total,
-        label: routine.nombre,
-    }));
-
-    return popularChartData;
-};
-
-const colors = ['#03045e', '#0077b6', '#00b4d8', '#90e0ef', '#caf0f8', '#cbd5e1'];
 
 const renderActiveShape = (props) => {
-    const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
+  const {
+    cx,
+    cy,
+    innerRadius,
+    outerRadius,
+    startAngle,
+    endAngle,
+    fill,
+    payload,
+    percent,
+    value,
+  } = props;
 
-    return (
-        <g>
-            <text x={cx} y={cy * 0.2} textAnchor="middle" fill='#1e293b' className='sm:text-base text-sm'>
-                {payload.label}
-            </text>
-            <Sector
-                cx={cx}
-                cy={cy}
-                cornerRadius={7}
-                innerRadius={innerRadius}
-                outerRadius={outerRadius}
-                startAngle={startAngle}
-                endAngle={endAngle}
-                fill={fill}
-            />
-            <Sector
-                cx={cx}
-                cy={cy}
-                startAngle={startAngle}
-                endAngle={endAngle}
-                innerRadius={outerRadius + 6}
-                outerRadius={outerRadius + 10}
-                fill={fill}
-            />
-            <text x={cx} y={cy} textAnchor="middle" fill="#333" className='sm:text-base text-sm'>{value}</text>
-            <text x={cx} y={cy + 20} textAnchor="middle" fill="#999" className='sm:text-sm text-xs'>
-                {`${(percent * 100).toFixed(2)}%`}
-            </text>
-        </g >
-    );
+  return (
+    <g>
+      <text
+        x={cx}
+        y={cy * 0.2}
+        textAnchor="middle"
+        fill="#1e293b"
+        className="sm:text-base text-sm">
+        {payload.label}
+      </text>
+      <Sector
+        cx={cx}
+        cy={cy}
+        cornerRadius={7}
+        innerRadius={innerRadius}
+        outerRadius={outerRadius}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        fill={fill}
+      />
+      <Sector
+        cx={cx}
+        cy={cy}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        innerRadius={outerRadius + 6}
+        outerRadius={outerRadius + 10}
+        fill={fill}
+      />
+      <text
+        x={cx}
+        y={cy}
+        textAnchor="middle"
+        fill="#333"
+        className="sm:text-base text-sm">
+        {value}
+      </text>
+      <text
+        x={cx}
+        y={cy + 20}
+        textAnchor="middle"
+        fill="#999"
+        className="sm:text-sm text-xs">
+        {`${(percent * 100).toFixed(1)}%`}
+      </text>
+    </g>
+  );
 };
 
 export const RoutinesGraph = ({ infoMode }) => {
-    const [activeIndex, setActiveIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [rutinas, setRutinas] = useState([]);
+  const pieChartData = generatePieChartData(rutinas);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-    const onPieEnter = (_, index) => {
-        setActiveIndex(index);
+  useEffect(() => {
+    const fetchRutinas = async () => {
+      setLoading(true);
+      try {
+        // Enriquecer el array data con detalles del equipo
+        const enrichedRutinas = await Promise.all(
+          data.map(async (item) => {
+            const routinesDetails = await findRoutineById(item.workoutId);
+            return {
+              ...item,
+              name: routinesDetails.name,
+            };
+          })
+        );
+        setRutinas(enrichedRutinas);
+      } catch (error) {
+        console.error("Error fetching rutinas details:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    const routinesData = generatePopularChartData(calculateTotals(routinesStats), infoMode);
+    fetchRutinas();
+  }, []);
 
+  const onPieEnter = (_, index) => {
+    setActiveIndex(index);
+  };
+
+  if (loading) {
     return (
-        <div className='bg-white xl:col-span-1 flex flex-col xl:h-auto h-[40svh] xl:row-span-1 p-4 rounded-xl shadow'>
-            <div className='flex justify-between items-center'>
-                <h3 className='text-azul-marino-500 xl:text-base text-sm flex items-center gap-2 font-medium'>
-                    <FaCalendarAlt className='xl:size-4 size-3' />
-                    Rutinas Populares
-                </h3>
-                <h3 className='text-azul-marino-500 flex items-center gap-2 xl:text-sm text-xs font-medium'>
-                    <TbSum className='xl:size-4 size-3' />
-                    Total Rutinas: {routinesStats.length}
-                </h3>
-            </div>
-            <div className='flex-1 flex items-center justify-center'>
-                <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                        <Pie
-                            activeIndex={activeIndex}
-                            activeShape={renderActiveShape}
-                            data={routinesData}
-                            cx="50%"
-                            cy="55%"
-                            innerRadius="35%"
-                            outerRadius="70%"
-                            paddingAngle={2}
-                            cornerRadius={7}
-                            dataKey="value"
-                            onMouseEnter={onPieEnter}
-                        >
-                            {routinesData.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-                            ))}
-                        </Pie>
-
-                    </PieChart>
-                </ResponsiveContainer>
-            </div>
-        </div>
+      <div
+        className={`bg-white xl:col-span-2 flex flex-col xl:h-auto h-[50svh] xl:row-span-1 p-4 rounded-xl shadow justify-center items-center`}>
+        <BiLoaderCircle className="size-8 animate-spin text-azul-marino-200" />
+      </div>
     );
+  }
+
+  return (
+    <div className="bg-white xl:col-span-2 flex flex-col xl:h-auto h-[50svh] xl:row-span-1 p-4 rounded-xl shadow">
+      <div className="flex justify-between items-center">
+        <h3 className="text-azul-marino-500 xl:text-base text-sm mb-1 flex self-start items-center gap-2 font-medium">
+          <LuDumbbell className="xl:size-4 size-3" />
+          Rutinas Populares
+        </h3>
+        <h3 className="text-azul-marino-500 xl:text-sm text-xs flex items-center gap-2 font-medium">
+          <TbSum className="xl:size-4 size-3" />
+          Total Rutinas: {rutinas.length}
+        </h3>
+      </div>
+
+      <div className="flex items-center justify-center flex-1">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              activeIndex={activeIndex}
+              activeShape={renderActiveShape}
+              data={pieChartData}
+              cx="50%"
+              cy="55%"
+              innerRadius="35%"
+              outerRadius="70%"
+              paddingAngle={2}
+              cornerRadius={7}
+              dataKey="value"
+              onMouseEnter={onPieEnter}>
+              {pieChartData.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={colors[index % colors.length]}
+                />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
 };
