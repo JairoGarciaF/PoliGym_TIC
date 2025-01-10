@@ -63,6 +63,13 @@ const stats = {
 export const General = () => {
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
   return (
     <div className="flex-1 overflow-auto grid xl:grid-rows-12 p-4 bg-slate-100 rounded-xl open-sans gap-4 lg:grid-cols-2 ">
       <div className="lg:col-span-2 lg:row-span-2 col-span-1 grid-rows-1 grid grid-cols-4 gap-4">

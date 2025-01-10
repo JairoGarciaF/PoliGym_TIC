@@ -157,7 +157,7 @@ const renderActiveShape = (props) => {
   );
 };
 
-export const RoutinesGraph = ({ infoMode }) => {
+export const RoutinesGraph = () => {
   const [loading, setLoading] = useState(false);
   const [rutinas, setRutinas] = useState([]);
   const pieChartData = generatePieChartData(rutinas);

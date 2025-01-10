@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import Rating from "@mui/material/Rating";
 import { TbTargetArrow, TbCategoryFilled } from "react-icons/tb";
 import { FaCircleInfo, FaArrowTrendUp } from "react-icons/fa6";
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaFireAlt } from "react-icons/fa";
 import { BiLoaderCircle } from "react-icons/bi";
-import { FaChartLine, FaFireAlt } from "react-icons/fa";
 import { BodyMap } from "../../BodyMap/BodyMap";
 import { DetallesGenderGraph } from "./DetallesGenderGraph";
-import { DetallesUsageGraph } from "./DetallesUsageGraph";
 
 const categoryTranslate = (category) => {
   switch (category) {
@@ -206,7 +204,6 @@ export const DetallesEjercicios = ({ ejercicio }) => {
             </div>
           </div>
           <DetallesGenderGraph ejercicio={ejercicio} />
-          {/* <DetallesUsageGraph ejercicio={ejercicio} infoMode={infoMode} /> */}
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center h-[calc(100%-35px-56px)] gap-2">

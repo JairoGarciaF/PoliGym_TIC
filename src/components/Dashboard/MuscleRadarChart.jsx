@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 import {
   Radar,
   RadarChart,
@@ -9,6 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { FaDumbbell } from "react-icons/fa6";
+import { BiLoaderCircle } from "react-icons/bi";
 
 const data = [
   { muscle: "biceps", masculino: 120, femenino: 95, otro: 70 },
@@ -84,6 +86,24 @@ const renderLegend = (props) => {
 };
 
 const MuscleRadarChart = () => {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
+  if (loading) {
+    return (
+      <div
+        className={`bg-white p-4 rounded-xl shadow lg:h-auto h-[50svh]  flex flex-col  xl:col-span-3 xl:row-span-1 justify-center items-center`}>
+        <BiLoaderCircle className="size-8 animate-spin text-azul-marino-200" />
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white p-4 rounded-xl shadow lg:h-auto h-[50svh]  flex flex-col  xl:col-span-3 xl:row-span-1  ">
       <h3 className="text-azul-marino-500 xl:text-base text-sm flex items-center gap-2 font-medium">

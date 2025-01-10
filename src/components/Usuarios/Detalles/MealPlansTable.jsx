@@ -59,13 +59,6 @@ export const MealPlansTable = ({ plansIds }) => {
     fetchTrainingPlans();
   }, []);
 
-  //   const [activeTab, setActiveTab] = useState("Activo");
-
-  //   // Filtra los planes según el estado activo ('Activo' o 'Finalizado')
-  //   const filteredPlans = planesAlimentacion.filter(
-  //     (plan) => plan.estado == activeTab
-  //   );
-
   if (loading) {
     return (
       <div
@@ -80,28 +73,7 @@ export const MealPlansTable = ({ plansIds }) => {
         <PiBowlFoodFill className="xl:size-4 size-3" />
         Planes de Alimentación
       </h3>
-      {/* <nav className="flex justify-start mb-1 open-sans border-b  ">
-        <button
-          onClick={() => setActiveTab("Activo")}
-          className={`p-2  text-xs transition-colors 
-                    ${
-                      activeTab === "Activo"
-                        ? "text-green-600 border-b-2 border-green-600 bg-gradient-to-t from-green-50"
-                        : "text-slate-500 hover:text-azul-marino-300 "
-                    }`}>
-          Activo
-        </button>
-        <button
-          onClick={() => setActiveTab("Finalizado")}
-          className={`p-2  text-xs transition-colors 
-                    ${
-                      activeTab === "Finalizado"
-                        ? "text-red-600 border-b-2 border-red-600 bg-gradient-to-t from-red-50"
-                        : "text-slate-500 hover:text-azul-marino-300"
-                    }`}>
-          Finalizado
-        </button>
-      </nav> */}
+
       <div className="relative flex-1 overflow-x-auto border rounded-xl mt-1">
         <div className="h-full overflow-y-auto">
           <table className="w-full text-sm text-left rtl:text-right text-azul-marino-500 ">

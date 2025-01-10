@@ -64,17 +64,7 @@ export const TrainingGenderGraph = ({ data, loading }) => {
             <XAxis dataKey="nombre" tick={{ fontSize: 12 }} />
             <YAxis tick={{ fontSize: 12 }} />
             <Tooltip />
-            {/* <Legend
-              wrapperStyle={{
-                fontSize:
-                  window.innerWidth < 640
-                    ? 10
-                    : window.innerWidth < 1024
-                    ? 12
-                    : 14,
-                fontFamily: "Open Sans",
-              }}
-            /> */}
+
             {/* Barras apiladas para Masculino */}
             <Bar
               dataKey="Masculino Completados"

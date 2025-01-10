@@ -39,3 +39,18 @@ export const deleteUser = async (userId) => {
     throw error;
   }
 };
+
+export const findUserById = async (userId) => {
+  try {
+    await isTokenValid("accessToken");
+    const accessToken = getToken("accessToken");
+
+    const response = await axios.get(`api/user/find-by-id/${userId}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener el usuario");
+    throw error;
+  }
+};

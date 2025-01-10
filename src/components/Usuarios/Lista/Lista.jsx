@@ -46,17 +46,17 @@ export const Lista = ({ onVerDetalles }) => {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const usuarios = await findAllUsers();
+      setRows(usuarios);
+    } catch (error) {
+      console.error("Error al obtener los usuarios", error);
+    }
+    setLoading(false);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const usuarios = await findAllUsers();
-        setRows(usuarios);
-      } catch (error) {
-        console.error("Error al obtener los usuarios", error);
-      }
-      setLoading(false);
-    };
     fetchData();
   }, []);
 
@@ -83,12 +83,11 @@ export const Lista = ({ onVerDetalles }) => {
   };
 
   // Función para ocultar/mostrar usuarios
-  const handleDeleteUser = () => {
-    // setRows((prevRows) =>
-    //   prevRows.map((row) =>
-    //     row.id === selectedRow ? { ...row, oculto: !row.oculto } : row
-    //   )
-    // );
+  const handleDeleteUser = async () => {
+    setLoading(true);
+    await deleteUser(selectedRow);
+    await fetchData();
+    setLoading(false);
     handleMenuClose(); // Cierra el menú después de actualizar
   };
 

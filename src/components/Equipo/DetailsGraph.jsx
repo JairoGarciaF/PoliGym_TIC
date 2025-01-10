@@ -265,7 +265,7 @@ export const DetailsGraph = ({ data, loading }) => {
           <div className="p-4  bg-white col-span-1 rounded-xl shadow flex flex-col xl:h-auto h-[50svh]">
             <h3 className="text-azul-marino-500 xl:text-base text-sm flex self-start items-center gap-2 font-medium">
               <IoMaleFemale className="xl:size-4 size-3" />
-              Usuarios por Género
+              Uso por Género
             </h3>
             <div className="flex-1 w-full flex items-center justify-center">
               <ResponsiveContainer width="100%" height="100%">

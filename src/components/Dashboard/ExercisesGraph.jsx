@@ -202,7 +202,7 @@ const generatePieChartData = (ejercicios) => {
   }));
 };
 
-export const ExercisesGraph = ({ infoMode }) => {
+export const ExercisesGraph = () => {
   const [ejercicios, setEjercicios] = useState([]);
   const [loading, setLoading] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);

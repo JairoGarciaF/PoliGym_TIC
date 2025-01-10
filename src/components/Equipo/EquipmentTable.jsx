@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BiLoaderCircle } from "react-icons/bi";
 import { FaDumbbell } from "react-icons/fa6";
 
@@ -33,15 +33,6 @@ const getPillColor = (category) => {
 };
 
 export const EquipmentTable = ({ data, loading }) => {
-  //   // Filtrar los datos según el tab seleccionado
-  //   const filteredData = data.map((implemento) => ({
-  //     ...implemento,
-  //     uso:
-  //       infoMode === "Semanal"
-  //         ? implemento.uso_semanal_total
-  //         : implemento.uso_mensual_total, // Mostrar uso según el tab
-  //   }));
-
   if (loading) {
     return (
       <div
